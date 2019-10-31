@@ -1,5 +1,6 @@
 #pragma once
 #include<cstdint>
+#include <iostream>
 
 class Card
 {
@@ -11,6 +12,15 @@ public:
 
 	Card(Color color, Status status, Place place, uint8_t value);
 	~Card();
+
+	Color GetColor() const;
+	Status GetStatus() const;
+	Place GetPlace() const;
+	uint8_t GetValue() const;
+
+	void SetPlace(Place place);     //to change the place when it's the case
+
+	friend std::ostream& operator<<(std::ostream& out, const Card& card);
 
 private:
 	Color m_color;
