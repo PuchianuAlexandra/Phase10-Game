@@ -19,7 +19,7 @@ public:
 public:
 	std::vector<bool>m_phase = { 0 };
 	std::vector<Card>m_handCards;
-	std::vector<std::vector<Card>>m_decartedCards;
+	std::vector<std::vector<Card>>m_displayedCards;
 
 private:
 	std::string m_name;

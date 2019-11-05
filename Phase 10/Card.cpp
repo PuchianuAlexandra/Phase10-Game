@@ -1,7 +1,7 @@
 #include "Card.h"
 
-Card::Card(Color color, Status status, Place place, uint8_t value) :
-	m_color(color), m_status(status), m_place(place), m_value(value)
+Card::Card(Color color, Status status, Place place) :
+	m_color(color), m_status(status), m_place(place)
 {
 }
 
@@ -9,24 +9,19 @@ Card::~Card()
 {
 }
 
-Card::Color Card::GetColor() const
+Color Card::GetColor() const
 {
 	return m_color;
 }
 
-Card::Status Card::GetStatus() const
+Status Card::GetStatus() const
 {
 	return m_status;
 }
 
-Card::Place Card::GetPlace() const
+Place Card::GetPlace() const
 {
 	return m_place;
-}
-
-uint8_t Card::GetValue() const
-{
-	return m_value;
 }
 
 void Card::SetPlace(Place place)
@@ -38,13 +33,13 @@ std::ostream& operator<<(std::ostream& out, const Card& card)
 {
 	switch (card.m_color)
 	{
-	case Card::Color::Red: out << "Red ";
+	case Color::Red: out << "Red ";
 		break;
-	case Card::Color::Yellow: out << "Yellow ";
+	case Color::Yellow: out << "Yellow ";
 		break;
-	case Card::Color::Green: out << "Green ";
+	case Color::Green: out << "Green ";
 		break;
-	case Card::Color::Blue: out << "Blue ";
+	case Color::Blue: out << "Blue ";
 		break;
 	default:
 		break;
@@ -52,11 +47,33 @@ std::ostream& operator<<(std::ostream& out, const Card& card)
 
 	switch (card.m_status)
 	{
-	case Card::Status::Normal: out << "Normal ";
+	case Status::ONE: out << "1 ";
 		break;
-	case Card::Status::Skip: out << "Skip ";
+	case Status::TWO: out << "2 ";
 		break;
-	case Card::Status::Wild: out << "Wild ";
+	case Status::THREE: out << "3 ";
+		break;
+	case Status::FOUR: out << "4 ";
+		break;
+	case Status::FIVE: out << "5 ";
+		break;
+	case Status::SIX: out << "6 ";
+		break;
+	case Status::SEVEN: out << "7 ";
+		break;
+	case Status::EIGHT: out << "8 ";
+		break;
+	case Status::NINE: out << "9 ";
+		break;
+	case Status::TEN: out << "10 ";
+		break;
+	case Status::ELEVEN: out << "11 ";
+		break;
+	case Status::TWELVE: out << "12 ";
+		break;
+	case Status::SKIP: out << "Skip ";
+		break;
+	case Status::WILD: out << "Wild ";
 		break;
 	default:
 		break;
@@ -64,20 +81,17 @@ std::ostream& operator<<(std::ostream& out, const Card& card)
 
 	switch (card.m_place)
 	{
-	case Card::Place::Deck: out << "Deck ";
+	case Place::Deck: out << "Deck ";
 		break;
-	case Card::Place::Decarted: out << "Decarted ";
+	case Place::Decarted: out << "Decarted ";
 		break;
-	case Card::Place::Hand: out << "Hand ";
+	case Place::Hand: out << "Hand ";
 		break;
-	case Card::Place::Displayed: out << "Displayed ";
+	case Place::Displayed: out << "Displayed ";
 		break;
 	default:
 		break;
-	}
-	if (card.m_status == Card::Status::Normal)
-		out << card.m_value;
-	
+	}	
 	return out;
 	
 }

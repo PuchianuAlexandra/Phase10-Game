@@ -27,20 +27,21 @@ void Player::setScore(uint8_t score)
 
 std::ostream& operator<<(std::ostream& out, const Player& player)
 {
-	out << player.m_name << " have " << player.m_score << " points.\n";
+	out << player.m_name << " has " << player.m_score << " points.\n";
 	out << player.m_name << "'s cards: ";
-	for (auto obj : player.m_handCards)
+	for (int index = 0; index < player.m_handCards.size(); index++)
 	{
-		out << obj.GetValue() << " ";
-		//out << obj.Card::GetColor() << "\n";
+		out << player.m_handCards[index] << " ";
 	}
-
-	//out << "Discaded cards: \n";
-	//for (auto obj : player.m_decartedCards)
-	//{
-	//	out << obj. << " ";
-	//	//out << obj.Card::GetColor() << "\n";
-	//}
+	out << std::endl;
+	for (int index = 0; index < player.m_displayedCards.size(); index++)
+	{
+		for (int index2 = 0; index2 < player.m_displayedCards[index].size(); index2++)
+		{
+			out << player.m_displayedCards[index][index2] << " ";
+		}
+	}
+	out << std::endl;
 
 	return out;
 }
