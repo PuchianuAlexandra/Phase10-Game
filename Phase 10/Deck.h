@@ -7,14 +7,16 @@
 #include "Place.h"
 #include "Card.h"
 #include <vector>
+#include<algorithm>
+#include<random>
 
 class Deck
 {
 public:
 	Deck();
-
+	void ShuffleDeck();
 public:
-	friend std::ostream& operator<< (std::ostream& os, const Deck& deck);
+	//friend std::ostream& operator<< (std::ostream& os, const Deck& deck);
 
 private:
 	std::vector<Card> m_deck;
