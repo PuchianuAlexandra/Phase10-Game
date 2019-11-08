@@ -39,3 +39,10 @@ void Game::Share10Cards()
 		players.push(currentPlayer);
 	}
 }
+
+void Game::DecartCard(Player player)
+{
+	Card decarted = player.DropCard();
+	decartedCards.push(decarted);
+	decarted.SetPlace(Place::DECARTED);
+}

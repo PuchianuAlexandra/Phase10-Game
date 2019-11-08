@@ -14,7 +14,7 @@ public:
 	uint8_t GetScore() const;
 	void setScore(uint8_t score);
 	friend std::ostream& operator<<(std::ostream& out, const Player& player);
-
+	Card DropCard();
 
 public:
 	std::vector<bool>m_phase = { 0 };

@@ -25,6 +25,20 @@ void Player::setScore(uint8_t score)
 	m_score = score;
 }
 
+Card Player::DropCard()
+{
+	std::cout << "Choose a card to discard from your hand (from 1 to "<<m_handCards.size()<<") : ";
+	int option;
+	std::cin >> option;
+	option--;
+
+	int size = m_handCards.size() - 1;
+	Card card = m_handCards[option];
+	m_handCards.erase(m_handCards.begin() + option);
+
+	return card;
+}
+
 std::ostream& operator<<(std::ostream& out, const Player& player)
 {
 	out << player.m_name << " has " << player.m_score << " points.\n";
