@@ -14,6 +14,6 @@ enum class Status :uint8_t {
 	TEN=10,
 	ELEVEN=11,
 	TWELVE=12,
-	SKIP = 0, 
-	WILD = 13
+	WILD = 13,
+	SKIP = 14
 };

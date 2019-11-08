@@ -6,15 +6,17 @@
 #include "Status.h"
 #include "Place.h"
 #include "Card.h"
+#include<algorithm>
+#include<random>
 #include <vector>
 
 class Deck
 {
 public:
 	Deck();
-
+	void ShuffleDeck();
 public:
-	friend std::ostream& operator<< (std::ostream& os, const Deck& deck);
+	//friend std::ostream& operator<< (std::ostream& os, const Deck& deck);
 
 private:
 	std::vector<Card> m_deck;
