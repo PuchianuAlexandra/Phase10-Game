@@ -30,6 +30,7 @@ Deck::Deck()
 		 {
 		std::cout << card << "\n";
 		}
+		
 }
 
 void Deck::ShuffleDeck()
@@ -37,6 +38,15 @@ void Deck::ShuffleDeck()
 	auto rng = std::default_random_engine{};
 	std::shuffle(std::begin(m_deck), std::end(m_deck), rng);
 	}
+
+Card Deck::PickCard()
+{
+	int size = m_deck.size() - 1;
+	Card card = m_deck[size];
+	m_deck.resize(size);
+	card.SetPlace(Place::HAND);
+	return card;
+}
 
 //std::ostream& operator<<(std::ostream& os, const Deck& deck)
 //{

@@ -11,6 +11,7 @@ public:
 
 private:
 	std::queue <Player> players;
-	Deck deck();
+	Deck deck;
+	int noPlayers;
 };
 

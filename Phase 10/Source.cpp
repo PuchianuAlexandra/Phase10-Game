@@ -9,6 +9,7 @@ int main()
 	Deck deck;
 	Game game;
 	game.ReadPlayers();
+	
 	system("pause");
 	return 0;
 }

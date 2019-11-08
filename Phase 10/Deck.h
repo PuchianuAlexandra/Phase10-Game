@@ -15,8 +15,9 @@ class Deck
 public:
 	Deck();
 	void ShuffleDeck();
-public:
 	//friend std::ostream& operator<< (std::ostream& os, const Deck& deck);
+	Card PickCard();
+
 
 private:
 	std::vector<Card> m_deck;

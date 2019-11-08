@@ -10,6 +10,7 @@ class Card
 
 public:
 
+	Card();
 	Card(Color color, Status status, Place place);
 	~Card();
 

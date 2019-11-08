@@ -5,6 +5,11 @@ Card::Card(Color color, Status status, Place place) :
 {
 }
 
+Card::Card()
+{
+
+}
+
 Card::~Card()
 {
 }
@@ -92,6 +97,8 @@ std::ostream& operator<<(std::ostream& out, const Card& card)
 	default:
 		break;
 	}	
+
+	out << std::endl;
 	return out;
 	
 }

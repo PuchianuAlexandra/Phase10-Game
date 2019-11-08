@@ -3,10 +3,9 @@
 void Game::ReadPlayers()
 {
 	std::cout << "Insert number of players: ";
-	int noOfPlayers;
-	std::cin >> noOfPlayers;
+	std::cin >> noPlayers;
 
-	for (int index = 0; index < noOfPlayers; index++)
+	for (int index = 0; index < noPlayers; index++)
 	{
 		std::cout << "Name for player nr " << index + 1 << " : ";
 		std::string name;
@@ -15,11 +14,28 @@ void Game::ReadPlayers()
 		players.push(player);
 	}
 
-	for (int index = 0; index < noOfPlayers; index++)
+	Share10Cards();
+
+	for (int index = 0; index < noPlayers; index++)
 	{
 		Player player = players.front();
 		players.pop();
 		std::cout << player;
 		players.push(player);
+	}
+}
+
+void Game::Share10Cards()
+{
+	deck.ShuffleDeck();
+	for (int index = 0; index < noPlayers; index++)
+	{
+		Player currentPlayer = players.front();
+		players.pop();
+		for (int index2 = 0; index2 < 10; index2++)
+		{
+			currentPlayer.m_handCards.push_back(deck.PickCard());
+		}
+		players.push(currentPlayer);
 	}
 }
