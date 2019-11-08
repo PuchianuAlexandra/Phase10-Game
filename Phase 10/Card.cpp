@@ -33,13 +33,13 @@ std::ostream& operator<<(std::ostream& out, const Card& card)
 {
 	switch (card.m_color)
 	{
-	case Color::RED: out << "Red ";
+	case Color::Red: out << "Red ";
 		break;
-	case Color::YELLOW: out << "Yellow ";
+	case Color::Yellow: out << "Yellow ";
 		break;
-	case Color::GREEN: out << "Green ";
+	case Color::Green: out << "Green ";
 		break;
-	case Color::BLUE: out << "Blue ";
+	case Color::Blue: out << "Blue ";
 		break;
 	default:
 		break;
@@ -81,13 +81,13 @@ std::ostream& operator<<(std::ostream& out, const Card& card)
 
 	switch (card.m_place)
 	{
-	case Place::DECK: out << "Deck ";
+	case Place::Deck: out << "Deck ";
 		break;
-	case Place::DECARTED: out << "Decarted ";
+	case Place::Decarted: out << "Decarted ";
 		break;
-	case Place::HAND: out << "Hand ";
+	case Place::Hand: out << "Hand ";
 		break;
-	case Place::DISPLAYED: out << "Displayed ";
+	case Place::Displayed: out << "Displayed ";
 		break;
 	default:
 		break;
