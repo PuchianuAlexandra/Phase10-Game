@@ -1,7 +1,7 @@
 #pragma once
 #include <stdint.h>
 
-enum Status :uint8_t {
+enum class Status :uint8_t {
 	ONE = 1, 
 	TWO=2,
 	THREE=3,

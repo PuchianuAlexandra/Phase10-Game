@@ -6,15 +6,17 @@
 #include "Status.h"
 #include "Place.h"
 #include "Card.h"
+#include <vector>
 
 class Deck
 {
 public:
+	Deck();
 
-	Deck(std::array<Card*, 108> deck);
+public:
+	friend std::ostream& operator<< (std::ostream& os, const Deck& deck);
 
 private:
-
-	std::array<Card,108> m_deck;
+	std::vector<Card> m_deck;
 };
 
