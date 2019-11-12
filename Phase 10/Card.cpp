@@ -12,6 +12,7 @@ Card::Card()
 
 Card::~Card()
 {
+
 }
 
 Color Card::GetColor() const

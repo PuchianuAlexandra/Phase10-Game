@@ -41,7 +41,7 @@ void Deck::ShuffleDeck()
 	std::shuffle(std::begin(m_deck), std::end(m_deck), rng);
 	}
 
-Card Deck::PickCard()
+Card Deck::PickCardFromDeck()
 {
 	int size = m_deck.size() - 1;
 	Card card = m_deck[size];
@@ -50,10 +50,6 @@ Card Deck::PickCard()
 	return card;
 }
 
-void Deck::TestDeck()
-{
-	std::cout<<"Carti ramase: "<< m_deck.size();
-}
 
 //std::ostream& operator<<(std::ostream& os, const Deck& deck)
 //{

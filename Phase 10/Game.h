@@ -10,6 +10,8 @@ public:
 	void Share10Cards();
 	void StartGame();
 	void DecartCard(Player& player);
+	Card PickCardFromDecartedStack();
+	void PickCard(Player& player);
 
 private:
 	std::queue <Player> players;
