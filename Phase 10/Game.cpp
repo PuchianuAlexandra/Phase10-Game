@@ -50,21 +50,42 @@ void Game::StartGame()
 	{
 		Player player = players.front();
 		players.pop();
-		DecartCard(player);
-		PickCard(player);
-		std::cout << "Cartile ramase in mana sunt: ";
-		for (int index2 = 0; index2 < player.m_handCards.size(); index2++)
+
+		bool skipped = false;
+		for (std::string name : playersToSkip)
 		{
-			std::cout << player.m_handCards[index2];
-			std::cout << "\n";
+			if (name == player.GetName())
+			{
+				skipped = true;
+				name = "";
+			}
 		}
-		players.push(player);
 
-		index++;
+		if (skipped)
+		{
+			std::cout << "You are skiped!" << "\n";
+			players.push(player);
+			index++;
+
+		}
+
+		else
+		{
+			PickCard(player);
+			DecartCard(player);
+			std::cout << "Cartile ramase in mana sunt: ";
+			for (int index2 = 0; index2 < player.m_handCards.size(); index2++)
+			{
+				std::cout << player.m_handCards[index2];
+				std::cout << "\n";
+			}
+			players.push(player);
+
+			index++;
+
+		}
+
 	}
-
-
-
 
 }
 
@@ -74,7 +95,13 @@ void Game::DecartCard(Player& player)
 	decarted.SetPlace(Place::DECARTED);
 	decartedCards.push(decarted);
 
-	std::cout << decartedCards.top();
+	if (decarted.GetStatus() == Status::SKIP)
+	{
+		std::cout << "Which player do u want to skip?"<<"\n";
+		std::string name;
+		std::cin >> name;
+		playersToSkip.push_back(name);
+	}
 
 }
 

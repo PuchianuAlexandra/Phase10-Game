@@ -17,6 +17,7 @@ private:
 	std::queue <Player> players;
 	std::stack<Card> decartedCards;
 	Deck deck;
+	std::vector<std::string> playersToSkip;
 	int noPlayers;
 };
 
