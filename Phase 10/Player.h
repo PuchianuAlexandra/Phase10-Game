@@ -23,6 +23,6 @@ public:
 
 private:
 	std::string m_name;
-	uint8_t m_score=0;
+	uint8_t m_score;
 };
 

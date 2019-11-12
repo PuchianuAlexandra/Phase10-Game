@@ -9,7 +9,7 @@ public:
 	void ReadPlayers();
 	void Share10Cards();
 	void StartGame();
-	void DecartCard(Player player);
+	void DecartCard(Player& player);
 
 private:
 	std::queue <Player> players;

@@ -14,22 +14,24 @@ Deck::Deck()
 
 	Card skip(Color::BLACK, Status::SKIP, Place::DECK);
 	for (int index = 0; index <= 3; index++)
-		 {
+	{
 		m_deck.push_back(skip);
-		}
+	}
 	
-		Card wild(Color::BLACK, Status::WILD, Place::DECK);
+	Card wild(Color::BLACK, Status::WILD, Place::DECK);
 	for (int index = 0; index <= 7; index++)
-		 {
+	{
 		m_deck.push_back(wild);
-		}
+	}
 	
-		this->ShuffleDeck();
+	this->ShuffleDeck();
+
+	std::cout << "Carti in pachet: " << m_deck.size()<<"\n";
 	
-		for (Card card : m_deck)
-		 {
-		std::cout << card << "\n";
-		}
+//	for (Card card : m_deck)
+//  {
+//	    std::cout << card << "\n";
+//	}
 		
 }
 
@@ -46,6 +48,11 @@ Card Deck::PickCard()
 	m_deck.resize(size);
 	card.SetPlace(Place::HAND);
 	return card;
+}
+
+void Deck::TestDeck()
+{
+	std::cout<<"Carti ramase: "<< m_deck.size();
 }
 
 //std::ostream& operator<<(std::ostream& os, const Deck& deck)

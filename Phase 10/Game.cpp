@@ -40,9 +40,42 @@ void Game::Share10Cards()
 	}
 }
 
-void Game::DecartCard(Player player)
+void Game::StartGame()
+{
+	ReadPlayers();
+
+	//test DropCard
+	int index = 0;
+	while (index<noPlayers)
+	{
+		Player player = players.front();
+		players.pop();
+		DecartCard(player);
+
+		std::cout << "Cartile ramase in mana sunt: ";
+		for (int index2 = 0; index2 < player.m_handCards.size(); index2++)
+		{
+			std::cout << player.m_handCards[index2];
+			std::cout << "\n";
+		}
+		players.push(player);
+
+		index++;
+	}
+
+	deck.TestDeck();
+
+
+}
+
+void Game::DecartCard(Player& player)
 {
 	Card decarted = player.DropCard();
-	decartedCards.push(decarted);
 	decarted.SetPlace(Place::DECARTED);
+	decartedCards.push(decarted);
+
+	//TEST
+
+	std::cout << decartedCards.top();
+
 }

@@ -1,7 +1,7 @@
 #include "Player.h"
 
 Player::Player(std::string name):
-	m_name(name)
+	m_name(name), m_score(0)
 {
 }
 
@@ -32,10 +32,14 @@ Card Player::DropCard()
 	std::cin >> option;
 	option--;
 
-	int size = m_handCards.size() - 1;
+	int size = m_handCards.size();
 	Card card = m_handCards[option];
-	m_handCards.erase(m_handCards.begin() + option);
-
+	
+	for (int index = option; index < size-1; index++)
+	{
+		m_handCards[index] = m_handCards[index + 1];
+	}
+	m_handCards.pop_back();
 	return card;
 }
 

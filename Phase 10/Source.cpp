@@ -8,8 +8,9 @@ int main()
 {
 	Deck deck;
 	Game game;
-	game.ReadPlayers();
-	
+	//game.ReadPlayers();
+	game.StartGame();
+
 	system("pause");
 	return 0;
 }
