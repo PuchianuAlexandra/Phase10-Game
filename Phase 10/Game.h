@@ -12,6 +12,7 @@ public:
 	void DecartCard(Player& player);
 	Card PickCardFromDecartedStack();
 	void PickCard(Player& player);
+	void CountScore(Player& player);
 
 private:
 	std::queue <Player> players;

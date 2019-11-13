@@ -1,3 +1,4 @@
+#include <cstdint>
 #include "Game.h"
 
 void Game::ReadPlayers()
@@ -44,8 +45,12 @@ void Game::StartGame()
 {
 	ReadPlayers();
 
+	Player player = players.front();
+	CountScore(player);
+	std::cout << player;
+
 	//test DropCard
-	int index = 0;
+	/*int index = 0;
 	while (index<noPlayers)
 	{
 		Player player = players.front();
@@ -85,7 +90,7 @@ void Game::StartGame()
 
 		}
 
-	}
+	}*/
 
 }
 
@@ -157,4 +162,27 @@ void Game::PickCard(Player& player)
 			}
 		} 
 	}
+}
+
+void Game::CountScore(Player & player)
+{
+	uint16_t score = player.GetScore();
+
+	for (Card card : player.m_handCards)
+	{
+		if (card.GetStatus() < Status::TEN)
+		{
+			score += 5;
+		}
+		else if (card.GetStatus() > Status::NINE && card.GetStatus() < Status::WILD)
+		{
+			score += 10;
+		}
+		else
+		{
+			score += 20;
+		}
+	}
+
+	player.setScore(score);
 }
