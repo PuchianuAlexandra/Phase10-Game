@@ -43,11 +43,22 @@ void Game::Share10Cards()
 
 void Game::StartGame()
 {
-	ReadPlayers();
+	/*ReadPlayers();
 
 	Player player = players.front();
 	CountScore(player);
-	std::cout << player;
+	std::cout << player;*/
+
+	std::vector<Card> cards;
+	Card c1 (Color::BLUE, Status::WILD, Place::HAND);
+	Card c2 (Color::RED, Status::SKIP, Place::HAND);
+	Card c3 (Color::BLUE, Status::WILD, Place::HAND);
+	cards.push_back(c1);
+	cards.push_back(c2);
+	cards.push_back(c3);
+	if (IsSet(3, cards))
+		std::cout << "Da. <3 ";
+	else std::cout << "BUZZ";
 
 	//test DropCard
 	/*int index = 0;
@@ -185,4 +196,46 @@ void Game::CountScore(Player & player)
 	}
 
 	player.setScore(score);
+}
+
+bool Game::IsSet(int noOfCards, std::vector<Card> cards)
+{
+	Status value=Status::WILD;
+	for (Card card:cards)
+	{
+		if (card.GetStatus() == Status::SKIP)
+		{
+			//std::cout << "You picked a Skip card!";
+			return false;
+		}
+		else
+			if (card.GetStatus() <= Status::TWELVE)
+			{
+				value = card.GetStatus();
+				break;
+			}
+	}
+	if (value != Status::WILD)
+	{
+		for (Card card : cards)
+		{
+			if (value != card.GetStatus() && card.GetStatus()!=Status::WILD)
+			{
+				//std::cout << "Your set is not valid!";
+				return false;
+			}
+		}
+	}
+	return true;
+
+}
+
+bool Game::isRun(int noOfCards, std::vector<Card> cards)
+{
+	return false;
+}
+
+bool Game::isColor(int noOfCards, std::vector<Card> cards)
+{
+	return false;
 }

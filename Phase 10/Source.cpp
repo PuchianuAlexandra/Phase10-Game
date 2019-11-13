@@ -11,6 +11,9 @@ int main()
 	//game.ReadPlayers();
 	game.StartGame();
 
+	
+	
+
 	system("pause");
 	return 0;
 }
