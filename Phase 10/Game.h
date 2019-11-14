@@ -13,9 +13,7 @@ public:
 	Card PickCardFromDecartedStack();
 	void PickCard(Player& player);
 	void CountScore(Player& player);
-	bool isSet(std::vector<Card> cards);
-	bool isRun(std::vector<Card> cards);
-	bool isColor(std::vector<Card> cards);
+	
 
 private:
 	std::queue <Player> players;

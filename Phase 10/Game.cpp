@@ -49,7 +49,7 @@ void Game::StartGame()
 	CountScore(player);
 	std::cout << player;*/
 
-	std::vector<Card> cards;
+	/*std::vector<Card> cards;
 	Card c1 (Color::RED, Status::ONE, Place::HAND);
 	Card c2 (Color::YELLOW, Status::TEN, Place::HAND);
 	Card c3 (Color::RED, Status::EIGHT, Place::HAND);
@@ -62,7 +62,7 @@ void Game::StartGame()
 	cards.push_back(c5);
 	if (isColor(cards))
 		std::cout << "Da. <3 ";
-	else std::cout << "BUZZ";
+	else std::cout << "BUZZ";*/
 
 	//test DropCard
 	/*int index = 0;
@@ -201,117 +201,3 @@ void Game::CountScore(Player & player)
 
 	player.setScore(score);
 }
-
-bool Game::isSet(std::vector<Card> cards)
-{
-	Status value=Status::WILD;
-	for (Card card:cards)
-	{
-		if (card.GetStatus() == Status::SKIP)
-		{
-			//std::cout << "You picked a Skip card!";
-			return false;
-		}
-		else
-			if (card.GetStatus() <= Status::TWELVE)
-			{
-				value = card.GetStatus();
-				break;
-			}
-	}
-	if (value != Status::WILD)
-	{
-		for (Card card : cards)
-		{
-			if (value != card.GetStatus() && card.GetStatus()!=Status::WILD)
-			{
-				//std::cout << "Your set is not valid!";
-				return false;
-			}
-		}
-	}
-	return true;
-
-}
-
-bool Game::isRun(std::vector<Card> cards)
-{
-	int no = 0;
-	int countWild = 0;
-	for (auto it = 0; it <= cards.size() - 1; it++)
-	{
-		if (cards[it].GetStatus() == Status::SKIP)
-		{
-			//std::cout << "You picked a Skip card!";
-			return false;
-		}
-		else
-		{
-			if (cards[it].GetStatus() == Status::WILD)
-			{
-				countWild++;
-			}
-			else
-			{
-				if (no == 0)
-				{
-					if (static_cast<int>(cards[it].GetStatus()) < it+1 || cards.size() - it > 13 - static_cast<int>(cards[it].GetStatus()))  //wild-uri si carte
-					{
-						return false;
-					}
-					else
-					{
-						no = static_cast<int>(cards[it].GetStatus());
-						countWild = 0;
-					}
-				}
-				else
-				{
-					if (countWild != 0)
-					{
-						if (static_cast<int>(cards[it].GetStatus()) - no != countWild + 1)
-							return false;
-					}
-					else
-					{
-						if(static_cast<int>(cards[it].GetStatus()) - no !=  1)
-							return false;
-					}
-					countWild = 0;
-				}
-				no = static_cast<int>(cards[it].GetStatus());
-			}
-		}
-	}
-	return true;
-}
-
-bool Game::isColor(std::vector<Card> cards)
-{
-	Color value = Color::BLACK;
-	for (Card card : cards)
-	{
-		if (card.GetStatus() == Status::SKIP)
-		{
-			return false;
-		}
-		else
-			if (card.GetColor() <= Color::BLUE)
-			{
-				value = card.GetColor();
-				break;
-			}
-	}
-	if (value != Color::BLACK)
-	{
-		for (Card card : cards)
-		{
-			if (value != card.GetColor() && card.GetColor() != Color::BLACK)
-			{
-				return false;
-			}
-		}
-	}
-	return true;
-}
-
