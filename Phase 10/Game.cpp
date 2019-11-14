@@ -50,17 +50,17 @@ void Game::StartGame()
 	std::cout << player;*/
 
 	std::vector<Card> cards;
-	Card c1 (Color::BLUE, Status::ONE, Place::HAND);
-	Card c2 (Color::RED, Status::TWO, Place::HAND);
-	Card c3 (Color::BLUE, Status::WILD, Place::HAND);
-	Card c4(Color::BLUE, Status::FOUR, Place::HAND);
-	Card c5(Color::BLUE, Status::FIVE, Place::HAND);
+	Card c1 (Color::RED, Status::ONE, Place::HAND);
+	Card c2 (Color::YELLOW, Status::TEN, Place::HAND);
+	Card c3 (Color::RED, Status::EIGHT, Place::HAND);
+	Card c4(Color::BLUE, Status::ELEVEN, Place::HAND);
+	Card c5(Color::BLUE, Status::TWELVE, Place::HAND);
 	cards.push_back(c1);
 	cards.push_back(c2);
 	cards.push_back(c3);
 	cards.push_back(c4);
 	cards.push_back(c5);
-	if (isRun(cards))
+	if (isColor(cards))
 		std::cout << "Da. <3 ";
 	else std::cout << "BUZZ";
 
@@ -202,7 +202,7 @@ void Game::CountScore(Player & player)
 	player.setScore(score);
 }
 
-bool Game::isSet(int noOfCards, std::vector<Card> cards)
+bool Game::isSet(std::vector<Card> cards)
 {
 	Status value=Status::WILD;
 	for (Card card:cards)
@@ -280,6 +280,35 @@ bool Game::isRun(std::vector<Card> cards)
 					countWild = 0;
 				}
 				no = static_cast<int>(cards[it].GetStatus());
+			}
+		}
+	}
+	return true;
+}
+
+bool Game::isColor(std::vector<Card> cards)
+{
+	Color value = Color::BLACK;
+	for (Card card : cards)
+	{
+		if (card.GetStatus() == Status::SKIP)
+		{
+			return false;
+		}
+		else
+			if (card.GetColor() <= Color::BLUE)
+			{
+				value = card.GetColor();
+				break;
+			}
+	}
+	if (value != Color::BLACK)
+	{
+		for (Card card : cards)
+		{
+			if (value != card.GetColor() && card.GetColor() != Color::BLACK)
+			{
+				return false;
 			}
 		}
 	}
