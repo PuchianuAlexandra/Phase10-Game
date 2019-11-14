@@ -50,13 +50,17 @@ void Game::StartGame()
 	std::cout << player;*/
 
 	std::vector<Card> cards;
-	Card c1 (Color::BLUE, Status::WILD, Place::HAND);
-	Card c2 (Color::RED, Status::SKIP, Place::HAND);
+	Card c1 (Color::BLUE, Status::ONE, Place::HAND);
+	Card c2 (Color::RED, Status::TWO, Place::HAND);
 	Card c3 (Color::BLUE, Status::WILD, Place::HAND);
+	Card c4(Color::BLUE, Status::FOUR, Place::HAND);
+	Card c5(Color::BLUE, Status::FIVE, Place::HAND);
 	cards.push_back(c1);
 	cards.push_back(c2);
 	cards.push_back(c3);
-	if (IsSet(3, cards))
+	cards.push_back(c4);
+	cards.push_back(c5);
+	if (isRun(cards))
 		std::cout << "Da. <3 ";
 	else std::cout << "BUZZ";
 
@@ -198,7 +202,7 @@ void Game::CountScore(Player & player)
 	player.setScore(score);
 }
 
-bool Game::IsSet(int noOfCards, std::vector<Card> cards)
+bool Game::isSet(int noOfCards, std::vector<Card> cards)
 {
 	Status value=Status::WILD;
 	for (Card card:cards)
@@ -230,12 +234,55 @@ bool Game::IsSet(int noOfCards, std::vector<Card> cards)
 
 }
 
-bool Game::isRun(int noOfCards, std::vector<Card> cards)
+bool Game::isRun(std::vector<Card> cards)
 {
-	return false;
+	int no = 0;
+	int countWild = 0;
+	for (auto it = 0; it <= cards.size() - 1; it++)
+	{
+		if (cards[it].GetStatus() == Status::SKIP)
+		{
+			//std::cout << "You picked a Skip card!";
+			return false;
+		}
+		else
+		{
+			if (cards[it].GetStatus() == Status::WILD)
+			{
+				countWild++;
+			}
+			else
+			{
+				if (no == 0)
+				{
+					if (static_cast<int>(cards[it].GetStatus()) < it+1 || cards.size() - it > 13 - static_cast<int>(cards[it].GetStatus()))  //wild-uri si carte
+					{
+						return false;
+					}
+					else
+					{
+						no = static_cast<int>(cards[it].GetStatus());
+						countWild = 0;
+					}
+				}
+				else
+				{
+					if (countWild != 0)
+					{
+						if (static_cast<int>(cards[it].GetStatus()) - no != countWild + 1)
+							return false;
+					}
+					else
+					{
+						if(static_cast<int>(cards[it].GetStatus()) - no !=  1)
+							return false;
+					}
+					countWild = 0;
+				}
+				no = static_cast<int>(cards[it].GetStatus());
+			}
+		}
+	}
+	return true;
 }
 
-bool Game::isColor(int noOfCards, std::vector<Card> cards)
-{
-	return false;
-}
