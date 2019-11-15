@@ -3,6 +3,7 @@
 Player::Player(std::string name):
 	m_name(name), m_score(0)
 {
+	m_phase[0] = true;
 }
 
 Player::~Player()

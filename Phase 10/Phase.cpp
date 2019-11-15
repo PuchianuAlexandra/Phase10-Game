@@ -115,62 +115,178 @@ bool Phase::isColor(std::vector<Card> cards)
 	return true;
 }
 
-bool Phase::isPhase1(std::vector<Card> cards1, std::vector<Card> cards2, int& inccorect)
+/*bool Phase::isPhase(Player & player)
+{
+	int current = 0;
+
+	for (int index = 0; index < player.m_phase.size(); index++)
+	{
+		if (player.m_phase[index])
+			current = index + 1;
+	}
+
+	std::vector<Card> chosenCards, chosenCards2;
+	int index = 0;
+
+	switch (current)
+	{
+	case 1:
+	{
+		std::cout << "Choose cards for a set of three: \n";
+		
+		index = 0;
+
+		while (index < 3)
+		{
+			chosenCards.push_back(player.DropCard());
+			index++;
+		}
+
+
+		std::cout << "Carti ramase: \n";
+		for (Card card : player.m_handCards)
+		{
+			std::cout << card << "\n";
+		}
+
+		std::cout << "Choose cards for another set of three: \n";
+
+		index = 0;
+		while (index < 3)
+		{
+			chosenCards2.push_back(player.DropCard());
+			index++;
+		}
+
+		int incorrect = 0;
+		if (isPhase1(chosenCards, chosenCards2, incorrect))
+		{
+			
+			return true;
+
+		}
+		else
+		{
+			for (int index = chosenCards.size() - 1; index >= 0; index--)
+			{
+				chosenCards[index].SetPlace(Place::HAND);
+				player.m_handCards.push_back(chosenCards[index]);
+				chosenCards.pop_back();
+			}
+
+			for (int index = chosenCards2.size() - 1; index >= 0; index--)
+			{
+				chosenCards2[index].SetPlace(Place::HAND);
+				player.m_handCards.push_back(chosenCards2[index]);
+				chosenCards2.pop_back();
+			}
+
+			return false;
+		}
+	}
+	default:
+		break;
+	}
+	
+}
+*/
+bool Phase::isPhase1(std::vector<Card> cards1, std::vector<Card> cards2, int& incorrect)
 {
 	if (cards1.size() != 3)
 	{
-		inccorect = 1;
+		incorrect = 1;
 		return false;
 	}
 	else
 		if (cards2.size() != 3)
 		{
-			inccorect = 2;
+			incorrect = 2;
 			return false;
 		}
 
 	if (!isSet(cards1))
 	{
-		inccorect = 1;
+		incorrect = 1;
 		return false;
 	}
 
 	if (!isSet(cards2))
 	{
-		inccorect = 2;
+		incorrect = 2;
 		return false;
 	}
 
 	return true;
 }
 
-bool Phase::isPhase2(std::vector<Card> cards1, std::vector<Card> cards2, int& inccorect)
+bool Phase::isPhase2(std::vector<Card> cards1, std::vector<Card> cards2, int& incorrect)
 {
 	if (cards1.size() != 3)
 	{
-		inccorect = 1;
+		incorrect = 1;
 		return false;
 	}
 	else
 		if (cards2.size() != 4)
 		{
-			inccorect = 2;
+			incorrect = 2;
 			return false;
 		}
 
 	if (!isSet(cards1))
 	{
-		inccorect = 1;
+		incorrect = 1;
 		return false;
 	}
 
 	if (!isRun(cards2))
 	{
-		inccorect = 2;
+		incorrect = 2;
 		return false;
 	}
 
 	return true;
 }
+
+bool Phase::isPhase3(std::vector<Card> cards1, std::vector<Card> cards2, int & incorrect)
+{
+	if (cards1.size() != 4)
+	{
+		incorrect = 1;
+		return false;
+	}
+	else
+		if (cards2.size() != 4)
+		{
+			incorrect = 2;
+			return false;
+		}
+
+	if (!isSet(cards1))
+	{
+		incorrect = 1;
+		return false;
+	}
+
+	if (!isRun(cards2))
+	{
+		incorrect = 2;
+		return false;
+	}
+
+	return true;
+}
+
+bool Phase::isPhase4(std::vector<Card> cards)
+{
+	if (cards.size() != 7)
+		return false;
+	
+	if (!isRun(cards))
+		return false;
+
+	return true;
+}
+
 
 

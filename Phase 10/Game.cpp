@@ -1,5 +1,6 @@
 #include <cstdint>
 #include "Game.h"
+#include "Phase.h"
 
 void Game::ReadPlayers()
 {
@@ -43,9 +44,37 @@ void Game::Share10Cards()
 
 void Game::StartGame()
 {
-	/*ReadPlayers();
+	Phase phase;
 
-	Player player = players.front();
+	
+	//ReadPlayers();
+
+
+	std::vector<Card> cards;
+	Card c1(Color::RED, Status::ONE, Place::HAND);
+	Card c2(Color::YELLOW, Status::ONE, Place::HAND);
+	Card c3(Color::RED, Status::ONE, Place::HAND);
+	//Card c4(Color::BLUE, Status::ELEVEN, Place::HAND);
+	
+	cards.push_back(c1);
+	cards.push_back(c2);
+	cards.push_back(c3);
+	//cards.push_back(c4);
+	
+	std::vector<Card> cards1;
+	Card c11(Color::RED, Status::ONE, Place::HAND);
+	Card c22(Color::YELLOW, Status::WILD, Place::HAND);
+	Card c33(Color::RED, Status::THREE, Place::HAND);
+	Card c44(Color::BLUE, Status::FOUR, Place::HAND);
+	
+	cards1.push_back(c11);
+	cards1.push_back(c22);
+	cards1.push_back(c33);
+	cards1.push_back(c44);
+	int inc = 0;
+	std::cout << phase.isPhase2(cards,cards1,inc) << "\n";
+
+	/*Player player = players.front();
 	CountScore(player);
 	std::cout << player;*/
 
