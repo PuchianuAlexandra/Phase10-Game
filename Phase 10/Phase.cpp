@@ -288,5 +288,56 @@ bool Phase::isPhase4(std::vector<Card> cards)
 	return true;
 }
 
+bool Phase::isPhase5(std::vector<Card> cards)
+{
+	if (cards.size() != 8)
+		return false;
+
+	if (!isRun(cards))
+		return false;
+
+	return true;
+}
+
+bool Phase::isPhase6(std::vector<Card> cards)
+{
+	if (cards.size() != 9)
+		return false;
+
+	if (!isRun(cards))
+		return false;
+
+	return true;
+}
+
+bool Phase::isPhase7(std::vector<Card> cards1, std::vector<Card> cards2, int& incorrect)
+{
+	if (cards1.size() != 4)
+	{
+		incorrect = 1;
+		return false;
+	}
+	else
+		if (cards2.size() != 4)
+		{
+			incorrect = 2;
+			return false;
+		}
+
+	if (!isSet(cards1))
+	{
+		incorrect = 1;
+		return false;
+	}
+
+	if (!isSet(cards2))
+	{
+		incorrect = 2;
+		return false;
+	}
+
+	return true;
+}
+
 
 
