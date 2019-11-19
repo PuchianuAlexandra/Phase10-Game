@@ -47,32 +47,35 @@ void Game::StartGame()
 	Phase phase;
 
 	
-	//ReadPlayers();
+	ReadPlayers();
 
 
-	std::vector<Card> cards;
-	Card c1(Color::RED, Status::ONE, Place::HAND);
-	Card c2(Color::YELLOW, Status::ONE, Place::HAND);
-	Card c3(Color::RED, Status::ONE, Place::HAND);
-	//Card c4(Color::BLUE, Status::ELEVEN, Place::HAND);
-	
-	cards.push_back(c1);
-	cards.push_back(c2);
-	cards.push_back(c3);
-	//cards.push_back(c4);
-	
-	std::vector<Card> cards1;
-	Card c11(Color::RED, Status::ONE, Place::HAND);
-	Card c22(Color::YELLOW, Status::WILD, Place::HAND);
-	Card c33(Color::RED, Status::THREE, Place::HAND);
-	Card c44(Color::BLUE, Status::FOUR, Place::HAND);
-	
-	cards1.push_back(c11);
-	cards1.push_back(c22);
-	cards1.push_back(c33);
-	cards1.push_back(c44);
-	int inc = 0;
-	std::cout << phase.isPhase2(cards,cards1,inc) << "\n";
+	//std::vector<Card> cards;
+	//Card c1(Color::RED, Status::ONE, Place::HAND);
+	//Card c2(Color::YELLOW, Status::ONE, Place::HAND);
+	//Card c3(Color::RED, Status::ONE, Place::HAND);
+	////Card c4(Color::BLUE, Status::ELEVEN, Place::HAND);
+	//
+	//cards.push_back(c1);
+	//cards.push_back(c2);
+	//cards.push_back(c3);
+	////cards.push_back(c4);
+	//
+	//std::vector<Card> cards1;
+	//Card c11(Color::RED, Status::ONE, Place::HAND);
+	//Card c22(Color::YELLOW, Status::WILD, Place::HAND);
+	//Card c33(Color::RED, Status::THREE, Place::HAND);
+	//Card c44(Color::BLUE, Status::FOUR, Place::HAND);
+	//
+	//cards1.push_back(c11);
+	//cards1.push_back(c22);
+	//cards1.push_back(c33);
+	//cards1.push_back(c44);
+	//int inc = 0;
+	if (phase.isPhase(players.front()))
+		std::cout << "Da <3";
+	else
+		std::cout << "BUZZ";
 
 	/*Player player = players.front();
 	CountScore(player);
@@ -140,7 +143,11 @@ void Game::StartGame()
 
 void Game::DecartCard(Player& player)
 {
-	Card decarted = player.DropCard();
+	std::cout << "Choose a card to discard from your hand (from 1 to " << player.m_handCards.size() << ") : ";
+	int option;
+	std::cin >> option;
+	option--;
+	Card decarted = player.DropCard(option);
 	decarted.SetPlace(Place::DECARTED);
 	decartedCards.push(decarted);
 

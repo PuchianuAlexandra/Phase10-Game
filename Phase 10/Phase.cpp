@@ -115,7 +115,7 @@ bool Phase::isColor(std::vector<Card> cards)
 	return true;
 }
 
-/*bool Phase::isPhase(Player & player)
+bool Phase::isPhase(Player & player)
 {
 	int current = 0;
 
@@ -125,71 +125,62 @@ bool Phase::isColor(std::vector<Card> cards)
 			current = index + 1;
 	}
 
-	std::vector<Card> chosenCards, chosenCards2;
+	std::vector<Card> chosenCards1, chosenCards2;
 	int index = 0;
 
 	switch (current)
 	{
 	case 1:
 	{
-		std::cout << "Choose cards for a set of three: \n";
-		
-		index = 0;
-
-		while (index < 3)
+		std::vector<int> options1, options2;
+		std::cout << "Choose cards for a set of three:\n";
+		for (int index=0; index<3;index++)
 		{
-			chosenCards.push_back(player.DropCard());
-			index++;
+			int option;
+			std::cin >> option;
+			options1.push_back(option);
+			chosenCards1.push_back(player.m_handCards[--option]);
+		}
+		std::cout << "Choose cards for a run of three:\n";
+		for (int index = 0; index < 3; index++)
+		{
+			int option;
+			std::cin >> option;
+			options2.push_back(option);
+			chosenCards2.push_back(player.m_handCards[--option]);
+			
 		}
 
-
-		std::cout << "Carti ramase: \n";
-		for (Card card : player.m_handCards)
+		for (int index = 0; index < options1.size() - 1; index++)
 		{
-			std::cout << card << "\n";
-		}
-
-		std::cout << "Choose cards for another set of three: \n";
-
-		index = 0;
-		while (index < 3)
-		{
-			chosenCards2.push_back(player.DropCard());
-			index++;
+			for (int index2 = index + 1; index2 < options1.size(); index2++)
+			{
+				if (options1[index] == options1[index2] || options2[index] == options2[index])
+				{
+					std::cout << "You can't insert the same card twice.\n";
+					return false;
+				}
+			}
 		}
 
 		int incorrect = 0;
-		if (isPhase1(chosenCards, chosenCards2, incorrect))
+		if (!isPhase1(chosenCards1, chosenCards2, incorrect))
 		{
-			
-			return true;
-
-		}
-		else
-		{
-			for (int index = chosenCards.size() - 1; index >= 0; index--)
-			{
-				chosenCards[index].SetPlace(Place::HAND);
-				player.m_handCards.push_back(chosenCards[index]);
-				chosenCards.pop_back();
-			}
-
-			for (int index = chosenCards2.size() - 1; index >= 0; index--)
-			{
-				chosenCards2[index].SetPlace(Place::HAND);
-				player.m_handCards.push_back(chosenCards2[index]);
-				chosenCards2.pop_back();
-			}
-
+			if (incorrect == 1)
+				std::cout << "The first set is incorrect!\n";
+			if (incorrect == 2)
+				std::cout << "The second set is incorrect!\n";
 			return false;
 		}
+		else
+			return true;
+
 	}
 	default:
 		break;
-	}
-	
+	}	
 }
-*/
+
 bool Phase::isPhase1(std::vector<Card> cards1, std::vector<Card> cards2, int& incorrect)
 {
 	if (cards1.size() != 3)

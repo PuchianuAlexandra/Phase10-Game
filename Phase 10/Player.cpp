@@ -26,13 +26,8 @@ void Player::setScore(uint8_t score)
 	m_score = score;
 }
 
-Card Player::DropCard()
+Card Player::DropCard(int option)
 {
-	std::cout << "Choose a card to discard from your hand (from 1 to "<<m_handCards.size()<<") : ";
-	int option;
-	std::cin >> option;
-	option--;
-
 	int size = m_handCards.size();
 	Card card = m_handCards[option];
 	
