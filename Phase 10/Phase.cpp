@@ -141,7 +141,7 @@ bool Phase::isPhase(Player & player)
 			options1.push_back(option);
 			chosenCards1.push_back(player.m_handCards[--option]);
 		}
-		std::cout << "Choose cards for a run of three:\n";
+		std::cout << "Choose cards for a set of three:\n";
 		for (int index = 0; index < 3; index++)
 		{
 			int option;
@@ -155,14 +155,14 @@ bool Phase::isPhase(Player & player)
 		{
 			for (int index2 = index + 1; index2 < options1.size(); index2++)
 			{
-				if (options1[index] == options1[index2] || options2[index] == options2[index])
+				if (options1[index] == options1[index2] || options2[index] == options2[index2])
 				{
 					std::cout << "You can't insert the same card twice.\n";
 					return false;
 				}
 			}
 		}
-
+		
 		int incorrect = 0;
 		if (!isPhase1(chosenCards1, chosenCards2, incorrect))
 		{
@@ -172,9 +172,97 @@ bool Phase::isPhase(Player & player)
 				std::cout << "The second set is incorrect!\n";
 			return false;
 		}
-		else
-			return true;
+		else {
+			std::vector <Card> newHandCards;
+			for (int index = 0; index < player.m_handCards.size(); index++)
+			{
+				for (int index2=0; index2 < 3; index2++)
+				{
+					if (index != (options1[index2]-1) && index != (options2[index2]-1))
+						 
+						newHandCards.push_back(player.m_handCards[index]);
+					   
+				}
+				newHandCards.pop_back();
+				newHandCards.pop_back();
+			}
 
+			player.m_handCards = newHandCards;
+			player.m_displayedCards.push_back(chosenCards1);
+			player.m_displayedCards.push_back(chosenCards2);
+
+		}
+
+	}
+case2:
+	{
+	std::vector<int> options1, options2;
+	std::cout << "Choose cards for a set of three:\n";
+	for (int index = 0; index < 3; index++)
+	{
+		int option;
+		std::cin >> option;
+		options1.push_back(option);
+		chosenCards1.push_back(player.m_handCards[--option]);
+	}
+	std::cout << "Choose cards for a run of four:\n";
+	for (int index = 0; index < 4; index++)
+	{
+		int option;
+		std::cin >> option;
+		options2.push_back(option);
+		chosenCards2.push_back(player.m_handCards[--option]);
+
+	}
+
+	for (int index = 0; index < options1.size() - 1; index++)
+	{
+		for (int index2 = index + 1; index2 < options1.size(); index2++)
+		{
+			if (options1[index] == options1[index2] || options2[index] == options2[index2])
+			{
+				std::cout << "You can't insert the same card twice.\n";
+				return false;
+			}
+
+			if (options1[index] == options1[index2] || options2[index] == options2[index2])
+			{
+				std::cout << "You can't insert the same card twice.\n";
+				return false;
+			}
+		}
+	}
+
+
+	int incorrect = 0;
+	if (!isPhase1(chosenCards1, chosenCards2, incorrect))
+	{
+		if (incorrect == 1)
+			std::cout << "The first set is incorrect!\n";
+		if (incorrect == 2)
+			std::cout << "The second set is incorrect!\n";
+		return false;
+	}
+	else {
+		std::vector <Card> newHandCards;
+		for (int index = 0; index < player.m_handCards.size(); index++)
+		{
+			for (int index2 = 0; index2 < 3; index2++)
+			{
+				if (index != (options1[index2] - 1) && index != (options2[index2] - 1))
+
+					newHandCards.push_back(player.m_handCards[index]);
+
+			}
+			newHandCards.pop_back();
+			newHandCards.pop_back();
+		}
+
+		player.m_handCards = newHandCards;
+		player.m_displayedCards.push_back(chosenCards1);
+		player.m_displayedCards.push_back(chosenCards2);
+
+	}
 	}
 	default:
 		break;
