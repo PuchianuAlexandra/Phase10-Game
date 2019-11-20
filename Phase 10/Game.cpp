@@ -79,6 +79,10 @@ void Game::StartGame()
 	players.front().m_phase[4] = true;
 	players.front().m_phase[5] = true;
 	players.front().m_phase[6] = true;
+	players.front().m_phase[7] = true;
+	players.front().m_phase[8] = true;
+	players.front().m_phase[9] = true;
+	
 
 	if (phase.isPhase(players.front()))
 	{

@@ -19,7 +19,7 @@ public:
 
 public:
 	//std::vector<bool>m_phase = { 0 };
-	std::bitset<10> m_phase;
+	std::bitset<11> m_phase;
 	std::vector<Card>m_handCards;
 	std::vector<std::vector<Card>>m_displayedCards;
 
