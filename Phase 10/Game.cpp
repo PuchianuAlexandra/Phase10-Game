@@ -45,10 +45,19 @@ void Game::Share10Cards()
 void Game::StartGame()
 {
 	Phase phase;
-
+	Board board;
 	
 	ReadPlayers();
-
+	int index = 0;
+	while (index < noPlayers)
+	{
+		Player player = players.front();
+		players.pop();
+		phase.isPhase(player);
+		players.push(player);
+		index++;
+	}
+	board.ShowDisplayedCards(players);
 
 	//std::vector<Card> cards;
 	//Card c1(Color::RED, Status::ONE, Place::HAND);
@@ -73,7 +82,7 @@ void Game::StartGame()
 	//cards1.push_back(c44);
 	//int inc = 0;
 
-	players.front().m_phase[1] = true;
+	/*players.front().m_phase[1] = true;
 	players.front().m_phase[2] = true;
 	players.front().m_phase[3] = true;
 	players.front().m_phase[4] = true;
@@ -106,7 +115,7 @@ void Game::StartGame()
 		}
 	}
 	else
-		std::cout << "BUZZ";
+		std::cout << "BUZZ";*/
 
 
 	/*Player player = players.front();
