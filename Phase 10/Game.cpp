@@ -72,6 +72,10 @@ void Game::StartGame()
 	//cards1.push_back(c33);
 	//cards1.push_back(c44);
 	//int inc = 0;
+
+	players.front().m_phase[1] = true;
+	players.front().m_phase[2] = true;
+
 	if (phase.isPhase(players.front()))
 	{
 		std::cout << "Da <3";
