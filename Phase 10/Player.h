@@ -2,6 +2,7 @@
 #include<cstdint>
 #include<string>
 #include<vector>
+#include <bitset>
 #include"Card.h"
 
 class Player
@@ -17,7 +18,8 @@ public:
 	Card DropCard(int option);
 
 public:
-	std::vector<bool>m_phase = { 0 };
+	//std::vector<bool>m_phase = { 0 };
+	std::bitset<10> m_phase;
 	std::vector<Card>m_handCards;
 	std::vector<std::vector<Card>>m_displayedCards;
 

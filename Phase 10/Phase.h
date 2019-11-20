@@ -12,7 +12,11 @@ public:
 	bool isColor(std::vector<Card> cards);
 	bool isPhase(Player& player);
 
-public:
+private:
+	void ChoseCards(int no, Player player, std::vector<int>& options, std::vector<Card>& chosenCards);
+   // void ModifyHandCards2(Player& player, std::vector<int> options1, std::vector<int> options2);
+
+
 	bool isPhase1(std::vector<Card> cards1, std::vector<Card> cards2, int& incorrect );
 	bool isPhase2(std::vector<Card> cards1, std::vector<Card> cards2, int& incorrect);
 	bool isPhase3(std::vector<Card> cards1, std::vector<Card> cards2, int& incorrect); 

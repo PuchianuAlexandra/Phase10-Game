@@ -39,7 +39,7 @@ void Deck::ShuffleDeck()
 {
 	auto rng = std::default_random_engine{};
 	std::shuffle(std::begin(m_deck), std::end(m_deck), rng);
-	}
+}
 
 Card Deck::PickCardFromDeck()
 {

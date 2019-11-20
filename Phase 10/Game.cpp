@@ -73,26 +73,29 @@ void Game::StartGame()
 	//cards1.push_back(c44);
 	//int inc = 0;
 	if (phase.isPhase(players.front()))
+	{
 		std::cout << "Da <3";
+
+		std::cout << "\n";
+		std::cout << "Hand Cards \n";
+		for (int index = 0; index < players.front().m_handCards.size(); index++)
+		{
+
+			std::cout << players.front().m_handCards[index] << "\n ";
+		}
+		std::cout << "Displayed Cards \n";
+		for (int index = 0; index < 2; index++)
+		{
+			for (int index1 = 0; index1 < players.front().m_displayedCards[index].size(); index1++)
+			{
+				std::cout << players.front().m_displayedCards[index][index1] << "\n ";
+			}
+			std::cout << "*************************************\n";
+		}
+	}
 	else
 		std::cout << "BUZZ";
 
-	std::cout << "\n";
-	std::cout << "Hand Cards \n";
-	for (int index = 0; index < players.front().m_handCards.size(); index++)
-	{
-		
-		std::cout << players.front().m_handCards[index] << "\n ";
-	}
-	std::cout << "Displayed Cards \n";
-	for (int index = 0; index < 2; index++)
-	{
-		for (int index1 = 0; index1 < players.front().m_displayedCards[index].size(); index1++)
-		{
-			std::cout << players.front().m_displayedCards[index][index1] << "\n ";
-		}
-		std::cout << "*************************************\n";
-	}
 
 	/*Player player = players.front();
 	CountScore(player);
