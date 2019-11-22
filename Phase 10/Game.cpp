@@ -74,22 +74,32 @@ void Game::StartGame()
 		if (skipped)
 		{
 			std::cout << "You are skiped!" << "\n";
+			system("pause");
 			//players.push(currentPlayer);
 		}
 
 		else
 		{
 			PickCard(currentPlayer);
+
+			//std::cout << "You took a card!\n";
+			for (int index = 0; index < currentPlayer.m_handCards.size(); index++)
+			{
+				std::cout << index + 1 << ". " << currentPlayer.m_handCards[index];
+			}
+
 			if (currentPlayer.m_displayedCards.empty())
 			{
-				std::cout << "Do you want to display (choose 1 for yes and 0 for no)?\n";
 				do
 				{
+				 std::cout << "\nDo you want to display (choose 1 for yes and 0 for no)?\n";
 					std::cin >> option;
 					switch (option)
 					{
 					case 1: {
 						phase.isPhase(currentPlayer);
+						if(!currentPlayer.m_displayedCards.empty())
+							option = 0;
 						break;
 					}
 
@@ -103,13 +113,13 @@ void Game::StartGame()
 				} while (option!=0);
 			}
 
-			DecartCard(currentPlayer);
-			std::cout << "Cartile ramase in mana sunt: ";
+			
+			std::cout << "\nRemaining cards are:\n";
 			for (int index2 = 0; index2 < currentPlayer.m_handCards.size(); index2++)
 			{
-				std::cout << currentPlayer.m_handCards[index2];
-				std::cout << "\n";
+				std::cout <<index2+1<<". "<< currentPlayer.m_handCards[index2];
 			}
+			DecartCard(currentPlayer);
 		}
 
 		players.push(currentPlayer);
@@ -318,7 +328,9 @@ void Game::PickCard(Player& player)
 			{
 				if (decartedCards.top().GetStatus() == Status::SKIP)
 				{
-					std::cout << "You can't pick that card.\n";
+					std::cout << "You can't pick that card.\nYou received a card from deck.\n";
+					Card card = PickCardFromDecartedStack();
+					player.m_handCards.push_back(card);
 				}
 				else {
 					Card card = PickCardFromDecartedStack();
@@ -335,6 +347,7 @@ void Game::PickCard(Player& player)
 			}
 		} 
 	}
+
 }
 
 void Game::CountScore(Player & player)
