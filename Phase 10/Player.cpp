@@ -1,5 +1,10 @@
 #include "Player.h"
 
+Player::Player()
+{
+	m_name = "None";
+}
+
 Player::Player(std::string name):
 	m_name(name), m_score(0)
 {
@@ -11,12 +16,27 @@ Player::~Player()
 
 }
 
+Player::Player(const Player& other)
+{
+	*this = other;
+}
+
+Player& Player::operator=(const Player& other)
+{
+	m_name = other.m_name;
+	m_displayedCards = other.m_displayedCards;
+	m_handCards = other.m_handCards;
+	m_phase = other.m_phase;
+	m_score = other.m_score;
+	return *this;
+}
+
 std::string Player::GetName() const
 {
 	return Player::m_name;
 }
 
-uint8_t Player::GetScore() const
+uint16_t Player::GetScore() const
 {
 	return m_score;
 }

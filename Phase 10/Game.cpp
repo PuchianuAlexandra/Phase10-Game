@@ -18,13 +18,13 @@ void Game::ReadPlayers()
 
 	Share10Cards();
 
-	for (int index = 0; index < noPlayers; index++)
+	/*for (int index = 0; index < noPlayers; index++)
 	{
 		Player player = players.front();
 		players.pop();
 		std::cout << player;
 		players.push(player);
-	}
+	}*/
 }
 
 void Game::Share10Cards()
@@ -44,10 +44,87 @@ void Game::Share10Cards()
 
 void Game::StartGame()
 {
+	ReadPlayers();
+	Player currentPlayer;
+	Board board;
+	Phase phase;
+	bool option;
+	int index = 0;
+
+	while (index<noPlayers)
+	{
+		system("cls");
+		board.ShowDisplayedCards(players);
+		currentPlayer = players.front();
+		std::cout << "\n"<<currentPlayer;
+
+		players.pop();
+
+		bool skipped = false;
+		for (std::string name : playersToSkip)
+		{
+			if (name == currentPlayer.GetName())
+			{
+				skipped = true;
+				name = "";
+				break;
+			}
+		}
+
+		if (skipped)
+		{
+			std::cout << "You are skiped!" << "\n";
+			//players.push(currentPlayer);
+		}
+
+		else
+		{
+			PickCard(currentPlayer);
+			if (currentPlayer.m_displayedCards.empty())
+			{
+				std::cout << "Do you want to display (choose 1 for yes and 0 for no)?\n";
+				do
+				{
+					std::cin >> option;
+					switch (option)
+					{
+					case 1: {
+						phase.isPhase(currentPlayer);
+						break;
+					}
+
+					case 0: {
+						break;
+					}
+
+					default:
+						break;
+					}
+				} while (option!=0);
+			}
+
+			DecartCard(currentPlayer);
+			std::cout << "Cartile ramase in mana sunt: ";
+			for (int index2 = 0; index2 < currentPlayer.m_handCards.size(); index2++)
+			{
+				std::cout << currentPlayer.m_handCards[index2];
+				std::cout << "\n";
+			}
+		}
+
+		players.push(currentPlayer);
+		index++;
+	}
+	
+}
+
+void Game::TestGame()
+{
 	Phase phase;
 	Board board;
 	
 	ReadPlayers();
+
 	int index = 0;
 	while (index < noPlayers)
 	{
@@ -58,6 +135,10 @@ void Game::StartGame()
 		index++;
 	}
 	board.ShowDisplayedCards(players);
+
+	//system("cls");
+
+
 
 	//std::vector<Card> cards;
 	//Card c1(Color::RED, Status::ONE, Place::HAND);

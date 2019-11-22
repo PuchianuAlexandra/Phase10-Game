@@ -10,7 +10,7 @@ public:
 	bool isSet(std::vector<Card> cards);
 	bool isRun(std::vector<Card> cards);
 	bool isColor(std::vector<Card> cards);
-	bool isPhase(Player& player);
+	void isPhase(Player& player);
 
 private:
 	void ChoseCards(int no, Player player, std::vector<int>& options, std::vector<Card>& chosenCards);

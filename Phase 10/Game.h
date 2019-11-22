@@ -11,6 +11,7 @@ public:
 	void ReadPlayers();
 	void Share10Cards();
 	void StartGame();
+	void TestGame();
 	void DecartCard(Player& player);
 	Card PickCardFromDecartedStack();
 	void PickCard(Player& player);

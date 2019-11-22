@@ -9,10 +9,14 @@ class Player
 {
 public:
 
+	Player();
 	Player(std::string name);
 	~Player();
+	Player(const Player& other);
+	Player& operator = (const Player& other);
+
 	std::string GetName() const;
-	uint8_t GetScore() const;
+	uint16_t GetScore() const;
 	void setScore(uint8_t score);
 	friend std::ostream& operator<<(std::ostream& out, const Player& player);
 	Card DropCard(int option);

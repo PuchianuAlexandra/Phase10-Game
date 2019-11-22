@@ -115,7 +115,7 @@ bool Phase::isColor(std::vector<Card> cards)
 	return true;
 }
 
-bool Phase::isPhase(Player & player)
+void Phase::isPhase(Player & player)
 {
 	int current = 0;
 
@@ -146,7 +146,7 @@ bool Phase::isPhase(Player & player)
 			if (it != options1.end())
 			{
 				std::cout << "You can't choose the same card twice.\n";
-				return false;
+				return;
 			}
 		}
 		
@@ -157,7 +157,7 @@ bool Phase::isPhase(Player & player)
 				if (options1[index] == options1[index2] || options2[index] == options2[index2])
 				{
 					std::cout << "You can't insert the same card twice.\n";
-					return false;
+					return;
 				}
 			}
 		}
@@ -169,7 +169,7 @@ bool Phase::isPhase(Player & player)
 				std::cout << "The first set is incorrect!\n";
 			if (incorrect == 2)
 				std::cout << "The second set is incorrect!\n";
-			return false;
+			return;
 		}
 		else {
 			std::vector <Card> newHandCards;
@@ -193,7 +193,6 @@ bool Phase::isPhase(Player & player)
 			player.m_phase[current] = 1;
 			//return true;
 		}
-		return true;
 		break;
 	}
 	//case 1 end
@@ -213,7 +212,7 @@ bool Phase::isPhase(Player & player)
 			if (it != options1.end())
 			{
 				std::cout << "You can't choose the same card twice.\n";
-				return false;
+				return;
 			}
 		}
 
@@ -224,7 +223,7 @@ bool Phase::isPhase(Player & player)
 				if (options1[index] == options1[index2] || options2[index] == options2[index2])
 				{
 					std::cout << "You can't insert the same card twice.\n";
-					return false;
+					return;
 				}
 			}
 		}
@@ -236,7 +235,7 @@ bool Phase::isPhase(Player & player)
 				std::cout << "The first set is incorrect!\n";
 			if (incorrect == 2)
 				std::cout << "The second set is incorrect!\n";
-			return false;
+			return;
 		}
 		else {
 			std::vector <Card> newHandCards;
@@ -268,7 +267,6 @@ bool Phase::isPhase(Player & player)
 			player.m_phase[current] = 1;
 			//return true;
 		}
-		return true;
 		break;
 	}
 	//case 2 end
@@ -288,7 +286,7 @@ bool Phase::isPhase(Player & player)
 			if (it != options1.end())
 			{
 				std::cout << "You can't choose the same card twice.\n";
-				return false;
+				return;
 			}
 		}
 
@@ -299,7 +297,7 @@ bool Phase::isPhase(Player & player)
 				if (options1[index] == options1[index2] || options2[index] == options2[index2])
 				{
 					std::cout << "You can't insert the same card twice.\n";
-					return false;
+					return;
 				}
 			}
 		}
@@ -311,7 +309,7 @@ bool Phase::isPhase(Player & player)
 				std::cout << "The first set is incorrect!\n";
 			if (incorrect == 2)
 				std::cout << "The second set is incorrect!\n";
-			return false;
+			return;
 		}
 		else {
 			std::vector <Card> newHandCards;
@@ -343,7 +341,6 @@ bool Phase::isPhase(Player & player)
 			player.m_phase[current] = 1;
 			//return true;
 		}
-		return true;
 		break;
 	}
 	//case3 end
@@ -360,14 +357,14 @@ bool Phase::isPhase(Player & player)
 				if (options[index] == options[index2])
 				{
 					std::cout << "You can't insert the same card twice.\n";
-					return false;
+					return;
 				}
 			}
 		}
 
 		if (!isPhase4(chosenCards1))
 		{
-			return false;
+			return;
 		}
 		else {
 			std::vector <Card> newHandCards;
@@ -391,7 +388,6 @@ bool Phase::isPhase(Player & player)
 			player.m_phase[current] = 1;
 			//return true;
 		}
-		return true;
 		break;
 	}
 	//case4 end
@@ -408,14 +404,14 @@ bool Phase::isPhase(Player & player)
 				if (options[index] == options[index2])
 				{
 					std::cout << "You can't insert the same card twice.\n";
-					return false;
+					return;
 				}
 			}
 		}
 
 		if (!isPhase5(chosenCards1))
 		{
-			return false;
+			return;
 		}
 		else {
 			std::vector <Card> newHandCards;
@@ -439,7 +435,6 @@ bool Phase::isPhase(Player & player)
 			player.m_phase[current] = 1;
 			//return true;
 		}
-		return true;
 		break;
 	}
 	//case5 end
@@ -456,14 +451,14 @@ bool Phase::isPhase(Player & player)
 				if (options[index] == options[index2])
 				{
 					std::cout << "You can't insert the same card twice.\n";
-					return false;
+					return;
 				}
 			}
 		}
 
 		if (!isPhase6(chosenCards1))
 		{
-			return false;
+			return;
 		}
 		else {
 			std::vector <Card> newHandCards;
@@ -487,7 +482,6 @@ bool Phase::isPhase(Player & player)
 			player.m_phase[current] = 1;
 			//return true;
 		}
-		return true;
 		break;
 	}
 
@@ -507,7 +501,7 @@ bool Phase::isPhase(Player & player)
 		if (it != options1.end())
 		{
 			std::cout << "You can't choose the same card twice.\n";
-			return false;
+			return;
 		}
 	}
 
@@ -518,7 +512,7 @@ bool Phase::isPhase(Player & player)
 			if (options1[index] == options1[index2] || options2[index] == options2[index2])
 			{
 				std::cout << "You can't insert the same card twice.\n";
-				return false;
+				return;
 			}
 		}
 	}
@@ -530,7 +524,7 @@ bool Phase::isPhase(Player & player)
 			std::cout << "The first set is incorrect!\n";
 		if (incorrect == 2)
 			std::cout << "The second set is incorrect!\n";
-		return false;
+		return;
 	}
 	else {
 		std::vector <Card> newHandCards;
@@ -554,7 +548,6 @@ bool Phase::isPhase(Player & player)
 		player.m_phase[current] = 1;
 		//return true;
 	}
-	return true;
 	break;
 	}
 
@@ -571,14 +564,14 @@ bool Phase::isPhase(Player & player)
 				if (options[index] == options[index2])
 				{
 					std::cout << "You can't insert the same card twice.\n";
-					return false;
+					return;
 				}
 			}
 		}
 
 		if (!isPhase8(chosenCards1))
 		{
-			return false;
+			return;
 		}
 		else {
 			std::vector <Card> newHandCards;
@@ -602,7 +595,6 @@ bool Phase::isPhase(Player & player)
 			player.m_phase[current] = 1;
 			//return true;
 		}
-		return true;
 		break;
 	}
 
@@ -622,7 +614,7 @@ bool Phase::isPhase(Player & player)
 			if (it != options1.end())
 			{
 				std::cout << "You can't choose the same card twice.\n";
-				return false;
+				return;
 			}
 		}
 
@@ -633,7 +625,7 @@ bool Phase::isPhase(Player & player)
 				if (options1[index] == options1[index2] || options2[index] == options2[index2])
 				{
 					std::cout << "You can't insert the same card twice.\n";
-					return false;
+					return;
 				}
 			}
 		}
@@ -645,7 +637,7 @@ bool Phase::isPhase(Player & player)
 				std::cout << "The first set is incorrect!\n";
 			if (incorrect == 2)
 				std::cout << "The second set is incorrect!\n";
-			return false;
+			return;
 		}
 		else {
 			std::vector <Card> newHandCards;
@@ -676,7 +668,6 @@ bool Phase::isPhase(Player & player)
 			player.m_phase[current] = 1;
 			//return true;
 		}
-		return true;
 		break;
 	}
 
@@ -696,7 +687,7 @@ bool Phase::isPhase(Player & player)
 			if (it != options1.end())
 			{
 				std::cout << "You can't choose the same card twice.\n";
-				return false;
+				return;
 			}
 		}
 
@@ -707,7 +698,7 @@ bool Phase::isPhase(Player & player)
 				if (options1[index] == options1[index2] || options2[index] == options2[index2])
 				{
 					std::cout << "You can't insert the same card twice.\n";
-					return false;
+					return;
 				}
 			}
 		}
@@ -719,7 +710,7 @@ bool Phase::isPhase(Player & player)
 				std::cout << "The first set is incorrect!\n";
 			if (incorrect == 2)
 				std::cout << "The second set is incorrect!\n";
-			return false;
+			return;
 		}
 		else {
 			std::vector <Card> newHandCards;
@@ -749,7 +740,6 @@ bool Phase::isPhase(Player & player)
 
 			player.m_phase[current] = 1;
 		}
-		return true;
 		break;
 	}
 	default:
