@@ -9,7 +9,6 @@ bool Phase::isSet(std::vector<Card> cards)
 	{
 		if (card.GetStatus() == Status::SKIP)
 		{
-			//std::cout << "You picked a Skip card!";
 			return false;
 		}
 		else
@@ -25,7 +24,7 @@ bool Phase::isSet(std::vector<Card> cards)
 		{
 			if (value != card.GetStatus() && card.GetStatus() != Status::WILD)
 			{
-				//std::cout << "Your set is not valid!";
+			
 				return false;
 			}
 		}
@@ -42,7 +41,6 @@ bool Phase::isRun(std::vector<Card> cards)
 	{
 		if (cards[it].GetStatus() == Status::SKIP)
 		{
-			//std::cout << "You picked a Skip card!";
 			return false;
 		}
 		else
@@ -191,11 +189,10 @@ void Phase::isPhase(Player & player)
 			player.m_displayedCards.push_back(chosenCards2);
 
 			player.m_phase[current] = 1;
-			//return true;
 		}
 		break;
 	}
-	//case 1 end
+
 	case 2:
 	{
 		std::vector<int> options1, options2;
@@ -265,11 +262,10 @@ void Phase::isPhase(Player & player)
 			player.m_displayedCards.push_back(chosenCards2);
 
 			player.m_phase[current] = 1;
-			//return true;
 		}
 		break;
 	}
-	//case 2 end
+	
 	case 3:
 	{
 		std::vector<int> options1, options2;
@@ -339,11 +335,10 @@ void Phase::isPhase(Player & player)
 			player.m_displayedCards.push_back(chosenCards2);
 
 			player.m_phase[current] = 1;
-			//return true;
 		}
 		break;
 	}
-	//case3 end
+	
 	case 4:
 	{
 		std::vector<int> options;
@@ -386,11 +381,10 @@ void Phase::isPhase(Player & player)
 			player.m_displayedCards.push_back(chosenCards1);
 
 			player.m_phase[current] = 1;
-			//return true;
 		}
 		break;
 	}
-	//case4 end
+	
 	case 5:
 	{
 		std::vector<int> options;
@@ -433,11 +427,10 @@ void Phase::isPhase(Player & player)
 			player.m_displayedCards.push_back(chosenCards1);
 
 			player.m_phase[current] = 1;
-			//return true;
 		}
 		break;
 	}
-	//case5 end
+
 	case 6:
 	{
 		std::vector<int> options;
@@ -480,7 +473,6 @@ void Phase::isPhase(Player & player)
 			player.m_displayedCards.push_back(chosenCards1);
 
 			player.m_phase[current] = 1;
-			//return true;
 		}
 		break;
 	}
@@ -546,7 +538,6 @@ void Phase::isPhase(Player & player)
 		player.m_displayedCards.push_back(chosenCards2);
 
 		player.m_phase[current] = 1;
-		//return true;
 	}
 	break;
 	}
@@ -593,7 +584,6 @@ void Phase::isPhase(Player & player)
 			player.m_displayedCards.push_back(chosenCards1);
 
 			player.m_phase[current] = 1;
-			//return true;
 		}
 		break;
 	}
@@ -666,7 +656,6 @@ void Phase::isPhase(Player & player)
 			player.m_displayedCards.push_back(chosenCards2);
 
 			player.m_phase[current] = 1;
-			//return true;
 		}
 		break;
 	}
