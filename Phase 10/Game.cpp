@@ -443,5 +443,45 @@ Player* Game::SearchPlayer(std::queue<Player> players, std::string name) const
 
 void Game::AnnexCard(Player* player, Card card)
 {
+	Phase phase;
+	Player auxPlayer = *player;
+	std::vector<std::vector<Card>> auxDisplayedCard = auxPlayer.m_displayedCards;
+	bool ok = false;
+	
+	for (std::vector<Card> vector : auxDisplayedCard)
+	{
+		vector.push_back(card);
+		if (phase.isColor(vector) || phase.isRun(vector) || phase.isSet(vector))
+		{
+			player->m_displayedCards = std::move(auxPlayer.m_displayedCards);
+			std::cout << "Yeeeee1";
+			ok = true;
+			break;
+		}
+		else
+		{
+			vector.pop_back();
+			int size = vector.size();
+			size++;
+			vector.resize(size);
+			for (int index = vector.size() - 1; index > 0; index--)
+			{
+				vector[index] = vector[index - 1];
+			}
+			vector[0] = card;
 
+			if (phase.isColor(vector) || phase.isRun(vector) || phase.isSet(vector))
+			{
+				player->m_displayedCards = std::move(auxPlayer.m_displayedCards);
+				std::cout << "Yeeeee2";
+				ok = true;
+				break;
+			}
+		}
+	}
+
+	if (ok)
+		std::cout << "Yeee 3";
+	else
+		std::cout << "BUZZ";
 }

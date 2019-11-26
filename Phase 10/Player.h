@@ -14,6 +14,8 @@ public:
 	~Player();
 	Player(const Player& other);
 	Player& operator = (const Player& other);
+	Player& operator = (Player&& other);
+	
 
 	std::string GetName() const;
 	uint16_t GetScore() const;

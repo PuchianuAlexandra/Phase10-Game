@@ -31,6 +31,19 @@ Player& Player::operator=(const Player& other)
 	return *this;
 }
 
+Player & Player::operator=(Player && other)
+{
+	m_name = other.m_name;
+	m_displayedCards = other.m_displayedCards;
+	m_handCards = other.m_handCards;
+	m_phase = other.m_phase;
+	m_score = other.m_score;
+
+	new (&other) Player;
+
+	return *this;
+}
+
 std::string Player::GetName() const
 {
 	return Player::m_name;
