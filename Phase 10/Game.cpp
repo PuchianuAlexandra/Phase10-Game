@@ -112,13 +112,61 @@ void Game::StartGame()
 					}
 				} while (option!=0);
 			}
-
 			
 			std::cout << "\nRemaining cards are:\n";
 			for (int index2 = 0; index2 < currentPlayer.m_handCards.size(); index2++)
 			{
 				std::cout <<index2+1<<". "<< currentPlayer.m_handCards[index2];
 			}
+
+			std::cout  << "\nMy displayed cards are:\n";
+			for (int index = 0; index < currentPlayer.m_displayedCards.size(); index++)
+			{
+				for (int index2 = 0; index2 < currentPlayer.m_displayedCards[index].size(); index2++)
+				{
+					std::cout << currentPlayer.m_displayedCards[index][index2];
+				}
+				std::cout << std::endl;
+			}
+
+			if (!currentPlayer.m_displayedCards.empty())
+			{
+				int option;
+
+				do
+				{
+					std::cout << "\nDo you want to annex a card (choose 1 for yes and 0 for no)? \n";
+					std::cin >> option;;
+					switch (option)
+					{
+					case 1: {
+						int indexCard;
+						std::string playerToAnnex;
+						Card cardToAnnex;
+
+						std::cout << "\nWhich card?\n";
+						std::cin >> indexCard;
+						std::cout << "\nPlayer:\n";
+						std::cin >> playerToAnnex;
+						cardToAnnex = currentPlayer.m_handCards[indexCard - 1];
+
+						Player* auxPlayer = SearchPlayer(players, playerToAnnex);
+						AnnexCard(auxPlayer, cardToAnnex);
+						
+						break;
+					}
+
+					case 0: {
+						break;
+					}
+
+					default:
+						break;
+					}
+				} while (option != 0);
+			}
+
+
 			DecartCard(currentPlayer);
 		}
 
@@ -371,4 +419,13 @@ void Game::CountScore(Player & player)
 	}
 
 	player.setScore(score);
+}
+
+Player* Game::SearchPlayer(std::queue<Player> players, std::string name) const
+{
+	return nullptr;
+}
+
+void Game::AnnexCard(Player* player, Card card)
+{
 }
