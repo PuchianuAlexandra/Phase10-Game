@@ -423,9 +423,25 @@ void Game::CountScore(Player & player)
 
 Player* Game::SearchPlayer(std::queue<Player> players, std::string name) const
 {
-	return nullptr;
+	int no = players.size();
+	while (no)
+	{
+		Player player = players.front();
+		players.pop();
+		
+		if (player.GetName() == name && !player.m_displayedCards.empty())
+		{
+			return &player;
+		}
+		else std::cout << "\nYou can't annex!\n";
+		return nullptr;
+
+		players.push(player);
+		no--;
+	}
 }
 
 void Game::AnnexCard(Player* player, Card card)
 {
+
 }
