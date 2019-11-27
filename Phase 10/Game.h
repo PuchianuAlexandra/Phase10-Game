@@ -24,6 +24,6 @@ private:
 	std::stack<Card> decartedCards;
 	Deck deck;
 	std::vector<std::string> playersToSkip;
-	int noPlayers;
+	int noPlayers=0;
 };
 

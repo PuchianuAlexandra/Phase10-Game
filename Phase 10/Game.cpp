@@ -1,11 +1,53 @@
 #include <cstdint>
 #include "Game.h"
 #include "Phase.h"
+#include <sstream>
 
 void Game::ReadPlayers()
 {
-	std::cout << "Insert number of players: ";
-	std::cin >> noPlayers;
+
+			std::string auxNumber;
+			bool ok = true;
+			std::cin.exceptions(std::istream::failbit);
+
+		
+			do {
+				try
+				{
+					std::cout << "Insert number of players: ";
+					std::cin >> auxNumber;
+					if (auxNumber.size() == 1) {
+						std::stringstream nume(auxNumber);
+						int x = 0;
+						nume >> x;
+						if (x <= 8 && x >= 2)
+						{
+							noPlayers = x;
+							ok = true;
+						}
+
+						else {
+							throw std::runtime_error("\nYou have to insert a digit between 2 and 8!\n");
+						}
+					}
+					else {
+						throw std::runtime_error("\nYou have to insert a digit between 2 and 8!\n");
+					}
+				}
+
+				catch (std::runtime_error & e)
+				{
+					ok = false;
+					std::cout << "\nYou have to insert a digit between 2 and 8!\n";
+					std::cin.clear();
+					std::string tmp;
+					getline(std::cin, tmp);
+				}
+
+			} while (ok == false);
+
+			
+
 
 	for (int index = 0; index < noPlayers; index++)
 	{
