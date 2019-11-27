@@ -17,9 +17,9 @@ void Game::ReadPlayers()
 					std::cout << "Insert number of players: ";
 					std::cin >> auxNumber;
 					if (auxNumber.size() == 1) {
-						std::stringstream nume(auxNumber);
-						int x = 0;
-						nume >> x;
+						std::stringstream intNumber(auxNumber);
+						int x ;
+						intNumber >> x;
 						if (x <= 8 && x >= 2)
 						{
 							noPlayers = x;
@@ -51,22 +51,25 @@ void Game::ReadPlayers()
 
 	for (int index = 0; index < noPlayers; index++)
 	{
-		std::cout << "Name for player nr " << index + 1 << " : ";
-		std::string name;
-		std::cin >> name;
-		Player player(name);
-		players.push(player);
+		bool ok = false;
+		while (!ok) {
+			std::cout << "Name for player nr " << index + 1 << " : ";
+			std::string name;
+			std::cin >> name;
+			if (std::find(playersNames.begin(), playersNames.end(), name) != playersNames.end()) {
+				std::cout << "\nName already exists!\n";
+			}
+			else {
+				playersNames.push_back(name);
+				Player player(name);
+				players.push(player);
+				ok = true;
+			}
+		}
 	}
 
 	Share10Cards();
 
-	/*for (int index = 0; index < noPlayers; index++)
-	{
-		Player player = players.front();
-		players.pop();
-		std::cout << player;
-		players.push(player);
-	}*/
 }
 
 void Game::Share10Cards()
@@ -90,7 +93,6 @@ void Game::StartGame()
 	Player currentPlayer;
 	Board board;
 	Phase phase;
-	bool option;
 	int index = 0;
 
 	while (index<noPlayers)
@@ -132,10 +134,47 @@ void Game::StartGame()
 
 			if (currentPlayer.m_displayedCards.empty())
 			{
+	               std::string auxOption;
+				   int option;
+				   bool ok = true;
 				do
 				{
-				 std::cout << "\nDo you want to display (choose 1 for yes and 0 for no)?\n";
-					std::cin >> option;
+					do {
+						try
+						{
+							std::cout << "\nDo you want to display (choose 1 for yes and 2 for no)?\n";
+							std::cin >> auxOption;
+							if (auxOption.size()==1) {
+							
+								std::stringstream intNumber(auxOption);
+								int x = -1;
+								intNumber >> x;
+								if (x ==2 || x == 1)
+								{
+									option = x;
+									ok = true;
+								}
+
+								else {
+									throw std::runtime_error("\nYou have to insert a valid option!\n");
+								}
+							}
+							else {
+								throw std::runtime_error("\nYou have to insert a valid option!\n");
+							}
+						}
+
+						catch (std::runtime_error & e)
+						{
+							ok = false;
+							std::cout << "\nYou have to insert a valid option!\n";
+							std::cin.clear();
+							std::string tmp;
+							getline(std::cin, tmp);
+						}
+
+					} while (ok == false);
+				 
 					switch (option)
 					{
 					case 1: {
@@ -145,14 +184,14 @@ void Game::StartGame()
 						break;
 					}
 
-					case 0: {
+					case 2: {
 						break;
 					}
 
 					default:
 						break;
 					}
-				} while (option!=0);
+				} while (option!=2);
 			}
 			
 			std::cout << "\nRemaining cards are:\n";
