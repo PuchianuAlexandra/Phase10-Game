@@ -1,3 +1,4 @@
+#include <sstream>
 #include "Phase.h"
 #include"Card.h"
 
@@ -119,8 +120,11 @@ void Phase::isPhase(Player & player)
 
 	for (int index = 0; index < player.m_phase.size()-1; index++)
 	{
-		if (player.m_phase[index]&&!player.m_phase[index+1])
+		if (player.m_phase[index] && !player.m_phase[index + 1])
+		{
 			current = index + 1;
+			break;
+		}
 	}
 
 	std::vector<Card> chosenCards1, chosenCards2;
@@ -741,9 +745,52 @@ void Phase::ChoseCards(int no, Player player, std::vector<int>& options, std::ve
 	for (int index = 0; index < no; index++)
 	{
 		int option;
-		std::cin >> option;
-		options.push_back(option);
-		chosenCards.push_back(player.m_handCards[--option]);
+		std::string auxOption;
+		bool ok = true;
+		do {
+			try
+			{
+				std::cin >> auxOption;
+				if (auxOption.size() == 1) {
+
+					std::stringstream intNumber(auxOption);
+					int x = -1;
+					intNumber >> x;
+					if (x <= player.m_handCards.size() - 1 && x >= 1)
+					{
+						option = x;
+						options.push_back(option);
+						chosenCards.push_back(player.m_handCards[--option]);
+						ok = true;
+					}
+
+					else {
+						throw std::runtime_error("\nYou have to insert a valid option!\n");
+						options.clear();
+						chosenCards.clear();
+						index =0;
+					}
+				}
+				else {
+					options.clear();
+					chosenCards.clear();
+					index = 0;
+					throw std::runtime_error("\nYou have to insert a valid option!\n");
+				}
+			}
+
+			catch (std::runtime_error & e)
+			{
+				ok = false;
+				std::cout << "\nYou have to insert a valid option!\n";
+				std::cin.clear();
+				std::string tmp;
+				getline(std::cin, tmp);
+			}
+
+		} while (ok == false);
+		
+		
 	}
 }
 //

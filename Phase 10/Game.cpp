@@ -137,8 +137,8 @@ void Game::StartGame()
 				std::string auxOption;
 				int option;
 				bool ok = true;
-				do
-				{
+				/*do
+				{*/
 					do {
 						try
 						{
@@ -191,7 +191,7 @@ void Game::StartGame()
 					default:
 						break;
 					}
-				} while (option != 2);
+				//} while (option != 2);
 			}
 
 			std::cout << "\nRemaining cards are:\n";
@@ -213,11 +213,46 @@ void Game::StartGame()
 			if (!currentPlayer.m_displayedCards.empty())
 			{
 				int option;
+				std::string auxOption;
+				bool ok = true;
+				/*do
+				{*/
+					do {
+						try
+						{
+							std::cout << "\n Do you want to annex a card (choose 1 for yes and 2 for no)? \n";
+							std::cin >> auxOption;
+							if (auxOption.size() == 1) {
 
-				do
-				{
-					std::cout << "\n Do you want to annex a card (choose 1 for yes and 0 for no)? \n";
-					std::cin >> option;;
+								std::stringstream intNumber(auxOption);
+								int x = -1;
+								intNumber >> x;
+								if (x == 2 || x == 1)
+								{
+									option = x;
+									ok = true;
+								}
+
+								else {
+									throw std::runtime_error("\nYou have to insert a valid option!\n");
+								}
+							}
+							else {
+								throw std::runtime_error("\nYou have to insert a valid option!\n");
+							}
+						}
+
+						catch (std::runtime_error & e)
+						{
+							ok = false;
+							std::cout << "\nYou have to insert a valid option!\n";
+							std::cin.clear();
+							std::string tmp;
+							getline(std::cin, tmp);
+						}
+
+					} while (ok == false);
+
 					switch (option)
 					{
 					case 1: {
@@ -244,7 +279,7 @@ void Game::StartGame()
 					default:
 						break;
 					}
-				} while (option != 0);
+				//} while (option != 0);
 			}
 
 
