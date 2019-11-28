@@ -102,7 +102,6 @@ void Game::StartGame()
 		currentPlayer = players.front();
 		std::cout << "\n" << currentPlayer;
 
-		players.pop();
 
 		bool skipped = false;
 		for (std::string name : playersToSkip)
@@ -212,6 +211,7 @@ void Game::StartGame()
 
 			if (!currentPlayer.m_displayedCards.empty())
 			{
+				players.front() = currentPlayer;
 				int option;
 				std::string auxOption;
 				bool ok = true;
@@ -266,8 +266,12 @@ void Game::StartGame()
 						std::cin >> playerToAnnex;
 						cardToAnnex = currentPlayer.m_handCards[indexCard - 1];
 
-						Player* auxPlayer = SearchPlayer(players, playerToAnnex);
-						AnnexCard(auxPlayer, cardToAnnex);
+						Player auxPlayer = SearchPlayer(players, playerToAnnex);
+						if (auxPlayer.GetName() != "")
+						{
+							AnnexCard(auxPlayer, cardToAnnex);
+						}
+						else std::cout << "nuu";
 
 						break;
 					}
@@ -286,6 +290,7 @@ void Game::StartGame()
 			DecartCard(currentPlayer);
 		}
 
+		players.pop();
 		players.push(currentPlayer);
 		index++;
 	}
@@ -617,9 +622,25 @@ void Game::CountScore(Player& player)
 	player.setScore(score);
 }
 
-Player* Game::SearchPlayer(std::queue<Player> players, std::string name) const
+Player Game::SearchPlayer(std::queue<Player> players, std::string name) //const
 {
 	int no = players.size();
+	Player returnedPlayer;
+	while (no)
+	{
+		Player player = players.front();
+		players.pop();
+		if (player.GetName() == name && !player.m_displayedCards.empty())
+		{
+			returnedPlayer = player;
+		}
+		players.push(player);
+		no--;
+	}
+	return returnedPlayer;
+	
+	/*int no = players.size();
+	Player nonePlayer();
 	while (no)
 	{
 		Player player = players.front();
@@ -627,19 +648,85 @@ Player* Game::SearchPlayer(std::queue<Player> players, std::string name) const
 
 		if (player.GetName() == name && !player.m_displayedCards.empty())
 		{
-			return &player;
+			return player;
 		}
 		else std::cout << "\nYou can't annex!\n";
-		return nullptr;
+		return  ;
 
 		players.push(player);
 		no--;
-	}
+	}*/
 }
 
-void Game::AnnexCard(Player* player, Card card)
+void Game::AnnexCard(Player player, Card card)
 {
 	Phase phase;
+	Player auxPlayer = player;
+	std::vector<std::vector<Card>> auxDisplayedCard = auxPlayer.m_displayedCards;
+	bool ok = false;
+	std::vector<Card>vector;
+
+	for (int index =0; index <2; index++)
+	{
+		vector = player.m_displayedCards[index];
+		vector.push_back(card);
+		if (phase.isColor(vector) || phase.isRun(vector) || phase.isSet(vector))
+		{
+			player.m_displayedCards[index] = vector;
+			std::cout << "Yeeeee1";
+			ok = true;
+			int no = players.size();
+			while (no)
+			{
+				if (players.front().GetName() == player.GetName())
+					players.front() = player;
+				Player other = players.front();
+				players.pop();
+				players.push(other);
+				no--;
+			}
+
+			break;
+		}
+		else
+		{
+			vector.pop_back();
+			int size = vector.size();
+			size++;
+			vector.resize(size);
+			for (int index = vector.size() - 1; index > 0; index--)
+			{
+				vector[index] = vector[index - 1];
+			}
+			vector[0] = card;
+
+			if (phase.isColor(vector) || phase.isRun(vector) || phase.isSet(vector))
+			{
+				player.m_displayedCards[index] = vector;
+				std::cout << "Yeeeee2";
+				ok = true;
+				int no = players.size();
+				while (no)
+				{
+					if (players.front().GetName() == player.GetName())
+						players.front() = player;
+					Player other = players.front();
+					players.pop();
+					players.push(other);
+					no--;
+				}
+				break;
+			}
+		}
+	
+	if (ok)
+		std::cout << "Yeee 3";
+	else
+		std::cout << "BUZZ";
+
+
+
+	/*Phase phase;
 	Player auxPlayer = *player;
 	std::vector<std::vector<Card>> auxDisplayedCard = auxPlayer.m_displayedCards;
 	bool ok = false;
@@ -673,11 +760,7 @@ void Game::AnnexCard(Player* player, Card card)
 				ok = true;
 				break;
 			}
-		}
+		}*/
 	}
 
-	if (ok)
-		std::cout << "Yeee 3";
-	else
-		std::cout << "BUZZ";
 }

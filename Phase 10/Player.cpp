@@ -2,7 +2,7 @@
 
 Player::Player()
 {
-	m_name = "None";
+	m_name = "";
 }
 
 Player::Player(std::string name):

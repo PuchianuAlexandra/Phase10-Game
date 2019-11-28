@@ -16,8 +16,8 @@ public:
 	Card PickCardFromDecartedStack();
 	void PickCard(Player& player);
 	void CountScore(Player& player);
-	Player* SearchPlayer(std::queue<Player> players, std::string name) const;
-	void AnnexCard(Player* player, Card card);
+	Player SearchPlayer(std::queue<Player> players, std::string name); //const;
+	void AnnexCard(Player player, Card card);
 	std::vector<std::string> playersNames = { " " };
 
 private:
