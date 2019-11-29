@@ -3,10 +3,11 @@
 Player::Player()
 {
 	m_name = "";
+	m_id = 0;
 }
 
-Player::Player(std::string name):
-	m_name(name), m_score(0)
+Player::Player(std::string name, uint16_t id):
+	m_name(name), m_score(0), m_id(id)
 {
 	m_phase[0] = 1;
 }
@@ -28,6 +29,7 @@ Player& Player::operator=(const Player& other)
 	m_handCards = other.m_handCards;
 	m_phase = other.m_phase;
 	m_score = other.m_score;
+	m_id = other.m_id;
 	return *this;
 }
 
@@ -38,6 +40,7 @@ Player & Player::operator=(Player && other)
 	m_handCards = other.m_handCards;
 	m_phase = other.m_phase;
 	m_score = other.m_score;
+	m_id = other.m_id;
 
 	new (&other) Player;
 
@@ -52,6 +55,11 @@ std::string Player::GetName() const
 uint16_t Player::GetScore() const
 {
 	return m_score;
+}
+
+uint16_t Player::GetId() const
+{
+	return m_id;
 }
 
 void Player::setScore(uint8_t score)

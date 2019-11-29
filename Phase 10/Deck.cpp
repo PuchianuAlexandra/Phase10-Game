@@ -31,19 +31,16 @@ Deck::Deck()
 	this->ShuffleDeck();
 
 	std::cout << "Carti in pachet: " << m_deck.size()<<"\n";
-	
-//	for (Card card : m_deck)
-//  {
-//	    std::cout << card << "\n";
-//	}
 		
 }
 
 void Deck::ShuffleDeck()
 {
+	//Same shuffle
 	auto rng = std::default_random_engine{};
 	std::shuffle(std::begin(m_deck), std::end(m_deck), rng);
 
+	//Different shuffle 
 	/*srand(time(0));
 	std::random_shuffle(std::begin(m_deck), std::end(m_deck));*/
 }

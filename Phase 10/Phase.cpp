@@ -3,7 +3,7 @@
 #include"Card.h"
 
 
-bool Phase::isSet(std::vector<Card> cards)
+bool Phase::IsSet(std::vector<Card> cards)
 {
 	Status value = Status::WILD;
 	for (Card card : cards)
@@ -34,7 +34,7 @@ bool Phase::isSet(std::vector<Card> cards)
 
 }
 
-bool Phase::isRun(std::vector<Card> cards)
+bool Phase::IsRun(std::vector<Card> cards)
 {
 	int no = 0;
 	int countWild = 0;
@@ -85,7 +85,7 @@ bool Phase::isRun(std::vector<Card> cards)
 	return true;
 }
 
-bool Phase::isColor(std::vector<Card> cards)
+bool Phase::IsColor(std::vector<Card> cards)
 {
 	Color value = Color::BLACK;
 	for (Card card : cards)
@@ -114,7 +114,7 @@ bool Phase::isColor(std::vector<Card> cards)
 	return true;
 }
 
-void Phase::isPhase(Player & player)
+void Phase::IsPhase(Player & player)
 {
 	int current = 0;
 
@@ -165,7 +165,7 @@ void Phase::isPhase(Player & player)
 		}
 		
 		int incorrect = 0;
-		if (!isPhase1(chosenCards1, chosenCards2, incorrect))
+		if (!IsPhase1(chosenCards1, chosenCards2, incorrect))
 		{
 			if (incorrect == 1)
 				std::cout << "The first set is incorrect!\n";
@@ -230,7 +230,7 @@ void Phase::isPhase(Player & player)
 		}
 
 		int incorrect = 0;
-		if (!isPhase2(chosenCards1, chosenCards2, incorrect))
+		if (!IsPhase2(chosenCards1, chosenCards2, incorrect))
 		{
 			if (incorrect == 1)
 				std::cout << "The first set is incorrect!\n";
@@ -303,7 +303,7 @@ void Phase::isPhase(Player & player)
 		}
 
 		int incorrect = 0;
-		if (!isPhase3(chosenCards1, chosenCards2, incorrect))
+		if (!IsPhase3(chosenCards1, chosenCards2, incorrect))
 		{
 			if (incorrect == 1)
 				std::cout << "The first set is incorrect!\n";
@@ -361,7 +361,7 @@ void Phase::isPhase(Player & player)
 			}
 		}
 
-		if (!isPhase4(chosenCards1))
+		if (!IsPhase4(chosenCards1))
 		{
 			return;
 		}
@@ -407,7 +407,7 @@ void Phase::isPhase(Player & player)
 			}
 		}
 
-		if (!isPhase5(chosenCards1))
+		if (!IsPhase5(chosenCards1))
 		{
 			return;
 		}
@@ -453,7 +453,7 @@ void Phase::isPhase(Player & player)
 			}
 		}
 
-		if (!isPhase6(chosenCards1))
+		if (!IsPhase6(chosenCards1))
 		{
 			return;
 		}
@@ -514,7 +514,7 @@ void Phase::isPhase(Player & player)
 	}
 
 	int incorrect = 0;
-	if (!isPhase7(chosenCards1, chosenCards2, incorrect))
+	if (!IsPhase7(chosenCards1, chosenCards2, incorrect))
 	{
 		if (incorrect == 1)
 			std::cout << "The first set is incorrect!\n";
@@ -564,7 +564,7 @@ void Phase::isPhase(Player & player)
 			}
 		}
 
-		if (!isPhase8(chosenCards1))
+		if (!IsPhase8(chosenCards1))
 		{
 			return;
 		}
@@ -625,7 +625,7 @@ void Phase::isPhase(Player & player)
 		}
 
 		int incorrect = 0;
-		if (!isPhase9(chosenCards1, chosenCards2, incorrect))
+		if (!IsPhase9(chosenCards1, chosenCards2, incorrect))
 		{
 			if (incorrect == 1)
 				std::cout << "The first set is incorrect!\n";
@@ -697,7 +697,7 @@ void Phase::isPhase(Player & player)
 		}
 
 		int incorrect = 0;
-		if (!isPhase10(chosenCards1, chosenCards2, incorrect))
+		if (!IsPhase10(chosenCards1, chosenCards2, incorrect))
 		{
 			if (incorrect == 1)
 				std::cout << "The first set is incorrect!\n";
@@ -814,7 +814,7 @@ void Phase::ChoseCards(int no, Player player, std::vector<int>& options, std::ve
 //	player.m_handCards = newHandCards;
 //}
 
-bool Phase::isPhase1(std::vector<Card> cards1, std::vector<Card> cards2, int& incorrect)
+bool Phase::IsPhase1(std::vector<Card> cards1, std::vector<Card> cards2, int& incorrect)
 {
 	if (cards1.size() != 3)
 	{
@@ -828,13 +828,13 @@ bool Phase::isPhase1(std::vector<Card> cards1, std::vector<Card> cards2, int& in
 			return false;
 		}
 
-	if (!isSet(cards1))
+	if (!IsSet(cards1))
 	{
 		incorrect = 1;
 		return false;
 	}
 
-	if (!isSet(cards2))
+	if (!IsSet(cards2))
 	{
 		incorrect = 2;
 		return false;
@@ -843,7 +843,7 @@ bool Phase::isPhase1(std::vector<Card> cards1, std::vector<Card> cards2, int& in
 	return true;
 }
 
-bool Phase::isPhase2(std::vector<Card> cards1, std::vector<Card> cards2, int& incorrect)
+bool Phase::IsPhase2(std::vector<Card> cards1, std::vector<Card> cards2, int& incorrect)
 {
 	if (cards1.size() != 3)
 	{
@@ -857,13 +857,13 @@ bool Phase::isPhase2(std::vector<Card> cards1, std::vector<Card> cards2, int& in
 			return false;
 		}
 
-	if (!isSet(cards1))
+	if (!IsSet(cards1))
 	{
 		incorrect = 1;
 		return false;
 	}
 
-	if (!isRun(cards2))
+	if (!IsRun(cards2))
 	{
 		incorrect = 2;
 		return false;
@@ -872,7 +872,7 @@ bool Phase::isPhase2(std::vector<Card> cards1, std::vector<Card> cards2, int& in
 	return true;
 }
 
-bool Phase::isPhase3(std::vector<Card> cards1, std::vector<Card> cards2, int & incorrect)
+bool Phase::IsPhase3(std::vector<Card> cards1, std::vector<Card> cards2, int & incorrect)
 {
 	if (cards1.size() != 4)
 	{
@@ -886,13 +886,13 @@ bool Phase::isPhase3(std::vector<Card> cards1, std::vector<Card> cards2, int & i
 			return false;
 		}
 
-	if (!isSet(cards1))
+	if (!IsSet(cards1))
 	{
 		incorrect = 1;
 		return false;
 	}
 
-	if (!isRun(cards2))
+	if (!IsRun(cards2))
 	{
 		incorrect = 2;
 		return false;
@@ -901,40 +901,40 @@ bool Phase::isPhase3(std::vector<Card> cards1, std::vector<Card> cards2, int & i
 	return true;
 }
 
-bool Phase::isPhase4(std::vector<Card> cards)
+bool Phase::IsPhase4(std::vector<Card> cards)
 {
 	if (cards.size() != 7)
 		return false;
 	
-	if (!isRun(cards))
+	if (!IsRun(cards))
 		return false;
 
 	return true;
 }
 
-bool Phase::isPhase5(std::vector<Card> cards)
+bool Phase::IsPhase5(std::vector<Card> cards)
 {
 	if (cards.size() != 8)
 		return false;
 
-	if (!isRun(cards))
+	if (!IsRun(cards))
 		return false;
 
 	return true;
 }
 
-bool Phase::isPhase6(std::vector<Card> cards)
+bool Phase::IsPhase6(std::vector<Card> cards)
 {
 	if (cards.size() != 9)
 		return false;
 
-	if (!isRun(cards))
+	if (!IsRun(cards))
 		return false;
 
 	return true;
 }
 
-bool Phase::isPhase7(std::vector<Card> cards1, std::vector<Card> cards2, int& incorrect)
+bool Phase::IsPhase7(std::vector<Card> cards1, std::vector<Card> cards2, int& incorrect)
 {
 	if (cards1.size() != 4)
 	{
@@ -948,13 +948,13 @@ bool Phase::isPhase7(std::vector<Card> cards1, std::vector<Card> cards2, int& in
 			return false;
 		}
 
-	if (!isSet(cards1))
+	if (!IsSet(cards1))
 	{
 		incorrect = 1;
 		return false;
 	}
 
-	if (!isSet(cards2))
+	if (!IsSet(cards2))
 	{
 		incorrect = 2;
 		return false;
@@ -963,18 +963,18 @@ bool Phase::isPhase7(std::vector<Card> cards1, std::vector<Card> cards2, int& in
 	return true;
 }
 
-bool Phase::isPhase8(std::vector<Card> cards)
+bool Phase::IsPhase8(std::vector<Card> cards)
 {
 	if (cards.size() != 7)
 		return false;
 
-	if (!isColor(cards))
+	if (!IsColor(cards))
 		return false;
 
 	return true;
 }
 
-bool Phase::isPhase9(std::vector<Card> cards1, std::vector<Card> cards2, int& incorrect)
+bool Phase::IsPhase9(std::vector<Card> cards1, std::vector<Card> cards2, int& incorrect)
 {
 	if (cards1.size() != 5)
 	{
@@ -988,13 +988,13 @@ bool Phase::isPhase9(std::vector<Card> cards1, std::vector<Card> cards2, int& in
 			return false;
 		}
 
-	if (!isSet(cards1))
+	if (!IsSet(cards1))
 	{
 		incorrect = 1;
 		return false;
 	}
 
-	if (!isSet(cards2))
+	if (!IsSet(cards2))
 	{
 		incorrect = 2;
 		return false;
@@ -1003,7 +1003,7 @@ bool Phase::isPhase9(std::vector<Card> cards1, std::vector<Card> cards2, int& in
 	return true;
 }
 
-bool Phase::isPhase10(std::vector<Card> cards1, std::vector<Card> cards2, int& incorrect)
+bool Phase::IsPhase10(std::vector<Card> cards1, std::vector<Card> cards2, int& incorrect)
 {
 	if (cards1.size() != 5)
 	{
@@ -1017,13 +1017,13 @@ bool Phase::isPhase10(std::vector<Card> cards1, std::vector<Card> cards2, int& i
 			return false;
 		}
 
-	if (!isSet(cards1))
+	if (!IsSet(cards1))
 	{
 		incorrect = 1;
 		return false;
 	}
 
-	if (!isSet(cards2))
+	if (!IsSet(cards2))
 	{
 		incorrect = 2;
 		return false;
@@ -1031,6 +1031,3 @@ bool Phase::isPhase10(std::vector<Card> cards1, std::vector<Card> cards2, int& i
 
 	return true;
 }
-
-
-

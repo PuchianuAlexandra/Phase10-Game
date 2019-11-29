@@ -3,6 +3,23 @@
 #include "Phase.h"
 #include <sstream>
 
+Game::Game(uint8_t noPlayers) :m_noPlayers(noPlayers)
+{
+}
+
+Game::Game()
+{
+}
+
+void Game::ShowPlayers(std::vector<Player> players)
+{
+	for (int indexPlayer = 0; indexPlayer < m_noPlayers; indexPlayer++)
+	{
+		std::cout << players[indexPlayer].GetId() << ") " << players[indexPlayer].GetName() << " -score: " << players[indexPlayer].GetScore() << "\n";
+	}
+	std::cout << "\n";
+}
+
 void Game::ReadPlayers()
 {
 
@@ -22,7 +39,7 @@ void Game::ReadPlayers()
 				intNumber >> x;
 				if (x <= 8 && x >= 2)
 				{
-					noPlayers = x;
+					m_noPlayers = x;
 					ok = true;
 				}
 
@@ -35,7 +52,7 @@ void Game::ReadPlayers()
 			}
 		}
 
-		catch (std::runtime_error & e)
+		catch (std::runtime_error& e)
 		{
 			ok = false;
 			std::cout << "\nYou have to insert a digit between 2 and 8!\n";
@@ -49,7 +66,7 @@ void Game::ReadPlayers()
 
 
 
-	for (int index = 0; index < noPlayers; index++)
+	for (int index = 0; index < m_noPlayers; index++)
 	{
 		bool ok = false;
 		while (!ok) {
@@ -61,8 +78,8 @@ void Game::ReadPlayers()
 			}
 			else {
 				playersNames.push_back(name);
-				Player player(name);
-				players.push(player);
+				Player player(name, index + 1);
+				m_players.push_back(player);
 				ok = true;
 			}
 		}
@@ -74,16 +91,14 @@ void Game::ReadPlayers()
 
 void Game::Share10Cards()
 {
-	deck.ShuffleDeck();
-	for (int index = 0; index < noPlayers; index++)
+	m_deck.ShuffleDeck();
+	for (int index = 0; index < m_noPlayers; index++)
 	{
-		Player currentPlayer = players.front();
-		players.pop();
+		//Player currentPlayer = m_players[index];
 		for (int index2 = 0; index2 < 10; index2++)
 		{
-			currentPlayer.m_handCards.push_back(deck.PickCardFromDeck());
+			m_players[index].m_handCards.push_back(m_deck.PickCardFromDeck());
 		}
-		players.push(currentPlayer);
 	}
 }
 
@@ -93,18 +108,19 @@ void Game::StartGame()
 	Player currentPlayer;
 	Board board;
 	Phase phase;
-	int index = 0;
 
-	while (index < noPlayers)
+
+	//TODO while nu a castigat nimeni 
+	for (int indexPlayer = 0; indexPlayer < m_noPlayers; indexPlayer++)
 	{
 		system("cls");
-		board.ShowDisplayedCards(players);
-		currentPlayer = players.front();
+		ShowPlayers(m_players);
+		board.ShowDisplayedCards(m_players);
+		currentPlayer = m_players[indexPlayer];
 		std::cout << "\n" << currentPlayer;
 
-
 		bool skipped = false;
-		for (std::string name : playersToSkip)
+		for (std::string name : m_playersToSkip)
 		{
 			if (name == currentPlayer.GetName())
 			{
@@ -118,14 +134,12 @@ void Game::StartGame()
 		{
 			std::cout << "You are skiped!" << "\n";
 			system("pause");
-			//players.push(currentPlayer);
 		}
 
 		else
 		{
 			PickCard(currentPlayer);
 
-			//std::cout << "You took a card!\n";
 			for (int index = 0; index < currentPlayer.m_handCards.size(); index++)
 			{
 				std::cout << index + 1 << ". " << currentPlayer.m_handCards[index];
@@ -136,61 +150,58 @@ void Game::StartGame()
 				std::string auxOption;
 				int option;
 				bool ok = true;
-				/*do
-				{*/
-					do {
-						try
-						{
-							std::cout << "\nDo you want to display (choose 1 for yes and 2 for no)?\n";
-							std::cin >> auxOption;
-							if (auxOption.size() == 1) {
+				do {
+					try
+					{
+						std::cout << "\nDo you want to display (choose 1 for yes and 2 for no)?\n";
+						std::cin >> auxOption;
+						if (auxOption.size() == 1) {
 
-								std::stringstream intNumber(auxOption);
-								int x = -1;
-								intNumber >> x;
-								if (x == 2 || x == 1)
-								{
-									option = x;
-									ok = true;
-								}
-
-								else {
-									throw std::runtime_error("\nYou have to insert a valid option!\n");
-								}
+							std::stringstream intNumber(auxOption);
+							int x = -1;
+							intNumber >> x;
+							if (x == 2 || x == 1)
+							{
+								option = x;
+								ok = true;
 							}
+
 							else {
 								throw std::runtime_error("\nYou have to insert a valid option!\n");
 							}
 						}
-
-						catch (std::runtime_error & e)
-						{
-							ok = false;
-							std::cout << "\nYou have to insert a valid option!\n";
-							std::cin.clear();
-							std::string tmp;
-							getline(std::cin, tmp);
+						else {
+							throw std::runtime_error("\nYou have to insert a valid option!\n");
 						}
+					}
 
-					} while (ok == false);
-
-					switch (option)
+					catch (std::runtime_error& e)
 					{
-					case 1: {
-						phase.isPhase(currentPlayer);
-						if (!currentPlayer.m_displayedCards.empty())
-							option = 0;
-						break;
+						ok = false;
+						std::cout << "\nYou have to insert a valid option!\n";
+						std::cin.clear();
+						std::string tmp;
+						getline(std::cin, tmp);
 					}
 
-					case 2: {
-						break;
-					}
+				} while (ok == false);
 
-					default:
-						break;
-					}
-				//} while (option != 2);
+				switch (option)
+				{
+				case 1: {
+					phase.IsPhase(currentPlayer);
+					if (!currentPlayer.m_displayedCards.empty())
+						option = 0;
+					break;
+				}
+
+				case 2: {
+					break;
+				}
+
+				default:
+					break;
+				}
 			}
 
 			std::cout << "\nRemaining cards are:\n";
@@ -211,109 +222,103 @@ void Game::StartGame()
 
 			if (!currentPlayer.m_displayedCards.empty())
 			{
-				players.front() = currentPlayer;
+				m_players[indexPlayer] = currentPlayer;
 				int option;
 				std::string auxOption;
 				bool ok = true;
-				/*do
-				{*/
-					do {
-						try
-						{
-							std::cout << "\n Do you want to annex a card (choose 1 for yes and 2 for no)? \n";
-							std::cin >> auxOption;
-							if (auxOption.size() == 1) {
 
-								std::stringstream intNumber(auxOption);
-								int x = -1;
-								intNumber >> x;
-								if (x == 2 || x == 1)
-								{
-									option = x;
-									ok = true;
-								}
+				do {
+					try
+					{
+						std::cout << "\n Do you want to annex a card (choose 1 for yes and 2 for no)? \n";
+						std::cin >> auxOption;
+						if (auxOption.size() == 1) {
 
-								else {
-									throw std::runtime_error("\nYou have to insert a valid option!\n");
-								}
+							std::stringstream intNumber(auxOption);
+							int x = -1;
+							intNumber >> x;
+							if (x == 2 || x == 1)
+							{
+								option = x;
+								ok = true;
 							}
+
 							else {
 								throw std::runtime_error("\nYou have to insert a valid option!\n");
 							}
 						}
-
-						catch (std::runtime_error & e)
-						{
-							ok = false;
-							std::cout << "\nYou have to insert a valid option!\n";
-							std::cin.clear();
-							std::string tmp;
-							getline(std::cin, tmp);
+						else {
+							throw std::runtime_error("\nYou have to insert a valid option!\n");
 						}
+					}
 
-					} while (ok == false);
-
-					switch (option)
+					catch (std::runtime_error& e)
 					{
-					case 1: {
-						int indexCard;
-						std::string playerToAnnex;
-						Card cardToAnnex;
-
-						std::cout << "\nWhich card?\n";
-						std::cin >> indexCard;
-						std::cout << "\nPlayer:\n";
-						std::cin >> playerToAnnex;
-						cardToAnnex = currentPlayer.m_handCards[indexCard - 1];
-
-						Player auxPlayer = SearchPlayer(players, playerToAnnex);
-						if (auxPlayer.GetName() != "")
-						{
-							AnnexCard(auxPlayer, cardToAnnex);
-						}
-						else std::cout << "nuu";
-
-						break;
+						ok = false;
+						std::cout << "\nYou have to insert a valid option!\n";
+						std::cin.clear();
+						std::string tmp;
+						getline(std::cin, tmp);
 					}
 
-					case 0: {
-						break;
-					}
+				} while (ok == false);
 
-					default:
-						break;
+				switch (option)
+				{
+				case 1: {
+					//TODO
+					/*int indexCard;
+					std::string playerToAnnex;
+					Card cardToAnnex;
+
+					std::cout << "\nWhich card?\n";
+					std::cin >> indexCard;
+					std::cout << "\nPlayer:\n";
+					std::cin >> playerToAnnex;
+					cardToAnnex = currentPlayer.m_handCards[indexCard - 1];
+
+					Player auxPlayer = SearchPlayer(m_players, playerToAnnex);
+					if (auxPlayer.GetName() != "")
+					{
+						AnnexCard(auxPlayer, cardToAnnex);
 					}
-				//} while (option != 0);
+					else std::cout << "nuu";*/
+
+					break;
+				}
+
+				case 0: {
+					break;
+				}
+
+				default:
+					break;
+				}
 			}
-
 
 			DecartCard(currentPlayer);
 		}
-
-		players.pop();
-		players.push(currentPlayer);
-		index++;
 	}
 
 }
 
 void Game::TestGame()
 {
-	Phase phase;
+	/*Phase phase;
 	Board board;
 
 	ReadPlayers();
 
 	int index = 0;
-	while (index < noPlayers)
+	while (index < m_noPlayers)
 	{
-		Player player = players.front();
-		players.pop();
+		Player player = m_players.front();
+		m_players.pop();
 		phase.isPhase(player);
-		players.push(player);
+		m_players.push(player);
 		index++;
 	}
-	board.ShowDisplayedCards(players);
+	board.ShowDisplayedCards(m_players);*/
 
 	//system("cls");
 
@@ -449,7 +454,7 @@ void Game::DecartCard(Player& player)
 	std::cin.exceptions(std::istream::failbit);
 
 	int option;
-	do 
+	do
 	{
 		try
 		{
@@ -460,7 +465,7 @@ void Game::DecartCard(Player& player)
 				std::stringstream intNumber(auxNumber);
 				int x;
 				intNumber >> x;
-				if (x <= player.m_handCards.size()-1 && x >= 1)
+				if (x <= player.m_handCards.size() - 1 && x >= 1)
 				{
 					option = x;
 					option--;
@@ -476,7 +481,7 @@ void Game::DecartCard(Player& player)
 			}
 		}
 
-		catch (std::runtime_error & e)
+		catch (std::runtime_error& e)
 		{
 			ok = false;
 			std::cout << "\nYou have to insert a digit between 1 and " << player.m_handCards.size() << std::endl;
@@ -489,37 +494,37 @@ void Game::DecartCard(Player& player)
 
 	Card decarted = player.DropCard(option);
 	decarted.SetPlace(Place::DECARTED);
-	decartedCards.push(decarted);
+	m_decartedCards.push(decarted);
 
 	if (decarted.GetStatus() == Status::SKIP)
 	{
+		//TODO try catch + showplayers
 		std::cout << "Which player do u want to skip?" << "\n";
 		std::string name;
 		std::cin >> name;
-		playersToSkip.push_back(name);
+		m_playersToSkip.push_back(name);
 	}
 
 }
 
 Card Game::PickCardFromDecartedStack()
 {
-	Card card = decartedCards.top();
+	Card card = m_decartedCards.top();
 	card.SetPlace(Place::HAND);
-	decartedCards.pop();
+	m_decartedCards.pop();
 	return card;
 }
 
 void Game::PickCard(Player& player)
 {
-	if (decartedCards.empty())
+	if (m_decartedCards.empty())
 	{
-		Card card = deck.PickCardFromDeck();
+		Card card = m_deck.PickCardFromDeck();
 		player.m_handCards.push_back(card);
 	}
 	else
 	{
-
-			int option;
+		int option;
 		do {
 			std::string auxOption;
 			bool ok = true;
@@ -529,7 +534,7 @@ void Game::PickCard(Player& player)
 				{
 					std::cout << "From where do you want to pick a card?\n";
 					std::cout << "1.Deck\n";
-					std::cout << "2.Decarted Cards: " << decartedCards.top() << "\n";
+					std::cout << "2.Decarted Cards: " << m_decartedCards.top() << "\n";
 
 					std::cin >> auxOption;
 					if (auxOption.size() == 1) {
@@ -552,7 +557,7 @@ void Game::PickCard(Player& player)
 					}
 				}
 
-				catch (std::runtime_error & e)
+				catch (std::runtime_error& e)
 				{
 					ok = false;
 					std::cout << "\nYou have to insert a valid option!\n";
@@ -563,18 +568,18 @@ void Game::PickCard(Player& player)
 
 			} while (ok == false);
 
-		
+
 			switch (option)
 			{
 			case 1:
 			{
-				Card card = deck.PickCardFromDeck();
+				Card card = m_deck.PickCardFromDeck();
 				player.m_handCards.push_back(card);
 				break;
 			}
 			case 2:
 			{
-				if (decartedCards.top().GetStatus() == Status::SKIP)
+				if (m_decartedCards.top().GetStatus() == Status::SKIP)
 				{
 					std::cout << "You can't pick that card.\nYou received a card from deck.\n";
 					Card card = PickCardFromDecartedStack();
@@ -609,7 +614,7 @@ void Game::CountScore(Player& player)
 		{
 			score += 5;
 		}
-		else if (card.GetStatus() > Status::NINE&& card.GetStatus() < Status::WILD)
+		else if (card.GetStatus() > Status::NINE && card.GetStatus() < Status::WILD)
 		{
 			score += 10;
 		}
@@ -622,51 +627,32 @@ void Game::CountScore(Player& player)
 	player.setScore(score);
 }
 
-Player Game::SearchPlayer(std::queue<Player> players, std::string name) //const
+//TODO cred ca nu ne mai trebuie ca nu mai cautam numele
+Player Game::SearchPlayer(std::vector<Player> players, std::string name) const
 {
-	int no = players.size();
 	Player returnedPlayer;
-	while (no)
+	for(int indexPlayer=0; indexPlayer<m_noPlayers;indexPlayer++)
 	{
-		Player player = players.front();
-		players.pop();
+		Player player = players[indexPlayer];
 		if (player.GetName() == name && !player.m_displayedCards.empty())
 		{
 			returnedPlayer = player;
 		}
-		players.push(player);
-		no--;
 	}
 	return returnedPlayer;
-	
-	/*int no = players.size();
-	Player nonePlayer();
-	while (no)
-	{
-		Player player = players.front();
-		players.pop();
 
-		if (player.GetName() == name && !player.m_displayedCards.empty())
-		{
-			return player;
-		}
-		else std::cout << "\nYou can't annex!\n";
-		return  ;
-
-		players.push(player);
-		no--;
-	}*/
 }
 
+//TODO Annex Card
 void Game::AnnexCard(Player player, Card card)
 {
-	Phase phase;
+	/*Phase phase;
 	Player auxPlayer = player;
 	std::vector<std::vector<Card>> auxDisplayedCard = auxPlayer.m_displayedCards;
 	bool ok = false;
 	std::vector<Card>vector;
 
-	for (int index =0; index <2; index++)
+	for (int index = 0; index < 2; index++)
 	{
 		vector = player.m_displayedCards[index];
 		vector.push_back(card);
@@ -675,14 +661,14 @@ void Game::AnnexCard(Player player, Card card)
 			player.m_displayedCards[index] = vector;
 			std::cout << "Yeeeee1";
 			ok = true;
-			int no = players.size();
+			int no = m_players.size();
 			while (no)
 			{
-				if (players.front().GetName() == player.GetName())
-					players.front() = player;
-				Player other = players.front();
-				players.pop();
-				players.push(other);
+				if (m_players.front().GetName() == player.GetName())
+					m_players.front() = player;
+				Player other = m_players.front();
+				m_players.pop();
+				m_players.push(other);
 				no--;
 			}
 
@@ -705,62 +691,25 @@ void Game::AnnexCard(Player player, Card card)
 				player.m_displayedCards[index] = vector;
 				std::cout << "Yeeeee2";
 				ok = true;
-				int no = players.size();
+				int no = m_players.size();
 				while (no)
 				{
-					if (players.front().GetName() == player.GetName())
-						players.front() = player;
-					Player other = players.front();
-					players.pop();
-					players.push(other);
+					if (m_players.front().GetName() == player.GetName())
+						m_players.front() = player;
+					Player other = m_players.front();
+					m_players.pop();
+					m_players.push(other);
 					no--;
 				}
 				break;
 			}
 		}
-	
-	if (ok)
-		std::cout << "Yeee 3";
-	else
-		std::cout << "BUZZ";
 
-
-
-	/*Phase phase;
-	Player auxPlayer = *player;
-	std::vector<std::vector<Card>> auxDisplayedCard = auxPlayer.m_displayedCards;
-	bool ok = false;
-
-	for (std::vector<Card> vector : auxDisplayedCard)
-	{
-		vector.push_back(card);
-		if (phase.isColor(vector) || phase.isRun(vector) || phase.isSet(vector))
-		{
-			player->m_displayedCards = std::move(auxPlayer.m_displayedCards);
-			std::cout << "Yeeeee1";
-			ok = true;
-			break;
-		}
+		if (ok)
+			std::cout << "Yeee 3";
 		else
-		{
-			vector.pop_back();
-			int size = vector.size();
-			size++;
-			vector.resize(size);
-			for (int index = vector.size() - 1; index > 0; index--)
-			{
-				vector[index] = vector[index - 1];
-			}
-			vector[0] = card;
-
-			if (phase.isColor(vector) || phase.isRun(vector) || phase.isSet(vector))
-			{
-				player->m_displayedCards = std::move(auxPlayer.m_displayedCards);
-				std::cout << "Yeeeee2";
-				ok = true;
-				break;
-			}
-		}*/
-	}
-
+			std::cout << "BUZZ";*/
+     //}
 }
+
+

@@ -7,6 +7,6 @@ class Board
 public:
 	Board();
 	~Board();
-	void ShowDisplayedCards(std::queue<Player> players) const;
+	void ShowDisplayedCards(std::vector<Player> players) const;
 };
 

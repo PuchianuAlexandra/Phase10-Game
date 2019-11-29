@@ -8,6 +8,10 @@
 class Game
 {
 public:
+	Game(uint8_t noPlayers);
+	Game();
+
+	void ShowPlayers(std::vector<Player> players);
 	void ReadPlayers();
 	void Share10Cards();
 	void StartGame();
@@ -16,15 +20,15 @@ public:
 	Card PickCardFromDecartedStack();
 	void PickCard(Player& player);
 	void CountScore(Player& player);
-	Player SearchPlayer(std::queue<Player> players, std::string name); //const;
+	Player SearchPlayer(std::vector<Player> players, std::string name) const;
 	void AnnexCard(Player player, Card card);
-	std::vector<std::string> playersNames = { " " };
 
 private:
-	std::queue <Player> players;
-	std::stack<Card> decartedCards;
-	Deck deck;
-	std::vector<std::string> playersToSkip;
-	int noPlayers = 0;
+	std::vector<std::string> playersNames = { " " };
+	uint8_t m_noPlayers;
+	std::vector <Player> m_players;
+	std::stack<Card> m_decartedCards;
+	Deck m_deck;
+	std::vector<std::string> m_playersToSkip;
 };
 
