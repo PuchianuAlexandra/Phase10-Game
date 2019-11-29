@@ -8,7 +8,7 @@
 class Game
 {
 public:
-	Game(uint8_t noPlayers);
+	Game(uint16_t noPlayers);
 	Game();
 
 	void ShowPlayers(std::vector<Player> players);
@@ -21,11 +21,11 @@ public:
 	void PickCard(Player& player);
 	void CountScore(Player& player);
 	Player SearchPlayer(std::vector<Player> players, std::string name) const;
-	void AnnexCard(Player player, Card card);
+	void AnnexCard(std::vector<Player>& players, int indexCard, int id);
 
 private:
-	std::vector<std::string> playersNames = { " " };
-	uint8_t m_noPlayers;
+	std::vector<std::string> m_playersNames = { " " };
+	uint16_t m_noPlayers;
 	std::vector <Player> m_players;
 	std::stack<Card> m_decartedCards;
 	Deck m_deck;
