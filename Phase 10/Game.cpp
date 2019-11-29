@@ -269,15 +269,55 @@ void Game::StartGame()
 					Card cardToAnnex;
 
 					//TODO try catch for which card
-					std::cout << "\nWhich card?\n";
-					std::cin >> indexCard;
-					cardToAnnex = currentPlayer.m_handCards[indexCard - 1];
-					ShowPlayers(m_players);
 
 					std::string auxNumber;
 					bool ok = true;
 					std::cin.exceptions(std::istream::failbit);
-					int option;
+
+					int option = -1;
+					do
+					{
+						try
+						{
+							std::cout << "\nWhich card?\n";
+
+							std::cin >> auxNumber;
+							if (auxNumber.size() == 1) {
+								std::stringstream intNumber(auxNumber);
+								int x;
+								intNumber >> x;
+								if (x <= m_players[indexPlayer].m_handCards.size() && x >= 1)
+								{
+									indexCard = x;
+									option--;
+									ok = true;
+								}
+
+								else {
+									throw std::runtime_error("\nYou have to insert a valid option \n");
+								}
+							}
+							else {
+								throw std::runtime_error("\nYou have to insert a valid option \n");
+							}
+						}
+
+						catch (std::runtime_error& e)
+						{
+							ok = false;
+							std::cout << "\nYou have to insert a digit between 1 and " << m_players[indexPlayer].m_handCards.size() << std::endl;
+							std::cin.clear();
+							std::string tmp;
+							getline(std::cin, tmp);
+						}
+
+					} while (ok == false);
+					
+					ShowPlayers(m_players);
+
+					ok = true;
+					std::cin.exceptions(std::istream::failbit);
+					option = -1;
 
 					do
 					{
@@ -293,7 +333,14 @@ void Game::StartGame()
 								{
 									option = x;
 									option--;
-									AnnexCard(m_players, indexCard - 1, option);
+									//TODO
+									/*if (m_players[option].m_displayedCards.empty())
+									{
+										std::cout << "Player dows not have displayed cards.\n";
+										break;
+									}
+									else*/
+										AnnexCard(m_players, indexCard - 1, option);
 									ok = true;
 								}
 
@@ -700,27 +747,14 @@ void Game::CountScore(Player& player)
 	player.setScore(score);
 }
 
-//TODO cred ca nu ne mai trebuie ca nu mai cautam numele
-Player Game::SearchPlayer(std::vector<Player> players, std::string name) const
-{
-	Player returnedPlayer;
-	for(int indexPlayer=0; indexPlayer<m_noPlayers;indexPlayer++)
-	{
-		Player player = players[indexPlayer];
-		if (player.GetName() == name && !player.m_displayedCards.empty())
-		{
-			returnedPlayer = player;
-		}
-	}
-	return returnedPlayer;
-
-}
-
-//TODO Annex Card
 void Game::AnnexCard(std::vector<Player>& players, int indexCard, int indexId)
 {
-	/*for (int indexPlayer = 0; indexPlayer < players.size(); indexPlayer++)
-	{*/	//std::vector<std::vector<Card>> auxDisplayedCard = players[indexPlayer].m_displayedCards;
+	if (players[indexId].m_displayedCards.empty())
+	{
+		std::cout << "The chosen player doesn't have displayed cards.\n";
+	}
+	else
+	{ 
 			bool ok = false;
 			std::vector<Card>vector;
 			Phase phase;
@@ -733,7 +767,6 @@ void Game::AnnexCard(std::vector<Player>& players, int indexCard, int indexId)
 				if (phase.IsColor(vector) || phase.IsRun(vector) || phase.IsSet(vector))
 				{
 					players[indexId].m_displayedCards[index] = vector;
-					//std::cout << "Yeeeee1";
 					ok = true;
 
 					for (int index2 = indexCard; index2 < players[indexId].m_handCards.size() - 1; index2++)
@@ -759,7 +792,6 @@ void Game::AnnexCard(std::vector<Player>& players, int indexCard, int indexId)
 					if (phase.IsColor(vector) || phase.IsRun(vector) || phase.IsSet(vector))
 					{
 						players[indexId].m_displayedCards[index] = vector;
-						//std::cout << "Yeeeee2";
 						ok = true;
 						
 						for (int index2 = indexCard; index2 < players[indexId].m_handCards.size() - 1; index2++)
@@ -784,7 +816,7 @@ void Game::AnnexCard(std::vector<Player>& players, int indexCard, int indexId)
 			    }
 				std::cout << "\n";
 		
-	//}
+	}
 }
 
 

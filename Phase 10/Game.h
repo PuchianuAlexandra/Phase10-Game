@@ -20,7 +20,6 @@ public:
 	Card PickCardFromDecartedStack();
 	void PickCard(Player& player);
 	void CountScore(Player& player);
-	Player SearchPlayer(std::vector<Player> players, std::string name) const;
 	void AnnexCard(std::vector<Player>& players, int indexCard, int id);
 
 private:
