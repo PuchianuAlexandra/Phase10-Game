@@ -188,9 +188,50 @@ void Game::StartGame()
 				switch (option)
 				{
 				case 1: {
-					phase.IsPhase(currentPlayer);
-					if (!currentPlayer.m_displayedCards.empty())
-						option = 0;
+
+					while (option!=2) {
+						phase.IsPhase(currentPlayer);
+						if (!currentPlayer.m_displayedCards.empty())
+							option = 0;
+						else {
+							do {
+								try
+								{
+									std::cout << "\nDo you still want to display (choose 1 for yes and 2 for no)?\n";
+									std::cin >> auxOption;
+									if (auxOption.size() == 1) {
+
+										std::stringstream intNumber(auxOption);
+										int x = -1;
+										intNumber >> x;
+										if (x == 2 || x == 1)
+										{
+											option = x;
+											ok = true;
+										}
+
+										else {
+											throw std::runtime_error("\nYou have to insert a valid option!\n");
+										}
+									}
+									else {
+										throw std::runtime_error("\nYou have to insert a valid option!\n");
+									}
+								}
+
+								catch (std::runtime_error & e)
+								{
+									ok = false;
+									std::cout << "\nYou have to insert a valid option!\n";
+									std::cin.clear();
+									std::string tmp;
+									getline(std::cin, tmp);
+								}
+
+							} while (ok == false);
+						}
+
+					}
 					break;
 				}
 

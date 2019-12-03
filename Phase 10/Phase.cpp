@@ -747,6 +747,8 @@ void Phase::ChoseCards(int no, Player player, std::vector<int>& options, std::ve
 		int option;
 		std::string auxOption;
 		bool ok = true;
+		
+
 		do {
 			try
 			{
