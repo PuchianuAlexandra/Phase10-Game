@@ -282,6 +282,7 @@ void Game::StartGame()
 							std::cout << "\nWhich card?\n";
 
 							std::cin >> auxNumber;
+							std::cout << "\n";
 							if (auxNumber.size() == 1) {
 								std::stringstream intNumber(auxNumber);
 								int x;
@@ -329,18 +330,19 @@ void Game::StartGame()
 								std::stringstream intNumber(auxNumber);
 								int x;
 								intNumber >> x;
-								if (x <= m_noPlayers - 1 && x >= 1)
+								if (x <= m_noPlayers  && x >= 1)
 								{
 									option = x;
 									option--;
 									//TODO
-									/*if (m_players[option].m_displayedCards.empty())
+									
+									AnnexCard(m_players, indexCard - 1, option);
+
+									if(option == indexPlayer)
 									{
-										std::cout << "Player dows not have displayed cards.\n";
-										break;
-									}
-									else*/
-										AnnexCard(m_players, indexCard - 1, option);
+									 currentPlayer = m_players[indexPlayer];
+								    }
+
 									ok = true;
 								}
 
@@ -541,11 +543,11 @@ void Game::DecartCard(Player& player)
 			std::cout << "Choose a card to discard from your hand (from 1 to " << player.m_handCards.size() << ") : ";
 
 			std::cin >> auxNumber;
-			if (auxNumber.size() == 1) {
+			if (auxNumber.size() <= 2) {
 				std::stringstream intNumber(auxNumber);
 				int x;
 				intNumber >> x;
-				if (x <= player.m_handCards.size() - 1 && x >= 1)
+				if (x <= player.m_handCards.size() && x >= 1)
 				{
 					option = x;
 					option--;
@@ -751,7 +753,7 @@ void Game::AnnexCard(std::vector<Player>& players, int indexCard, int indexId)
 {
 	if (players[indexId].m_displayedCards.empty())
 	{
-		std::cout << "The chosen player doesn't have displayed cards.\n";
+		std::cout << "The chosen player doesn't have displayed cards.\n\n";
 	}
 	else
 	{ 
@@ -806,13 +808,14 @@ void Game::AnnexCard(std::vector<Player>& players, int indexCard, int indexId)
 
 			}
 				if (ok)
-					std::cout << "Annexed the card.\n";
+					std::cout << "Annexed the card.\n\n";
 				else
-					std::cout << "Could not annex.\n";
+					std::cout << "Could not annex.\n\n";
 
+				std::cout << "Remaining cards are: \n";
 				for (int index = 0; index < players[indexId].m_handCards.size(); index++)
 				{
-					std::cout << index + 1 <<" "<< players[indexId].m_handCards[index];
+					std::cout << index + 1 <<". "<< players[indexId].m_handCards[index];
 			    }
 				std::cout << "\n";
 		

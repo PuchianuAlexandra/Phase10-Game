@@ -20,7 +20,7 @@ void Board::ShowDisplayedCards(std::vector<Player> players) const
 		
 		for (int index2 = 0; index2 < player.m_phase.size() - 1; index2++)
 		{
-			if (player.m_phase[index] && !player.m_phase[index2 + 1])
+			if (player.m_phase[index2] && !player.m_phase[index2 + 1])
 			{
 				currentPhase = index2 + 1;
 				break;

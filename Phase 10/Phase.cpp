@@ -751,12 +751,12 @@ void Phase::ChoseCards(int no, Player player, std::vector<int>& options, std::ve
 			try
 			{
 				std::cin >> auxOption;
-				if (auxOption.size() == 1) {
+				if (auxOption.size() <= 2) {
 
 					std::stringstream intNumber(auxOption);
 					int x = -1;
 					intNumber >> x;
-					if (x <= player.m_handCards.size() - 1 && x >= 1)
+					if (x <= player.m_handCards.size() && x >= 1)
 					{
 						option = x;
 						options.push_back(option);
@@ -793,26 +793,7 @@ void Phase::ChoseCards(int no, Player player, std::vector<int>& options, std::ve
 		
 	}
 }
-//
-//void Phase::ModifyHandCards2(Player & player, std::vector<int> options1, std::vector<int> options2)
-//{
-//	std::vector <Card> newHandCards;
-//	for (int index = 0; index < player.m_handCards.size(); index++)
-//	{
-//		for (int index2 = 0; index2 < options1.size(); index2++)
-//		{
-//			if (index != (options1[index2] - 1) && index != (options2[index2] - 1))
-//
-//				newHandCards.push_back(player.m_handCards[index]);
-//			
-//
-//		}
-//		newHandCards.pop_back();
-//		newHandCards.pop_back();
-//	}
-//
-//	player.m_handCards = newHandCards;
-//}
+
 
 bool Phase::IsPhase1(std::vector<Card> cards1, std::vector<Card> cards2, int& incorrect)
 {
