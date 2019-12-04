@@ -28,6 +28,6 @@ private:
 	std::vector <Player> m_players;
 	std::stack<Card> m_decartedCards;
 	Deck m_deck;
-	std::vector<std::string> m_playersToSkip;
+	std::vector<int> m_playersToSkip = {0,0,0,0,0,0,0,0};
 };
 

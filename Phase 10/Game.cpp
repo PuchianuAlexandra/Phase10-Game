@@ -123,19 +123,10 @@ void Game::StartGame()
 				currentPlayer = m_players[indexPlayer];
 				std::cout << "\n" << currentPlayer;
 
-				bool skipped = false;
-				for (std::string name : m_playersToSkip)
+				
+				if (m_playersToSkip[currentPlayer.GetId()-1])
 				{
-					if (name == currentPlayer.GetName())
-					{
-						skipped = true;
-						name = "";
-						break;
-					}
-				}
-
-				if (skipped)
-				{
+					m_playersToSkip[currentPlayer.GetId() - 1]--;
 					std::cout << "You are skiped!" << "\n";
 					system("pause");
 				}
@@ -638,6 +629,8 @@ void Game::DecartCard(Player& player)
 	decarted.SetPlace(Place::DECARTED);
 	m_decartedCards.push(decarted);
 
+	m_players[player.GetId() - 1] = player;
+
 	if (decarted.GetStatus() == Status::SKIP)
 	{
 		ShowPlayers(m_players);
@@ -662,7 +655,7 @@ void Game::DecartCard(Player& player)
 					{
 						option = x;
 						option--;
-						m_playersToSkip.push_back(m_players[option].GetName());
+						m_playersToSkip[option]++;
 						ok = true;
 					}
 
