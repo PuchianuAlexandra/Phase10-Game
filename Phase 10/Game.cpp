@@ -377,8 +377,20 @@ void Game::StartGame()
 												option--;
 												//TODO
 
+												Player auxPlayer = m_players[option];
 												AnnexCard(m_players, indexCard - 1, option);
-
+												if ((m_players[option].m_displayedCards[0].size() != auxPlayer.m_displayedCards[0].size()) || (m_players[option].m_displayedCards[1].size() != auxPlayer.m_displayedCards[1].size()))
+												{
+													std::cout << "My displayed cards: ";
+													for (int index2 = 0; index2 < m_players[option].m_displayedCards.size(); index2++)
+													{
+														for (int index3 = 0; index3 < m_players[option].m_displayedCards[index2].size(); index3++)
+														{
+															std::cout << m_players[option].m_displayedCards[index2][index3];
+														}
+														std::cout << std::endl;
+													}
+												}
 												if (option == indexPlayer)
 												{
 													currentPlayer = m_players[indexPlayer];
@@ -420,6 +432,7 @@ void Game::StartGame()
 						}while (option!=2);
 						
 					}
+
 					DecartCard(currentPlayer);
 
 
@@ -819,36 +832,15 @@ void Game::AnnexCard(std::vector<Player>& players, int indexCard, int indexId)
 			{
 				vector = players[indexId].m_displayedCards[index];
 				vector.push_back(card);
-				if (phase.IsColor(vector) || phase.IsRun(vector) || phase.IsSet(vector))
+
+				if(players[indexId].m_phase[7]==1 && players[indexId].m_phase[8] == 0)
+
 				{
-					players[indexId].m_displayedCards[index] = vector;
-					ok = true;
-
-					for (int index2 = indexCard; index2 < players[indexId].m_handCards.size() - 1; index2++)
-					{
-						players[indexId].m_handCards[index2] = players[indexId].m_handCards[index2 + 1];
-					}
-
-					players[indexId].m_handCards.pop_back();
-					break;
-				}
-				else
-				{
-					vector.pop_back();
-					int size = vector.size();
-					size++;
-					vector.resize(size);
-					for (int index = vector.size() - 1; index >= 0; index--)
-					{
-						vector[index] = vector[index - 1];
-					}
-					vector[0] = card;
-
-					if (phase.IsColor(vector) || phase.IsRun(vector) || phase.IsSet(vector))
+					if (phase.IsColor(vector))
 					{
 						players[indexId].m_displayedCards[index] = vector;
 						ok = true;
-						
+
 						for (int index2 = indexCard; index2 < players[indexId].m_handCards.size() - 1; index2++)
 						{
 							players[indexId].m_handCards[index2] = players[indexId].m_handCards[index2 + 1];
@@ -858,7 +850,51 @@ void Game::AnnexCard(std::vector<Player>& players, int indexCard, int indexId)
 						break;
 					}
 				}
+				else
+				{
+					if (phase.IsRun(vector) || phase.IsSet(vector))
+					{
+						players[indexId].m_displayedCards[index] = vector;
+						ok = true;
 
+						for (int index2 = indexCard; index2 < players[indexId].m_handCards.size() - 1; index2++)
+						{
+							players[indexId].m_handCards[index2] = players[indexId].m_handCards[index2 + 1];
+						}
+
+						players[indexId].m_handCards.pop_back();
+						break;
+					}
+
+
+					else
+					{
+						vector.pop_back();
+						int size = vector.size();
+						size++;
+						vector.resize(size);
+						for (int index = vector.size() - 1; index > 0; index--)
+						{
+							vector[index] = vector[index - 1];
+						}
+						vector[0] = card;
+
+						if ( phase.IsRun(vector) || phase.IsSet(vector))
+						{
+							players[indexId].m_displayedCards[index] = vector;
+							ok = true;
+
+							for (int index2 = indexCard; index2 < players[indexId].m_handCards.size() - 1; index2++)
+							{
+								players[indexId].m_handCards[index2] = players[indexId].m_handCards[index2 + 1];
+							}
+
+							players[indexId].m_handCards.pop_back();
+							break;
+						}
+
+					}
+				}
 			}
 				if (ok)
 					std::cout << "Annexed the card.\n\n";
