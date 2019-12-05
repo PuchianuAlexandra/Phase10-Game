@@ -9,6 +9,7 @@ Game::Game(uint16_t noPlayers) :m_noPlayers(noPlayers)
 
 Game::Game()
 {
+	m_noPlayers = 0;
 }
 
 void Game::ShowPlayers(std::vector<Player> players)
@@ -113,7 +114,7 @@ void Game::StartGame()
 
 	/*while (winGame == false)
 	{*/
-		winHand == false;
+		winHand = false;
 		while (winHand == false)
 		{
 			for (int indexPlayer = 0; indexPlayer < m_noPlayers; indexPlayer++)
@@ -136,6 +137,7 @@ void Game::StartGame()
 					if (m_deck.IsEmpty())
 					{
 						RemakeDeck();
+						m_deck.ShuffleDeck();
 					}
 					PickCard(currentPlayer);
 
@@ -816,7 +818,7 @@ void Game::CountScore(Player& player)
 		}
 	}
 
-	player.setScore(score);
+	player.SetScore(score);
 }
 
 void Game::AnnexCard(std::vector<Player>& players, int indexCard, int indexId)
@@ -874,10 +876,10 @@ void Game::AnnexCard(std::vector<Player>& players, int indexCard, int indexId)
 					else
 					{
 						vector.pop_back();
-						int size = vector.size();
+						size_t size = vector.size();
 						size++;
 						vector.resize(size);
-						for (int index = vector.size() - 1; index > 0; index--)
+						for (size_t index = vector.size() - 1; index > 0; index--)
 						{
 							vector[index] = vector[index - 1];
 						}
@@ -926,6 +928,23 @@ void Game::RemakeDeck()
 	}
 
 	m_decartedCards.push(lastCard);
+}
+
+void Game::RemakeHand()
+{
+	for (auto player : m_players)
+	{
+		player.RemakePlayer();
+	}
+
+	m_playersToSkip = { 0,0,0,0,0,0 };
+	
+	while (!m_decartedCards.empty())
+	{
+		m_decartedCards.pop();
+	}
+
+	m_deck = Deck();
 }
 
 

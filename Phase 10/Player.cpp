@@ -33,7 +33,7 @@ Player& Player::operator=(const Player& other)
 	return *this;
 }
 
-Player & Player::operator=(Player && other)
+Player & Player::operator=(Player && other) noexcept
 {
 	m_name = other.m_name;
 	m_displayedCards = other.m_displayedCards;
@@ -62,7 +62,7 @@ uint16_t Player::GetId() const
 	return m_id;
 }
 
-void Player::setScore(uint8_t score)
+void Player::SetScore(uint16_t score)
 {
 	m_score = score;
 }
@@ -78,6 +78,12 @@ Card Player::DropCard(int option)
 	}
 	m_handCards.pop_back();
 	return card;
+}
+
+void Player::RemakePlayer()
+{
+	m_handCards.clear();
+	m_displayedCards.clear();
 }
 
 std::ostream& operator<<(std::ostream& out, const Player& player)

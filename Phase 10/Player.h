@@ -14,15 +14,17 @@ public:
 	~Player();
 	Player(const Player& other);
 	Player& operator = (const Player& other);
-	Player& operator = (Player&& other);
+	Player& operator = (Player&& other) noexcept;
+	friend std::ostream& operator<<(std::ostream& out, const Player& player);
 
+public:
 
 	std::string GetName() const;
 	uint16_t GetScore() const;
 	uint16_t GetId() const;
-	void setScore(uint8_t score);
-	friend std::ostream& operator<<(std::ostream& out, const Player& player);
+	void SetScore(uint16_t score);
 	Card DropCard(int option);
+	void RemakePlayer();
 
 public:
 	std::bitset<11> m_phase;

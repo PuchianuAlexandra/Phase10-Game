@@ -6,6 +6,8 @@
 
 Deck::Deck() 
 {	
+	m_deck.clear(); //!!!!!!!!
+
 	for (int status = static_cast<int>(Status::ONE) ; status <= static_cast<int>(Status::TWELVE); status++)
 	{
 		for (int color = static_cast<int>(Color::RED) ; color <= static_cast<int>(Color::BLUE) ; color++)

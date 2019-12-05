@@ -22,6 +22,7 @@ public:
 	void CountScore(Player& player);
 	void AnnexCard(std::vector<Player>& players, int indexCard, int id);
 	void RemakeDeck();
+	void RemakeHand();
 
 private:
 	std::vector<std::string> m_playersNames = { " " };
