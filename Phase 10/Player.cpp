@@ -118,14 +118,14 @@ std::ostream& operator<<(std::ostream& out, const Player& player)
 		out << player.m_handCards[index] << " ";
 	}
 	out << std::endl;
-	for (int index = 0; index < player.m_displayedCards.size(); index++)
+	/*for (int index = 0; index < player.m_displayedCards.size(); index++)
 	{
 		for (int index2 = 0; index2 < player.m_displayedCards[index].size(); index2++)
 		{
 			out << player.m_displayedCards[index][index2] << " ";
 		}
 	}
-	out << std::endl;
+	out << std::endl;*/
 
 	return out;
 }

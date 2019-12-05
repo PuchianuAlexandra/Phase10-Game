@@ -141,13 +141,13 @@ void Game::StartGame()
 					}
 					PickCard(currentPlayer);
 
-					for (int index = 0; index < currentPlayer.m_handCards.size(); index++)
-					{
-						std::cout << index + 1 << ". " << currentPlayer.m_handCards[index];
-					}
 
 					if (currentPlayer.m_displayedCards.empty())
 					{
+						for (int index = 0; index < currentPlayer.m_handCards.size(); index++)
+						{
+							std::cout << index + 1 << ". " << currentPlayer.m_handCards[index];
+						}
 						std::string auxOption;
 						int option;
 						bool ok = true;
@@ -315,8 +315,6 @@ void Game::StartGame()
 								int indexCard;
 								Card cardToAnnex;
 
-								//TODO try catch for which card
-
 								std::string auxNumber;
 								bool ok = true;
 								std::cin.exceptions(std::istream::failbit);
@@ -381,13 +379,12 @@ void Game::StartGame()
 											{
 												option = x;
 												option--;
-												//TODO
 
 												Player auxPlayer = m_players[option];
-												AnnexCard(m_players, indexCard - 1, option);
+												AnnexCard(currentPlayer.GetId()-1, option, indexCard - 1);
 												if ((m_players[option].m_displayedCards[0].size() != auxPlayer.m_displayedCards[0].size()) || (m_players[option].m_displayedCards[1].size() != auxPlayer.m_displayedCards[1].size()))
 												{
-													std::cout << "My displayed cards: ";
+													std::cout <<m_players[option].GetName() <<"'s displayed cards: \n";
 													for (int index2 = 0; index2 < m_players[option].m_displayedCards.size(); index2++)
 													{
 														for (int index3 = 0; index3 < m_players[option].m_displayedCards[index2].size(); index3++)
@@ -804,9 +801,9 @@ void Game::PickCard(Player& player)
 
 }
 
-void Game::AnnexCard(std::vector<Player>& players, int indexCard, int indexId)
+void Game::AnnexCard(int idCurrentPlayer, int idPlayerToAnnex, int cardToAnnex)
 {
-	if (players[indexId].m_displayedCards.empty())
+	if (m_players[idPlayerToAnnex].m_displayedCards.empty())
 	{
 		std::cout << "The chosen player doesn't have displayed cards.\n\n";
 	}
@@ -815,27 +812,27 @@ void Game::AnnexCard(std::vector<Player>& players, int indexCard, int indexId)
 			bool ok = false;
 			std::vector<Card>vector;
 			Phase phase;
-			Card card = players[indexId].m_handCards[indexCard];
+			Card card = m_players[idCurrentPlayer].m_handCards[cardToAnnex];
 
-			for (int index = 0; index < players[indexId].m_displayedCards.size(); index++)
+			for (int index = 0; index < m_players[idPlayerToAnnex].m_displayedCards.size(); index++)
 			{
-				vector = players[indexId].m_displayedCards[index];
+				vector = m_players[idPlayerToAnnex].m_displayedCards[index];
 				vector.push_back(card);
 
-				if(players[indexId].m_phase[7]==1 && players[indexId].m_phase[8] == 0)
+				if(m_players[idPlayerToAnnex].m_phase[7]==1 && m_players[idPlayerToAnnex].m_phase[8] == 0)
 
 				{
 					if (phase.IsColor(vector))
 					{
-						players[indexId].m_displayedCards[index] = vector;
+						m_players[idPlayerToAnnex].m_displayedCards[index] = vector;
 						ok = true;
 
-						for (int index2 = indexCard; index2 < players[indexId].m_handCards.size() - 1; index2++)
+						for (int index2 = cardToAnnex; index2 < m_players[idCurrentPlayer].m_handCards.size() - 1; index2++)
 						{
-							players[indexId].m_handCards[index2] = players[indexId].m_handCards[index2 + 1];
+							m_players[idCurrentPlayer].m_handCards[index2] = m_players[idCurrentPlayer].m_handCards[index2 + 1];
 						}
 
-						players[indexId].m_handCards.pop_back();
+						m_players[idCurrentPlayer].m_handCards.pop_back();
 						break;
 					}
 				}
@@ -843,15 +840,15 @@ void Game::AnnexCard(std::vector<Player>& players, int indexCard, int indexId)
 				{
 					if (phase.IsRun(vector) || phase.IsSet(vector))
 					{
-						players[indexId].m_displayedCards[index] = vector;
+						m_players[idPlayerToAnnex].m_displayedCards[index] = vector;
 						ok = true;
 
-						for (int index2 = indexCard; index2 < players[indexId].m_handCards.size() - 1; index2++)
+						for (int index2 = cardToAnnex; index2 < m_players[idCurrentPlayer].m_handCards.size() - 1; index2++)
 						{
-							players[indexId].m_handCards[index2] = players[indexId].m_handCards[index2 + 1];
+							m_players[idCurrentPlayer].m_handCards[index2] = m_players[idCurrentPlayer].m_handCards[index2 + 1];
 						}
 
-						players[indexId].m_handCards.pop_back();
+						m_players[idCurrentPlayer].m_handCards.pop_back();
 						break;
 					}
 
@@ -870,32 +867,31 @@ void Game::AnnexCard(std::vector<Player>& players, int indexCard, int indexId)
 
 						if ( phase.IsRun(vector) || phase.IsSet(vector))
 						{
-							players[indexId].m_displayedCards[index] = vector;
+							m_players[idPlayerToAnnex].m_displayedCards[index] = vector;
 							ok = true;
 
-							for (int index2 = indexCard; index2 < players[indexId].m_handCards.size() - 1; index2++)
+							for (int index2 = cardToAnnex; index2 < m_players[idCurrentPlayer].m_handCards.size() - 1; index2++)
 							{
-								players[indexId].m_handCards[index2] = players[indexId].m_handCards[index2 + 1];
+								m_players[idCurrentPlayer].m_handCards[index2] = m_players[idCurrentPlayer].m_handCards[index2 + 1];
 							}
 
-							players[indexId].m_handCards.pop_back();
+							m_players[idCurrentPlayer].m_handCards.pop_back();
 							break;
 						}
 
 					}
 				}
 			}
-				if (ok)
-					std::cout << "Annexed the card.\n\n";
-				else
-					std::cout << "Could not annex.\n\n";
-
-				std::cout << "Remaining cards are: \n";
-				for (int index = 0; index < players[indexId].m_handCards.size(); index++)
-				{
-					std::cout << index + 1 <<". "<< players[indexId].m_handCards[index];
-			    }
-				std::cout << "\n";
+	    if (ok)
+	    	std::cout << "Annexed the card.\n\n";
+	    else
+	    	std::cout << "Could not annex.\n\n"; 
+	    std::cout << "Remaining cards are: \n";
+	    for (int index = 0; index < m_players[idCurrentPlayer].m_handCards.size(); index++)
+	    {
+	    	std::cout << index + 1 <<". "<< m_players[idCurrentPlayer].m_handCards[index];
+         }
+	    std::cout << "\n";
 		
 	}
 }
