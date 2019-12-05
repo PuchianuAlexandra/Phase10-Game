@@ -37,25 +37,25 @@ void Game::ReadPlayers()
 				std::stringstream intNumber(auxNumber);
 				int x;
 				intNumber >> x;
-				if (x <= 8 && x >= 2)
+				if (x <= 6 && x >= 2)
 				{
 					m_noPlayers = x;
 					ok = true;
 				}
 
 				else {
-					throw std::runtime_error("\nYou have to insert a digit between 2 and 8!\n");
+					throw std::runtime_error("\nYou have to insert a digit between 2 and 6!\n");
 				}
 			}
 			else {
-				throw std::runtime_error("\nYou have to insert a digit between 2 and 8!\n");
+				throw std::runtime_error("\nYou have to insert a digit between 2 and 6!\n");
 			}
 		}
 
 		catch (std::runtime_error& e)
 		{
 			ok = false;
-			std::cout << "\nYou have to insert a digit between 2 and 8!\n";
+			std::cout << "\nYou have to insert a digit between 2 and 6!\n";
 			std::cin.clear();
 			std::string tmp;
 			getline(std::cin, tmp);
@@ -133,6 +133,10 @@ void Game::StartGame()
 
 				else
 				{
+					if (m_deck.IsEmpty())
+					{
+						RemakeDeck();
+					}
 					PickCard(currentPlayer);
 
 					for (int index = 0; index < currentPlayer.m_handCards.size(); index++)
@@ -909,6 +913,19 @@ void Game::AnnexCard(std::vector<Player>& players, int indexCard, int indexId)
 				std::cout << "\n";
 		
 	}
+}
+
+void Game::RemakeDeck()
+{
+	Card lastCard = m_decartedCards.top();
+	m_decartedCards.pop();
+	while (!m_decartedCards.empty())
+	{
+		m_deck.AddCard(m_decartedCards.top());
+		m_decartedCards.pop();
+	}
+
+	m_decartedCards.push(lastCard);
 }
 
 

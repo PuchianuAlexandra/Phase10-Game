@@ -30,7 +30,7 @@ Deck::Deck()
 	
 	this->ShuffleDeck();
 
-	std::cout << "Carti in pachet: " << m_deck.size()<<"\n";
+	//std::cout << "Carti in pachet: " << m_deck.size()<<"\n";
 		
 }
 
@@ -52,6 +52,16 @@ Card Deck::PickCardFromDeck()
 	m_deck.resize(size);
 	card.SetPlace(Place::HAND);
 	return card;
+}
+
+void Deck::AddCard(Card card)
+{
+	m_deck.push_back(card);
+}
+
+bool Deck::IsEmpty()
+{
+	return m_deck.empty();
 }
 
 

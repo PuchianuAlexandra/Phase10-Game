@@ -17,6 +17,9 @@ public:
 	void ShuffleDeck();
 	//friend std::ostream& operator<< (std::ostream& os, const Deck& deck);
 	Card PickCardFromDeck();
+
+	void AddCard(Card card);
+	bool IsEmpty();
 	
 
 private:

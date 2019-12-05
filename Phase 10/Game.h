@@ -21,6 +21,7 @@ public:
 	void PickCard(Player& player);
 	void CountScore(Player& player);
 	void AnnexCard(std::vector<Player>& players, int indexCard, int id);
+	void RemakeDeck();
 
 private:
 	std::vector<std::string> m_playersNames = { " " };
@@ -28,6 +29,6 @@ private:
 	std::vector <Player> m_players;
 	std::stack<Card> m_decartedCards;
 	Deck m_deck;
-	std::vector<int> m_playersToSkip = {0,0,0,0,0,0,0,0};
+	std::vector<int> m_playersToSkip = {0,0,0,0,0,0};
 };
 
