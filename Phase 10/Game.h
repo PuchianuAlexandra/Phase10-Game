@@ -19,7 +19,6 @@ public:
 	void DecartCard(Player& player);
 	Card PickCardFromDecartedStack();
 	void PickCard(Player& player);
-	void CountScore(Player& player);
 	void AnnexCard(std::vector<Player>& players, int indexCard, int id);
 	void RemakeDeck();
 	void RemakeHand();

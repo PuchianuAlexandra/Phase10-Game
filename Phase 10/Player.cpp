@@ -67,6 +67,29 @@ void Player::SetScore(uint16_t score)
 	m_score = score;
 }
 
+void Player::CountScore()
+{
+	uint16_t score = this->GetScore();
+
+	for (Card card : this->m_handCards)
+	{
+		if (card.GetStatus() < Status::TEN)
+		{
+			score += 5;
+		}
+		else if (card.GetStatus() > Status::NINE&& card.GetStatus() < Status::WILD)
+		{
+			score += 10;
+		}
+		else
+		{
+			score += 20;
+		}
+	}
+
+	this->SetScore(score);
+}
+
 Card Player::DropCard(int option)
 {
 	int size = m_handCards.size();

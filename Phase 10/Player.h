@@ -25,6 +25,7 @@ public:
 	void SetScore(uint16_t score);
 	Card DropCard(int option);
 	void RemakePlayer();
+	void CountScore();
 
 public:
 	std::bitset<11> m_phase;

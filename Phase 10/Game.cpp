@@ -451,6 +451,12 @@ void Game::StartGame()
 				}
 			}
 		}
+		for (auto player : m_players)
+		{
+			player.CountScore();
+		}
+
+		RemakeHand();
 	//}
 }
 
@@ -796,29 +802,6 @@ void Game::PickCard(Player& player)
 		} while (option != 1 && option != 2);
 	}
 
-}
-
-void Game::CountScore(Player& player)
-{
-	uint16_t score = player.GetScore();
-
-	for (Card card : player.m_handCards)
-	{
-		if (card.GetStatus() < Status::TEN)
-		{
-			score += 5;
-		}
-		else if (card.GetStatus() > Status::NINE && card.GetStatus() < Status::WILD)
-		{
-			score += 10;
-		}
-		else
-		{
-			score += 20;
-		}
-	}
-
-	player.SetScore(score);
 }
 
 void Game::AnnexCard(std::vector<Player>& players, int indexCard, int indexId)
