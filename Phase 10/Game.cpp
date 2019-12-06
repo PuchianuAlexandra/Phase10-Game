@@ -109,11 +109,12 @@ void Game::StartGame()
 	Player currentPlayer;
 	Board board;
 	Phase phase;
+
 	bool winHand = false;
 	bool winGame = false;
 
-	/*while (winGame == false)
-	{*/
+	while (winGame == false)
+	{
 		winHand = false;
 		while (winHand == false)
 		{
@@ -453,7 +454,35 @@ void Game::StartGame()
 		}
 
 		RemakeHand();
-	//}
+
+		std::vector<Player> winners;
+		for (auto player : m_players)
+		{
+			if (player.m_phase[9] == 1)
+			{
+				winners.push_back(player);
+				winGame = true;
+			}
+		}
+
+		if (winners.size() == 1)
+			std::cout << "\n\nThe winner is: " << winners[0].GetName() << "\n\n";
+		else
+		{
+			uint16_t minimScore = INT16_MAX;
+			int idMinim = -1;
+			for (auto player : winners)
+			{
+				if (player.GetScore() < minimScore)
+				{
+					minimScore = player.GetScore();
+					idMinim = player.GetId();
+				}
+			}
+			std::cout << "\n\nThe winner is: " << m_players[idMinim].GetName()<<"\n\n";
+		}
+	}
+
 }
 
 void Game::TestGame()
