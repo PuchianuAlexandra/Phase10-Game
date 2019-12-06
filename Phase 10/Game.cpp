@@ -381,7 +381,7 @@ void Game::StartGame()
 												option--;
 
 												Player auxPlayer = m_players[option];
-												AnnexCard(currentPlayer.GetId()-1, option, indexCard - 1);
+												AnnexCard(m_players, currentPlayer.GetId()-1, option, indexCard - 1);
 												if ((m_players[option].m_displayedCards[0].size() != auxPlayer.m_displayedCards[0].size()) || (m_players[option].m_displayedCards[1].size() != auxPlayer.m_displayedCards[1].size()))
 												{
 													std::cout <<m_players[option].GetName() <<"'s displayed cards: \n";
@@ -394,11 +394,10 @@ void Game::StartGame()
 														std::cout << std::endl;
 													}
 												}
-												if (option == indexPlayer)
-												{
+												/*if (option == indexPlayer)
+												{*/
 													currentPlayer = m_players[indexPlayer];
-												}
-
+												//}
 												ok = true;
 											}
 
@@ -441,7 +440,7 @@ void Game::StartGame()
 
 					if (m_players[indexPlayer].m_handCards.empty())
 					{
-						std::cout << "You win this hand!";
+						std::cout << "\nYou win this hand!\n\n";
 						winHand = true;
 						break;
 					}
@@ -779,7 +778,7 @@ void Game::PickCard(Player& player)
 				if (m_decartedCards.top().GetStatus() == Status::SKIP)
 				{
 					std::cout << "You can't pick that card.\nYou received a card from deck.\n";
-					Card card = PickCardFromDecartedStack();
+					Card card = m_deck.PickCardFromDeck();
 					player.m_handCards.push_back(card);
 				}
 				else {
@@ -801,7 +800,7 @@ void Game::PickCard(Player& player)
 
 }
 
-void Game::AnnexCard(int idCurrentPlayer, int idPlayerToAnnex, int cardToAnnex)
+void Game::AnnexCard(std::vector<Player> &m_players, int idCurrentPlayer, int idPlayerToAnnex, int cardToAnnex)
 {
 	if (m_players[idPlayerToAnnex].m_displayedCards.empty())
 	{

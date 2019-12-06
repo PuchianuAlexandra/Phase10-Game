@@ -49,9 +49,8 @@ void Deck::ShuffleDeck()
 
 Card Deck::PickCardFromDeck()
 {
-	int size = m_deck.size() - 1;
-	Card card = m_deck[size];
-	m_deck.resize(size);
+	Card card = m_deck.back();
+	m_deck.pop_back();
 	card.SetPlace(Place::HAND);
 	return card;
 }

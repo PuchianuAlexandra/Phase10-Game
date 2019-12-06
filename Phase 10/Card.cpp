@@ -85,7 +85,7 @@ std::ostream& operator<<(std::ostream& out, const Card& card)
 		break;
 	}
 
-	switch (card.m_place)
+	/*switch (card.m_place)
 	{
 	case Place::DECK: out << "Deck ";
 		break;
@@ -97,7 +97,7 @@ std::ostream& operator<<(std::ostream& out, const Card& card)
 		break;
 	default:
 		break;
-	}	
+	}	*/
 
 	out << std::endl;
 	return out;

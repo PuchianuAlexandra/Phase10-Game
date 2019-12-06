@@ -19,7 +19,7 @@ public:
 	void DecartCard(Player& player);
 	Card PickCardFromDecartedStack();
 	void PickCard(Player& player);
-	void AnnexCard(int idCurrentPlayer, int idPlayerToAnnex, int cardToAnnex);
+	void AnnexCard(std::vector<Player>& m_players,int idCurrentPlayer, int idPlayerToAnnex, int cardToAnnex);
 	void RemakeDeck();
 	void RemakeHand();
 
