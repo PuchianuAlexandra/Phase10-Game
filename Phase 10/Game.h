@@ -24,6 +24,9 @@ public:
 	void RemakeHand();
 
 private:
+	void ShowCurrentPhase(int currentPhase);
+
+private:
 	std::vector<std::string> m_playersNames = { " " };
 	uint16_t m_noPlayers;
 	std::vector <Player> m_players;

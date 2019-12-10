@@ -129,7 +129,7 @@ void Game::StartGame()
 				if (m_playersToSkip[currentPlayer.GetId()-1])
 				{
 					m_playersToSkip[currentPlayer.GetId() - 1]--;
-					std::cout << "You are skiped!" << "\n";
+					std::cout << "You are skipped!" << "\n";
 					system("pause");
 				}
 
@@ -155,6 +155,8 @@ void Game::StartGame()
 						do {
 							try
 							{
+								ShowCurrentPhase(currentPlayer.GetCurrentPhase());
+
 								std::cout << "\nDo you want to display (choose 1 for yes and 2 for no)?\n";
 								std::cin >> auxOption;
 								if (auxOption.size() == 1) {
@@ -395,10 +397,8 @@ void Game::StartGame()
 														std::cout << std::endl;
 													}
 												}
-												/*if (option == indexPlayer)
-												{*/
-													currentPlayer = m_players[indexPlayer];
-												//}
+												
+												currentPlayer = m_players[indexPlayer];
 												ok = true;
 											}
 
@@ -448,12 +448,13 @@ void Game::StartGame()
 				}
 			}
 		}
-		for (auto player : m_players)
+		for (auto& player : m_players)
 		{
 			player.CountScore();
 		}
 
 		RemakeHand();
+		Share10Cards();
 
 		std::vector<Player> winners;
 		for (auto player : m_players)
@@ -466,9 +467,12 @@ void Game::StartGame()
 		}
 
 		if (winners.size() == 1)
-			std::cout << "\n\nThe winner is: " << winners[0].GetName() << "\n\n";
-		else
 		{
+			std::cout << "\n\nThe winner is: " << winners[0].GetName() << "\n\n";
+		}
+		else if (winners.size() > 1)
+		{
+
 			uint16_t minimScore = INT16_MAX;
 			int idMinim = -1;
 			for (auto player : winners)
@@ -939,7 +943,7 @@ void Game::RemakeDeck()
 
 void Game::RemakeHand()
 {
-	for (auto player : m_players)
+	for (auto& player : m_players)
 	{
 		player.RemakePlayer();
 	}
@@ -951,7 +955,79 @@ void Game::RemakeHand()
 		m_decartedCards.pop();
 	}
 
-	m_deck = Deck();
+	this->m_deck = Deck();
+}
+
+void Game::ShowCurrentPhase(int currentPhase)
+{
+	switch (currentPhase)
+	{
+	case 1:
+	{
+		std::cout << "\nPhase 1: 2 sets of 3 cards.\n";
+		break;
+	}
+
+	case 2:
+	{
+		std::cout << "\nPhase 2: 1 set of 3 cards.\n";
+		std::cout << "	1 run of 4 cards.\n";
+		break;
+	}
+
+	case 3:
+	{
+		std::cout << "\nPhase 3: 1 set of 4 cards.\n";
+		std::cout << "	1 run of 4 cards.\n";
+		break;
+	}
+
+	case 4:
+	{
+		std::cout << "\nPhase 4: 1 run of 7 cards.\n";
+		break;
+	}
+
+	case 5:
+	{
+		std::cout << "\nPhase 5: 1 run of 8 cards.\n";
+		break;
+	}
+
+	case 6:
+	{
+		std::cout << "\nPhase 6: 1 run of 9 cards.\n";
+		break;
+	}
+
+	case 7:
+	{
+		std::cout << "\nPhase 7: 2 sets of 4 cards.\n";
+		break;
+	}
+
+	case 8:
+	{
+		std::cout << "\nPhase 8: 7 cards of the same color.\n";
+		break;
+	}
+
+	case 9:
+	{
+		std::cout << "\nPhase 9: 1 set of 5 cards.\n";
+		std::cout << "	1 set of 2 cards.\n";
+		break;
+	}
+
+	case 10:
+	{
+		std::cout << "\nPhase 10: 1 set of 5 cards.\n";
+		std::cout << "	1 set of 3 cards.\n";
+		break;
+	}
+	default:
+		break;
+	}
 }
 
 

@@ -90,6 +90,17 @@ void Player::CountScore()
 	this->SetScore(score);
 }
 
+int Player::GetCurrentPhase()
+{
+	for (int index = 0; index < m_phase.size() - 1; index++)
+	{
+		if (m_phase[index] == 1 && m_phase[index + 1] == 0)
+		{
+			return index + 1;
+		}
+	}
+}
+
 Card Player::DropCard(int option)
 {
 	int size = m_handCards.size();

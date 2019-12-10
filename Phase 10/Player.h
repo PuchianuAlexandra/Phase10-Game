@@ -26,6 +26,7 @@ public:
 	Card DropCard(int option);
 	void RemakePlayer();
 	void CountScore();
+	int GetCurrentPhase();
 
 public:
 	std::bitset<11> m_phase;
