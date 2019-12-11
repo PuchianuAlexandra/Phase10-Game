@@ -116,16 +116,7 @@ bool Phase::IsColor(std::vector<Card> cards)
 
 void Phase::IsPhase(Player & player)
 {
-	int current = 0;
-
-	for (int index = 0; index < player.m_phase.size()-1; index++)
-	{
-		if (player.m_phase[index] && !player.m_phase[index + 1])
-		{
-			current = index + 1;
-			break;
-		}
-	}
+	int current = player.GetCurrentPhase();
 
 	std::vector<Card> chosenCards1, chosenCards2;
 	int index = 0;
@@ -165,6 +156,7 @@ void Phase::IsPhase(Player & player)
 		}
 		
 		int incorrect = 0;
+		bool foundCard = false;
 		if (!IsPhase1(chosenCards1, chosenCards2, incorrect))
 		{
 			if (incorrect == 1)
@@ -175,17 +167,13 @@ void Phase::IsPhase(Player & player)
 		}
 		else {
 			std::vector <Card> newHandCards;
+
 			for (int index = 0; index < player.m_handCards.size(); index++)
 			{
-				for (int index2=0; index2 < 3; index2++)
+				if ((std::find(options1.begin(), options1.end(), index + 1) == options1.end()) && (std::find(options2.begin(), options2.end(), index + 1) == options2.end()))
 				{
-					if (index != (options1[index2]-1) && index != (options2[index2]-1))
-						 
-						newHandCards.push_back(player.m_handCards[index]);
-					   
+					newHandCards.push_back(player.m_handCards[index]);
 				}
-				newHandCards.pop_back();
-				newHandCards.pop_back();
 			}
 
 			player.m_handCards = newHandCards;
@@ -240,26 +228,14 @@ void Phase::IsPhase(Player & player)
 		}
 		else {
 			std::vector <Card> newHandCards;
+
 			for (int index = 0; index < player.m_handCards.size(); index++)
 			{
-				for (int index2 = 0; index2 < options1.size(); index2++)
+				if ((std::find(options1.begin(), options1.end(), index + 1) == options1.end()) && (std::find(options2.begin(), options2.end(), index + 1) == options2.end()))
 				{
-					if (index != (options1[index2] - 1))
-
-						newHandCards.push_back(player.m_handCards[index]);
-
+					newHandCards.push_back(player.m_handCards[index]);
 				}
-				for (int index2 = 0; index2 < options2.size(); index2++)
-				{
-					if (index != (options2[index2] - 1))
-
-						newHandCards.push_back(player.m_handCards[index]);
-
-				}
-				newHandCards.pop_back();
-				newHandCards.pop_back();
 			}
-
 
 			player.m_handCards = newHandCards;
 			player.m_displayedCards.push_back(chosenCards1);
@@ -315,24 +291,11 @@ void Phase::IsPhase(Player & player)
 			std::vector <Card> newHandCards;
 			for (int index = 0; index < player.m_handCards.size(); index++)
 			{
-				for (int index2 = 0; index2 < options1.size(); index2++)
+				if ((std::find(options1.begin(), options1.end(), index + 1) == options1.end()) && (std::find(options2.begin(), options2.end(), index + 1) == options2.end()))
 				{
-					if (index != (options1[index2] - 1))
-
-						newHandCards.push_back(player.m_handCards[index]);
-
+					newHandCards.push_back(player.m_handCards[index]);
 				}
-				for (int index2 = 0; index2 < options2.size(); index2++)
-				{
-					if (index != (options2[index2] - 1))
-
-						newHandCards.push_back(player.m_handCards[index]);
-
-				}
-				newHandCards.pop_back();
-				newHandCards.pop_back();
 			}
-
 
 			player.m_handCards = newHandCards;
 			player.m_displayedCards.push_back(chosenCards1);
@@ -369,17 +332,11 @@ void Phase::IsPhase(Player & player)
 			std::vector <Card> newHandCards;
 			for (int index = 0; index < player.m_handCards.size(); index++)
 			{
-				for (int index2 = 0; index2 < options.size(); index2++)
+				if (std::find(options.begin(), options.end(), index + 1) == options.end())
 				{
-					if (index != (options[index2] - 1))
-
-						newHandCards.push_back(player.m_handCards[index]);
-
+					newHandCards.push_back(player.m_handCards[index]);
 				}
-				newHandCards.pop_back();
-				newHandCards.pop_back();
 			}
-
 
 			player.m_handCards = newHandCards;
 			player.m_displayedCards.push_back(chosenCards1);
@@ -415,17 +372,11 @@ void Phase::IsPhase(Player & player)
 			std::vector <Card> newHandCards;
 			for (int index = 0; index < player.m_handCards.size(); index++)
 			{
-				for (int index2 = 0; index2 < options.size(); index2++)
+				if (std::find(options.begin(), options.end(), index + 1) == options.end())
 				{
-					if (index != (options[index2] - 1))
-
-						newHandCards.push_back(player.m_handCards[index]);
-
+					newHandCards.push_back(player.m_handCards[index]);
 				}
-				newHandCards.pop_back();
-				newHandCards.pop_back();
 			}
-
 
 			player.m_handCards = newHandCards;
 			player.m_displayedCards.push_back(chosenCards1);
@@ -461,17 +412,11 @@ void Phase::IsPhase(Player & player)
 			std::vector <Card> newHandCards;
 			for (int index = 0; index < player.m_handCards.size(); index++)
 			{
-				for (int index2 = 0; index2 < options.size(); index2++)
+				if (std::find(options.begin(), options.end(), index + 1) == options.end())
 				{
-					if (index != (options[index2] - 1))
-
-						newHandCards.push_back(player.m_handCards[index]);
-
+					newHandCards.push_back(player.m_handCards[index]);
 				}
-				newHandCards.pop_back();
-				newHandCards.pop_back();
 			}
-
 
 			player.m_handCards = newHandCards;
 			player.m_displayedCards.push_back(chosenCards1);
@@ -526,15 +471,10 @@ void Phase::IsPhase(Player & player)
 		std::vector <Card> newHandCards;
 		for (int index = 0; index < player.m_handCards.size(); index++)
 		{
-			for (int index2 = 0; index2 < 4; index2++)
+			if ((std::find(options1.begin(), options1.end(), index + 1) == options1.end()) && (std::find(options2.begin(), options2.end(), index + 1) == options2.end()))
 			{
-				if (index != (options1[index2] - 1) && index != (options2[index2] - 1))
-
-					newHandCards.push_back(player.m_handCards[index]);
-
+				newHandCards.push_back(player.m_handCards[index]);
 			}
-			newHandCards.pop_back();
-			newHandCards.pop_back();
 		}
 
 		player.m_handCards = newHandCards;
@@ -572,17 +512,11 @@ void Phase::IsPhase(Player & player)
 			std::vector <Card> newHandCards;
 			for (int index = 0; index < player.m_handCards.size(); index++)
 			{
-				for (int index2 = 0; index2 < options.size(); index2++)
+				if (std::find(options.begin(), options.end(), index + 1) == options.end())
 				{
-					if (index != (options[index2] - 1))
-
-						newHandCards.push_back(player.m_handCards[index]);
-
+					newHandCards.push_back(player.m_handCards[index]);
 				}
-				newHandCards.pop_back();
-				newHandCards.pop_back();
 			}
-
 
 			player.m_handCards = newHandCards;
 			player.m_displayedCards.push_back(chosenCards1);
@@ -637,22 +571,10 @@ void Phase::IsPhase(Player & player)
 			std::vector <Card> newHandCards;
 			for (int index = 0; index < player.m_handCards.size(); index++)
 			{
-				for (int index2 = 0; index2 < options1.size(); index2++)
+				if ((std::find(options1.begin(), options1.end(), index + 1) == options1.end()) && (std::find(options2.begin(), options2.end(), index + 1) == options2.end()))
 				{
-					if (index != (options1[index2] - 1))
-
-						newHandCards.push_back(player.m_handCards[index]);
-
+					newHandCards.push_back(player.m_handCards[index]);
 				}
-				for (int index2 = 0; index2 < options2.size(); index2++)
-				{
-					if (index != (options2[index2] - 1))
-
-						newHandCards.push_back(player.m_handCards[index]);
-
-				}
-				newHandCards.pop_back();
-				newHandCards.pop_back();
 			}
 
 			player.m_handCards = newHandCards;
@@ -709,22 +631,10 @@ void Phase::IsPhase(Player & player)
 			std::vector <Card> newHandCards;
 			for (int index = 0; index < player.m_handCards.size(); index++)
 			{
-				for (int index2 = 0; index2 < options1.size(); index2++)
+				if ((std::find(options1.begin(), options1.end(), index + 1) == options1.end()) && (std::find(options2.begin(), options2.end(), index + 1) == options2.end()))
 				{
-					if (index != (options1[index2] - 1))
-
-						newHandCards.push_back(player.m_handCards[index]);
-
+					newHandCards.push_back(player.m_handCards[index]);
 				}
-				for (int index2 = 0; index2 < options2.size(); index2++)
-				{
-					if (index != (options2[index2] - 1))
-
-						newHandCards.push_back(player.m_handCards[index]);
-
-				}
-				newHandCards.pop_back();
-				newHandCards.pop_back();
 			}
 
 			player.m_handCards = newHandCards;
