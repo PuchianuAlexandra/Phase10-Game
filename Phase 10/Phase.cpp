@@ -6,6 +6,7 @@
 bool Phase::IsSet(std::vector<Card> cards)
 {
 	Status value = Status::WILD;
+
 	for (Card card : cards)
 	{
 		if (card.GetStatus() == Status::SKIP)
@@ -19,6 +20,7 @@ bool Phase::IsSet(std::vector<Card> cards)
 				break;
 			}
 	}
+
 	if (value != Status::WILD)
 	{
 		for (Card card : cards)
@@ -30,14 +32,15 @@ bool Phase::IsSet(std::vector<Card> cards)
 			}
 		}
 	}
-	return true;
 
+	return true;
 }
 
 bool Phase::IsRun(std::vector<Card> cards)
 {
 	int no = 0;
 	int countWild = 0;
+
 	for (auto it = 0; it <= cards.size() - 1; it++)
 	{
 		if (cards[it].GetStatus() == Status::SKIP)
@@ -88,6 +91,7 @@ bool Phase::IsRun(std::vector<Card> cards)
 bool Phase::IsColor(std::vector<Card> cards)
 {
 	Color value = Color::BLACK;
+
 	for (Card card : cards)
 	{
 		if (card.GetStatus() == Status::SKIP)
@@ -101,6 +105,7 @@ bool Phase::IsColor(std::vector<Card> cards)
 				break;
 			}
 	}
+
 	if (value != Color::BLACK)
 	{
 		for (Card card : cards)
@@ -111,6 +116,7 @@ bool Phase::IsColor(std::vector<Card> cards)
 			}
 		}
 	}
+
 	return true;
 }
 
@@ -119,24 +125,22 @@ void Phase::IsPhase(Player & player)
 	int current = player.GetCurrentPhase();
 
 	std::vector<Card> chosenCards1, chosenCards2;
-	int index = 0;
 
 	switch (current)
 	{
 	case 1:
 	{
 		std::vector<int> options1, options2;
+
 		std::cout << "\nChoose cards for a set of three:\n";
 		ChoseCards(3, player, options1, chosenCards1);
 		
 		std::cout << "\nChoose cards for a set of three:\n";
 		ChoseCards(3, player, options2, chosenCards2);
 
-		std::vector<int>::iterator it;
 		for (int index = 0; index < options2.size(); index++)
 		{
-			it = std::find(options1.begin(), options1.end(), options2[index]);
-			if (it != options1.end())
+			if (std::find(options1.begin(), options1.end(), options2[index]) != options1.end())
 			{
 				std::cout << "\nYou can't choose the same card twice.\n";
 				return;
@@ -155,17 +159,20 @@ void Phase::IsPhase(Player & player)
 			}
 		}
 		
-		int incorrect = 0;
+		uint8_t incorrect = 0;
 		bool foundCard = false;
 		if (!IsPhase1(chosenCards1, chosenCards2, incorrect))
 		{
 			if (incorrect == 1)
 				std::cout << "\nThe first set is incorrect!\n";
+
 			if (incorrect == 2)
 				std::cout << "\nThe second set is incorrect!\n";
+
 			return;
 		}
-		else {
+		else
+		{
 			std::vector <Card> newHandCards;
 
 			for (int index = 0; index < player.m_handCards.size(); index++)
@@ -188,17 +195,16 @@ void Phase::IsPhase(Player & player)
 	case 2:
 	{
 		std::vector<int> options1, options2;
+
 		std::cout << "\nChoose cards for a set of three:\n";
 		ChoseCards(3, player, options1, chosenCards1);
 
 		std::cout << "\nChoose cards for a run of four:\n";
 		ChoseCards(4, player, options2, chosenCards2);
 
-		std::vector<int>::iterator it;
 		for (int index = 0; index < options2.size(); index++)
 		{
-			it = std::find(options1.begin(), options1.end(), options2[index]);
-			if (it != options1.end())
+			if (std::find(options1.begin(), options1.end(), options2[index]) != options1.end())
 			{
 				std::cout << "\nYou can't choose the same card twice.\n";
 				return;
@@ -217,7 +223,8 @@ void Phase::IsPhase(Player & player)
 			}
 		}
 
-		int incorrect = 0;
+		uint8_t incorrect = 0;
+
 		if (!IsPhase2(chosenCards1, chosenCards2, incorrect))
 		{
 			if (incorrect == 1)
@@ -226,7 +233,8 @@ void Phase::IsPhase(Player & player)
 				std::cout << "\nThe second set is incorrect!\n";
 			return;
 		}
-		else {
+		else
+		{
 			std::vector <Card> newHandCards;
 
 			for (int index = 0; index < player.m_handCards.size(); index++)
@@ -249,17 +257,16 @@ void Phase::IsPhase(Player & player)
 	case 3:
 	{
 		std::vector<int> options1, options2;
+
 		std::cout << "\nChoose cards for a set of four:\n";
 		ChoseCards(4, player, options1, chosenCards1);
 
 		std::cout << "\nChoose cards for a run of four:\n";
 		ChoseCards(4, player, options2, chosenCards2);
 
-		std::vector<int>::iterator it;
 		for (int index = 0; index < options2.size(); index++)
 		{
-			it = std::find(options1.begin(), options1.end(), options2[index]);
-			if (it != options1.end())
+			if (std::find(options1.begin(), options1.end(), options2[index]) != options1.end())
 			{
 				std::cout << "\nYou can't choose the same card twice.\n";
 				return;
@@ -278,7 +285,8 @@ void Phase::IsPhase(Player & player)
 			}
 		}
 
-		int incorrect = 0;
+		uint8_t incorrect = 0;
+
 		if (!IsPhase3(chosenCards1, chosenCards2, incorrect))
 		{
 			if (incorrect == 1)
@@ -287,7 +295,8 @@ void Phase::IsPhase(Player & player)
 				std::cout << "\nThe second set is incorrect!\n";
 			return;
 		}
-		else {
+		else 
+		{
 			std::vector <Card> newHandCards;
 			for (int index = 0; index < player.m_handCards.size(); index++)
 			{
@@ -309,6 +318,7 @@ void Phase::IsPhase(Player & player)
 	case 4:
 	{
 		std::vector<int> options;
+
 		std::cout << "\nChoose cards for a run of seven:\n";
 		ChoseCards(7, player, options, chosenCards1);
 
@@ -328,7 +338,8 @@ void Phase::IsPhase(Player & player)
 		{
 			return;
 		}
-		else {
+		else
+		{
 			std::vector <Card> newHandCards;
 			for (int index = 0; index < player.m_handCards.size(); index++)
 			{
@@ -368,7 +379,8 @@ void Phase::IsPhase(Player & player)
 		{
 			return;
 		}
-		else {
+		else 
+		{
 			std::vector <Card> newHandCards;
 			for (int index = 0; index < player.m_handCards.size(); index++)
 			{
@@ -408,7 +420,8 @@ void Phase::IsPhase(Player & player)
 		{
 			return;
 		}
-		else {
+		else 
+		{
 			std::vector <Card> newHandCards;
 			for (int index = 0; index < player.m_handCards.size(); index++)
 			{
@@ -435,11 +448,10 @@ void Phase::IsPhase(Player & player)
 	std::cout << "\nChoose cards for a set of four:\n";
 	ChoseCards(4, player, options2, chosenCards2);
 
-	std::vector<int>::iterator it;
 	for (int index = 0; index < options2.size(); index++)
 	{
-		it = std::find(options1.begin(), options1.end(), options2[index]);
-		if (it != options1.end())
+		 
+		if (std::find(options1.begin(), options1.end(), options2[index]) != options1.end())
 		{
 			std::cout << "\nYou can't choose the same card twice.\n";
 			return;
@@ -458,7 +470,8 @@ void Phase::IsPhase(Player & player)
 		}
 	}
 
-	int incorrect = 0;
+	uint8_t incorrect = 0;
+
 	if (!IsPhase7(chosenCards1, chosenCards2, incorrect))
 	{
 		if (incorrect == 1)
@@ -467,7 +480,8 @@ void Phase::IsPhase(Player & player)
 			std::cout << "\nThe second set is incorrect!\n";
 		return;
 	}
-	else {
+	else 
+	{
 		std::vector <Card> newHandCards;
 		for (int index = 0; index < player.m_handCards.size(); index++)
 		{
@@ -489,6 +503,7 @@ void Phase::IsPhase(Player & player)
 	case 8:
 	{
 		std::vector<int> options;
+
 		std::cout << "\nChoose seven cards with the same color:\n";
 		ChoseCards(7, player, options, chosenCards1);
 
@@ -508,7 +523,8 @@ void Phase::IsPhase(Player & player)
 		{
 			return;
 		}
-		else {
+		else 
+		{
 			std::vector <Card> newHandCards;
 			for (int index = 0; index < player.m_handCards.size(); index++)
 			{
@@ -535,11 +551,9 @@ void Phase::IsPhase(Player & player)
 		std::cout << "\nChoose cards for a set of two:\n";
 		ChoseCards(2, player, options2, chosenCards2);
 
-		std::vector<int>::iterator it;
 		for (int index = 0; index < options2.size(); index++)
 		{
-			it = std::find(options1.begin(), options1.end(), options2[index]);
-			if (it != options1.end())
+			if (std::find(options1.begin(), options1.end(), options2[index]) != options1.end())
 			{
 				std::cout << "\nYou can't choose the same card twice.\n";
 				return;
@@ -558,7 +572,8 @@ void Phase::IsPhase(Player & player)
 			}
 		}
 
-		int incorrect = 0;
+		uint8_t incorrect = 0;
+
 		if (!IsPhase9(chosenCards1, chosenCards2, incorrect))
 		{
 			if (incorrect == 1)
@@ -567,7 +582,8 @@ void Phase::IsPhase(Player & player)
 				std::cout << "\nThe second set is incorrect!\n";
 			return;
 		}
-		else {
+		else
+		{
 			std::vector <Card> newHandCards;
 			for (int index = 0; index < player.m_handCards.size(); index++)
 			{
@@ -595,11 +611,9 @@ void Phase::IsPhase(Player & player)
 		std::cout << "\nChoose cards for a set of three:\n";
 		ChoseCards(3, player, options2, chosenCards2);
 
-		std::vector<int>::iterator it;
 		for (int index = 0; index < options2.size(); index++)
 		{
-			it = std::find(options1.begin(), options1.end(), options2[index]);
-			if (it != options1.end())
+			if (std::find(options1.begin(), options1.end(), options2[index]) != options1.end())
 			{
 				std::cout << "\nYou can't choose the same card twice.\n";
 				return;
@@ -618,7 +632,8 @@ void Phase::IsPhase(Player & player)
 			}
 		}
 
-		int incorrect = 0;
+		uint8_t incorrect = 0;
+
 		if (!IsPhase10(chosenCards1, chosenCards2, incorrect))
 		{
 			if (incorrect == 1)
@@ -658,18 +673,19 @@ void Phase::ChoseCards(int no, Player player, std::vector<int>& options, std::ve
 		std::string auxOption;
 		bool ok = true;
 		
-
 		do {
 			try
 			{
 		        std::cout << "Card number " << index + 1 << " (choose the index of the card): ";
 				std::cin >> auxOption;
+
 				if (auxOption.size() == 1 || auxOption=="10" || auxOption=="11") 
 				{
 
 					std::stringstream intNumber(auxOption);
 					int x = -1;
 					intNumber >> x;
+
 					if (x <= player.m_handCards.size() && x >= 1)
 					{
 						option = x;
@@ -702,8 +718,7 @@ void Phase::ChoseCards(int no, Player player, std::vector<int>& options, std::ve
 	}
 }
 
-
-bool Phase::IsPhase1(std::vector<Card> cards1, std::vector<Card> cards2, int& incorrect)
+bool Phase::IsPhase1(std::vector<Card> cards1, std::vector<Card> cards2, uint8_t& incorrect)
 {
 	if (cards1.size() != 3)
 	{
@@ -732,7 +747,7 @@ bool Phase::IsPhase1(std::vector<Card> cards1, std::vector<Card> cards2, int& in
 	return true;
 }
 
-bool Phase::IsPhase2(std::vector<Card> cards1, std::vector<Card> cards2, int& incorrect)
+bool Phase::IsPhase2(std::vector<Card> cards1, std::vector<Card> cards2, uint8_t& incorrect)
 {
 	if (cards1.size() != 3)
 	{
@@ -761,7 +776,7 @@ bool Phase::IsPhase2(std::vector<Card> cards1, std::vector<Card> cards2, int& in
 	return true;
 }
 
-bool Phase::IsPhase3(std::vector<Card> cards1, std::vector<Card> cards2, int & incorrect)
+bool Phase::IsPhase3(std::vector<Card> cards1, std::vector<Card> cards2, uint8_t & incorrect)
 {
 	if (cards1.size() != 4)
 	{
@@ -823,7 +838,7 @@ bool Phase::IsPhase6(std::vector<Card> cards)
 	return true;
 }
 
-bool Phase::IsPhase7(std::vector<Card> cards1, std::vector<Card> cards2, int& incorrect)
+bool Phase::IsPhase7(std::vector<Card> cards1, std::vector<Card> cards2, uint8_t& incorrect)
 {
 	if (cards1.size() != 4)
 	{
@@ -863,7 +878,7 @@ bool Phase::IsPhase8(std::vector<Card> cards)
 	return true;
 }
 
-bool Phase::IsPhase9(std::vector<Card> cards1, std::vector<Card> cards2, int& incorrect)
+bool Phase::IsPhase9(std::vector<Card> cards1, std::vector<Card> cards2, uint8_t& incorrect)
 {
 	if (cards1.size() != 5)
 	{
@@ -892,7 +907,7 @@ bool Phase::IsPhase9(std::vector<Card> cards1, std::vector<Card> cards2, int& in
 	return true;
 }
 
-bool Phase::IsPhase10(std::vector<Card> cards1, std::vector<Card> cards2, int& incorrect)
+bool Phase::IsPhase10(std::vector<Card> cards1, std::vector<Card> cards2, uint8_t& incorrect)
 {
 	if (cards1.size() != 5)
 	{

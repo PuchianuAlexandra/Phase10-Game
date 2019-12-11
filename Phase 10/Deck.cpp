@@ -1,4 +1,5 @@
 #include "Deck.h"
+
 #include <iostream>
 #include <algorithm>
 #include <stdlib.h>
@@ -6,7 +7,7 @@
 
 Deck::Deck() 
 {	
-	m_deck.clear(); //!!!!!!!!
+	m_deck.clear();
 
 	for (int status = static_cast<int>(Status::ONE) ; status <= static_cast<int>(Status::TWELVE); status++)
 	{
@@ -31,8 +32,6 @@ Deck::Deck()
 	}
 	
 	this->ShuffleDeck();
-
-	//std::cout << "Carti in pachet: " << m_deck.size()<<"\n";
 		
 }
 
@@ -52,6 +51,7 @@ Card Deck::PickCardFromDeck()
 	Card card = m_deck.back();
 	m_deck.pop_back();
 	card.SetPlace(Place::HAND);
+
 	return card;
 }
 
@@ -60,18 +60,9 @@ void Deck::AddCard(Card card)
 	m_deck.push_back(card);
 }
 
-bool Deck::IsEmpty()
+bool Deck::IsEmpty() const
 {
 	return m_deck.empty();
 }
 
 
-//std::ostream& operator<<(std::ostream& os, const Deck& deck)
-//{
-//	for (const Card card : deck.m_deck)
-//	{
-//		os << card << " ";
-//	}
-//	os << "\n";
-//	return os;
-//}

@@ -3,6 +3,7 @@
 Card::Card(Color color, Status status, Place place) :
 	m_color(color), m_status(status), m_place(place)
 {
+
 }
 
 Card::Card()

@@ -1,43 +1,45 @@
 #include <cstdint>
+#include <sstream>
+
 #include "Game.h"
 #include "Phase.h"
-#include <sstream>
 
 Game::Game(uint16_t noPlayers) :m_noPlayers(noPlayers)
 {
 }
 
-Game::Game()
+Game::Game() :
+	m_noPlayers(0), m_playersNames({ " " }), m_playersToSkip({ 0,0,0,0,0,0 })
 {
-	m_noPlayers = 0;
+
 }
 
-void Game::ShowPlayers(std::vector<Player> players)
+void Game::ShowPlayers(std::vector<Player> players) const
 {
-	for (int indexPlayer = 0; indexPlayer < m_noPlayers; indexPlayer++)
+	for (auto player : players)
 	{
-		std::cout << players[indexPlayer].GetId() << ") " << players[indexPlayer].GetName() << " -score: " << players[indexPlayer].GetScore() << "\n";
+		std::cout << player.GetId() << ") " << player.GetName() << " -score: " << player.GetScore() << "\n";
 	}
 	std::cout << "\n";
 }
 
 void Game::ReadPlayers()
 {
-
 	std::string auxNumber;
 	bool ok = true;
 	std::cin.exceptions(std::istream::failbit);
-
 
 	do {
 		try
 		{
 			std::cout << "Insert number of players: ";
 			std::cin >> auxNumber;
+
 			if (auxNumber.size() == 1) {
 				std::stringstream intNumber(auxNumber);
 				int x;
 				intNumber >> x;
+
 				if (x <= 6 && x >= 2)
 				{
 					m_noPlayers = x;
@@ -64,9 +66,6 @@ void Game::ReadPlayers()
 
 	} while (ok == false);
 
-
-
-
 	for (int index = 0; index < m_noPlayers; index++)
 	{
 		bool ok = false;
@@ -87,18 +86,16 @@ void Game::ReadPlayers()
 	}
 
 	Share10Cards();
-
 }
 
 void Game::Share10Cards()
 {
 	m_deck.ShuffleDeck();
-	for (int index = 0; index < m_noPlayers; index++)
+	for (auto& player : m_players)
 	{
-		//Player currentPlayer = m_players[index];
-		for (int index2 = 0; index2 < 10; index2++)
+		for (int index = 0; index < 10; index++)
 		{
-			m_players[index].m_handCards.push_back(m_deck.PickCardFromDeck());
+			player.m_handCards.push_back(m_deck.PickCardFromDeck());
 		}
 	}
 }
@@ -681,7 +678,7 @@ void Game::DecartCard(Player& player)
 
 	Card decarted = player.DropCard(option);
 	decarted.SetPlace(Place::DECARTED);
-	m_decartedCards.push(decarted);
+	m_discardedCards.push(decarted);
 
 	m_players[player.GetId() - 1] = player;
 
@@ -738,15 +735,15 @@ void Game::DecartCard(Player& player)
 
 Card Game::PickCardFromDecartedStack()
 {
-	Card card = m_decartedCards.top();
+	Card card = m_discardedCards.top();
 	card.SetPlace(Place::HAND);
-	m_decartedCards.pop();
+	m_discardedCards.pop();
 	return card;
 }
 
 void Game::PickCard(Player& player)
 {
-	if (m_decartedCards.empty())
+	if (m_discardedCards.empty())
 	{
 		Card card = m_deck.PickCardFromDeck();
 		player.m_handCards.push_back(card);
@@ -763,7 +760,7 @@ void Game::PickCard(Player& player)
 				{
 					std::cout << "From where do you want to pick a card?\n";
 					std::cout << "1.Deck\n";
-					std::cout << "2.Decarted Cards: " << m_decartedCards.top() << "\n";
+					std::cout << "2.Discarded Cards: " << m_discardedCards.top() << "\n";
 
 					std::cin >> auxOption;
 					if (auxOption.size() == 1) {
@@ -808,7 +805,7 @@ void Game::PickCard(Player& player)
 			}
 			case 2:
 			{
-				if (m_decartedCards.top().GetStatus() == Status::SKIP)
+				if (m_discardedCards.top().GetStatus() == Status::SKIP)
 				{
 					std::cout << "You can't pick that card.\nYou received a card from deck.\n";
 					Card card = m_deck.PickCardFromDeck();
@@ -852,7 +849,6 @@ void Game::AnnexCard(std::vector<Player> &m_players, int idCurrentPlayer, int id
 				vector.push_back(card);
 
 				if(m_players[idPlayerToAnnex].m_phase[7]==1 && m_players[idPlayerToAnnex].m_phase[8] == 0)
-
 				{
 					if (phase.IsColor(vector))
 					{
@@ -884,13 +880,13 @@ void Game::AnnexCard(std::vector<Player> &m_players, int idCurrentPlayer, int id
 						break;
 					}
 
-
 					else
 					{
 						vector.pop_back();
 						size_t size = vector.size();
 						size++;
 						vector.resize(size);
+
 						for (size_t index = vector.size() - 1; index > 0; index--)
 						{
 							vector[index] = vector[index - 1];
@@ -914,31 +910,33 @@ void Game::AnnexCard(std::vector<Player> &m_players, int idCurrentPlayer, int id
 					}
 				}
 			}
+
 	    if (ok)
 	    	std::cout << "Annexed the card.\n\n";
 	    else
 	    	std::cout << "Could not annex.\n\n"; 
+
 	    std::cout << "Remaining cards are: \n";
 	    for (int index = 0; index < m_players[idCurrentPlayer].m_handCards.size(); index++)
 	    {
 	    	std::cout << index + 1 <<". "<< m_players[idCurrentPlayer].m_handCards[index];
-         }
+        }
 	    std::cout << "\n";
-		
 	}
 }
 
 void Game::RemakeDeck()
 {
-	Card lastCard = m_decartedCards.top();
-	m_decartedCards.pop();
-	while (!m_decartedCards.empty())
+	Card lastCard = m_discardedCards.top();
+	m_discardedCards.pop();
+
+	while (!m_discardedCards.empty())
 	{
-		m_deck.AddCard(m_decartedCards.top());
-		m_decartedCards.pop();
+		m_deck.AddCard(m_discardedCards.top());
+		m_discardedCards.pop();
 	}
 
-	m_decartedCards.push(lastCard);
+	m_discardedCards.push(lastCard);
 }
 
 void Game::RemakeHand()
@@ -950,15 +948,15 @@ void Game::RemakeHand()
 
 	m_playersToSkip = { 0,0,0,0,0,0 };
 	
-	while (!m_decartedCards.empty())
+	while (!m_discardedCards.empty())
 	{
-		m_decartedCards.pop();
+		m_discardedCards.pop();
 	}
 
 	this->m_deck = Deck();
 }
 
-void Game::ShowCurrentPhase(int currentPhase)
+void Game::ShowCurrentPhase(int currentPhase) const
 {
 	switch (currentPhase)
 	{

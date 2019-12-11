@@ -1,9 +1,9 @@
 #include "Player.h"
 
-Player::Player()
+Player::Player() :
+	m_name(" "), m_id(0)
 {
-	m_name = "";
-	m_id = 0;
+
 }
 
 Player::Player(std::string name, uint16_t id):
@@ -30,6 +30,7 @@ Player& Player::operator=(const Player& other)
 	m_phase = other.m_phase;
 	m_score = other.m_score;
 	m_id = other.m_id;
+
 	return *this;
 }
 
@@ -90,7 +91,7 @@ void Player::CountScore()
 	this->SetScore(score);
 }
 
-int Player::GetCurrentPhase()
+int Player::GetCurrentPhase() const
 {
 	for (int index = 0; index < m_phase.size() - 1; index++)
 	{
@@ -103,13 +104,14 @@ int Player::GetCurrentPhase()
 
 Card Player::DropCard(int option)
 {
-	int size = m_handCards.size();
+	size_t size = m_handCards.size();
 	Card card = m_handCards[option];
 	
 	for (int index = option; index < size-1; index++)
 	{
 		m_handCards[index] = m_handCards[index + 1];
 	}
+
 	m_handCards.pop_back();
 	return card;
 }
@@ -129,14 +131,6 @@ std::ostream& operator<<(std::ostream& out, const Player& player)
 		out << player.m_handCards[index] << " ";
 	}
 	out << std::endl;
-	/*for (int index = 0; index < player.m_displayedCards.size(); index++)
-	{
-		for (int index2 = 0; index2 < player.m_displayedCards[index].size(); index2++)
-		{
-			out << player.m_displayedCards[index][index2] << " ";
-		}
-	}
-	out << std::endl;*/
-
+	
 	return out;
 }
