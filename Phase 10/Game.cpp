@@ -467,41 +467,101 @@ void Game::StartGame()
 			player.CountScore();
 		}
 
-		RemakeHand();
-		Share10Cards();
+		system("cls");
 
-		if (countHands >= 10)
-		{
-			std::vector<Player> winners;
-			for (auto player : m_players)
-			{
-				if (player.GetCurrentPhase() == 10)
-				{
-					winners.push_back(player);
-					winGame = true;
-				}
-			}
+		std::string auxOption;
+		int stopGame;
+		bool ok = true;
 
-			if (winners.size() == 1)
+		do {
+			try
 			{
-				std::cout << "\n\nThe winner is: " << winners[0].GetName() << "\n\n";
-			}
-			else if (winners.size() > 1)
-			{
-				uint16_t minimScore = INT16_MAX;
-				int idMinim = -1;
+				std::cout << "Do you still want to play? (1 for yes and 2 for no) \n";
+				std::cin >> auxOption;
+				if (auxOption.size() == 1) {
 
-				for (auto player : winners)
-				{
-					if (player.GetScore() < minimScore)
+					std::stringstream intNumber(auxOption);
+					int x = -1;
+					intNumber >> x;
+
+					if (x == 2 || x == 1)
 					{
-						minimScore = player.GetScore();
-						idMinim = player.GetId();
+						stopGame = x;
+						ok = true;
+					}
+					else
+					{
+						throw std::runtime_error("\nYou have to insert a valid option!\n");
 					}
 				}
-				std::cout << "\n\nThe winner is: " << m_players[idMinim].GetName() << "\n\n";
+				else
+				{
+					throw std::runtime_error("\nYou have to insert a valid option!\n");
+				}
+			}
+			catch (std::runtime_error & e)
+			{
+				ok = false;
+				std::cout << "\nYou have to insert a valid option!\n";
+				std::cin.clear();
+				std::string tmp;
+				getline(std::cin, tmp);
+			}
+		} while (ok == false);
+
+		switch (stopGame)
+		{
+		case 1:
+		{
+			winGame = true;
+
+			for (auto player : m_players)
+			{
+				std::cout << "Player " << player.GetName() << " is at phase " << player.GetCurrentPhase() << " and has " << player.GetScore() << " points.\n";
 			}
 		}
+		case 2:
+		{
+			RemakeHand();
+			Share10Cards();
+
+			if (countHands >= 10)
+			{
+				std::vector<Player> winners;
+				for (auto player : m_players)
+				{
+					if (player.GetCurrentPhase() == 10)
+					{
+						winners.push_back(player);
+						winGame = true;
+					}
+				}
+
+				if (winners.size() == 1)
+				{
+					std::cout << "\n\nThe winner is: " << winners[0].GetName() << "\n\n";
+				}
+				else if (winners.size() > 1)
+				{
+					uint16_t minimScore = INT16_MAX;
+					int idMinim = -1;
+
+					for (auto player : winners)
+					{
+						if (player.GetScore() < minimScore)
+						{
+							minimScore = player.GetScore();
+							idMinim = player.GetId();
+						}
+					}
+					std::cout << "\n\nThe winner is: " << m_players[idMinim].GetName() << "\n\n";
+				}
+			}
+		}
+		default:
+			break;
+		}
+
 	}
 }
 
