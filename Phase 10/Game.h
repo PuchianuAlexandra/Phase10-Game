@@ -24,7 +24,7 @@ private:
 	void DecartCard(Player& player);
 	Card PickCardFromDecartedStack();
 	void PickCard(Player& player);
-	void AnnexCard(std::vector<Player>& m_players,int idCurrentPlayer, int idPlayerToAnnex, int cardToAnnex);
+	void AnnexCard(std::vector<Player>& m_players,int idCurrentPlayer, int idPlayerToAnnex, int cardToAnnex, bool& annexed);
 	void RemakeDeck();
 	void RemakeHand();
 	void ShowCurrentPhase(int currentPhase) const;

@@ -128,7 +128,7 @@ std::ostream& operator<<(std::ostream& out, const Player& player)
 	out << player.m_name << "'s cards:\n ";
 	for (int index = 0; index < player.m_handCards.size(); index++)
 	{
-		out << player.m_handCards[index] << " ";
+		out << index + 1<<". "<< player.m_handCards[index] << " ";
 	}
 	out << std::endl;
 	
