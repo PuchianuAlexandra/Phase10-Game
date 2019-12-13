@@ -16,6 +16,13 @@ Card::~Card()
 
 }
 
+bool Card::operator==(Card card)
+{
+	if (this->m_color == card.m_color && this->m_status == card.m_status)
+		return true;
+	return false;
+}
+
 Color Card::GetColor() const
 {
 	return m_color;

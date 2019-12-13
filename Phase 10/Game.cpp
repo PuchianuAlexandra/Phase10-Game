@@ -27,6 +27,16 @@ void Game::SetPLayers(std::vector<Player> players)
 	m_players = players;
 }
 
+std::stack<Card> Game::GetDiscardedCards()
+{
+	return m_discardedCards;
+}
+
+void Game::SetDiscardedCards(std::stack<Card> discardedCards)
+{
+	m_discardedCards = discardedCards;
+}
+
 void Game::ShowPlayers(std::vector<Player> players) const
 {
 	for (auto player : players)

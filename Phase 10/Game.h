@@ -14,6 +14,8 @@ public:
 	Game();
 	std::vector<Player> GetPlayers();
 	void SetPLayers(std::vector<Player> players);
+	std::stack<Card> GetDiscardedCards();
+	void SetDiscardedCards(std::stack<Card> discardedCards);
 
 public:
 	void ShowPlayers(std::vector<Player> players) const;
@@ -21,10 +23,10 @@ public:
 	void Share10Cards();
 	void StartGame();
 	void TestGame();
+	Card PickCardFromDecartedStack();
 
 private:
 	void DecartCard(Player& player);
-	Card PickCardFromDecartedStack();
 	void PickCard(Player& player);
 	void AnnexCard(std::vector<Player>& m_players,int idCurrentPlayer, int idPlayerToAnnex, int cardToAnnex, bool& annexed);
 	void RemakeDeck();

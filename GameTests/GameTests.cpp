@@ -32,5 +32,19 @@ namespace GameTests
 			stream << player;
 			Assert::AreEqual(std::string("1) Ana -score: 0"), stream.str(), L"If you see this message, piece is not printed correctly");
 		}
+
+		TEST_METHOD(PickCardFromDecartedStack)
+		{
+			Game game;
+			std::stack<Card> discardedCards;
+			discardedCards.push(Card(Color::RED, Status::ONE, Place::HAND));
+			discardedCards.push(Card(Color::YELLOW, Status::ONE, Place::HAND));
+			discardedCards.push(Card(Color::RED, Status::ONE, Place::HAND));
+			game.SetDiscardedCards(discardedCards);
+			Card card = game.PickCardFromDecartedStack();
+			Card card2 = discardedCards.top();
+
+			Assert::IsTrue(card == card2);
+		}
 	};
 }
