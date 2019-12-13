@@ -32,8 +32,8 @@ public:
 
 public:
 	std::bitset<11> m_phase;
-	std::vector<Card>m_handCards;
-	std::vector<std::vector<Card>>m_displayedCards;
+	std::vector<Card> m_handCards;
+	std::vector<std::vector<Card>> m_displayedCards;
 
 private:
 	uint16_t m_id;

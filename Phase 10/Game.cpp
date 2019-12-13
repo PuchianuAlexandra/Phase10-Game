@@ -6,7 +6,8 @@
 #include "Game.h"
 #include "Phase.h"
 
-Game::Game(uint16_t noPlayers) :m_noPlayers(noPlayers)
+Game::Game(uint16_t noPlayers):
+	m_noPlayers(noPlayers)
 {
 }
 
@@ -14,6 +15,16 @@ Game::Game() :
 	m_noPlayers(0), m_playersNames({ " " }), m_playersToSkip({ 0,0,0,0,0,0 })
 {
 
+}
+
+std::vector<Player> Game::GetPlayers()
+{
+	return m_players;
+}
+
+void Game::SetPLayers(std::vector<Player> players)
+{
+	m_players = players;
 }
 
 void Game::ShowPlayers(std::vector<Player> players) const

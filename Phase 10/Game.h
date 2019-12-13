@@ -12,6 +12,8 @@ class Game
 public:
 	Game(uint16_t noPlayers);
 	Game();
+	std::vector<Player> GetPlayers();
+	void SetPLayers(std::vector<Player> players);
 
 public:
 	void ShowPlayers(std::vector<Player> players) const;
