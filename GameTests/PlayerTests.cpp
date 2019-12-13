@@ -4,9 +4,9 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-namespace Phase10Tests
+namespace GameTests
 {
-	TEST_CLASS(CardTests)
+	TEST_CLASS(PlayerTests)
 	{
 	public:
 
