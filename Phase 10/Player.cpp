@@ -9,7 +9,7 @@ Player::Player() :
 Player::Player(std::string name, uint16_t id):
 	m_name(name), m_score(0), m_id(id)
 {
-	m_phase[0] = 1;
+	
 }
 
 Player::~Player()

@@ -14,7 +14,7 @@ Game::Game(uint16_t noPlayers):
 Game::Game() :
 	m_noPlayers(0), m_playersNames({ " " }), m_playersToSkip({ 0,0,0,0,0,0 })
 {
-
+	
 }
 
 std::vector<Player> Game::GetPlayers()
@@ -109,6 +109,7 @@ void Game::ReadPlayers()
 	}
 
 	Share10Cards();
+
 }
 
 void Game::Share10Cards()
@@ -125,7 +126,11 @@ void Game::Share10Cards()
 
 void Game::StartGame()
 {
+	uint8_t gameType;
+
 	ReadPlayers();
+	GameType(gameType);
+	
 	Player currentPlayer;
 	Board board;
 	Phase phase;
@@ -539,9 +544,7 @@ void Game::StartGame()
 			{
 			case 1:
 			{
-				RemakeHand();
-				Share10Cards();
-
+				
 				if (countHands >= 10)
 				{
 					std::vector<Player> winners;
@@ -576,6 +579,7 @@ void Game::StartGame()
 				}
 				break;
 			}
+				
 			case 2:
 			{
 				winGame = true;
@@ -959,7 +963,7 @@ void Game::AnnexCard(std::vector<Player> &m_players, int idCurrentPlayer, int id
 				vector = m_players[idPlayerToAnnex].m_displayedCards[index];
 				vector.push_back(card);
 
-				if(m_players[idPlayerToAnnex].m_phase[7]==1 && m_players[idPlayerToAnnex].m_phase[8] == 0)
+				if (m_players[idPlayerToAnnex].m_phase[6] == 1 && m_players[idPlayerToAnnex].m_phase[7] == 1 && m_players[idPlayerToAnnex].m_phase[8] == 0)
 				{
 					if (phase.IsColor(vector))
 					{
@@ -1140,4 +1144,51 @@ void Game::ShowCurrentPhase(int currentPhase) const
 	}
 }
 
+void Game::GameType(uint8_t& gameType)
+{
+	gameType = -1;
+	std::string aux;
+	bool valid = true;
+	std::cin.exceptions(std::istream::failbit);
+
+	do {
+		try
+		{
+			std::cout << "1. Play all phases\n2. Play only odd phases\n3. Play only even phases\n";
+			std::cout << "Choose an option (1, 2 or 3): ";
+			std::cin >> aux;
+
+			if (aux.size() == 1) {
+				std::stringstream intNumber(aux);
+				int x;
+				intNumber >> x;
+
+				if (x == 1 || x == 2 || x == 3)
+				{
+					gameType = x;
+					valid = true;
+				}
+
+				else {
+					throw std::runtime_error("\nYou have to insert a valid option!\n");
+				}
+			}
+			else {
+				throw std::runtime_error("\nYou have to insert a valid option!\n");
+			}
+		}
+
+		catch (std::runtime_error & e)
+		{
+			valid = false;
+			std::cout << "\nYou have to insert a valid option!\n";
+			std::cin.clear();
+			std::string tmp;
+			getline(std::cin, tmp);
+		}
+
+	} while (valid == false);
+
+	
+}
 

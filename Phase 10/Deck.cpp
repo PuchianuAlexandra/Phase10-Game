@@ -38,12 +38,12 @@ Deck::Deck()
 void Deck::ShuffleDeck()
 {
 	//Same shuffle
-	/*auto rng = std::default_random_engine{};
-	std::shuffle(std::begin(m_deck), std::end(m_deck), rng);*/
+	auto rng = std::default_random_engine{};
+	std::shuffle(std::begin(m_deck), std::end(m_deck), rng);
 
 	//Different shuffle 
-	srand(time(0));
-	std::random_shuffle(std::begin(m_deck), std::end(m_deck));
+	/*srand(time(0));
+	std::random_shuffle(std::begin(m_deck), std::end(m_deck));*/
 }
 
 Card Deck::PickCardFromDeck()

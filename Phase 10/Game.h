@@ -32,6 +32,7 @@ private:
 	void RemakeDeck();
 	void RemakeHand();
 	void ShowCurrentPhase(int currentPhase) const;
+	void GameType(uint8_t& gameType);
 
 private:
 	std::vector<std::string> m_playersNames;
@@ -40,5 +41,6 @@ private:
 	std::stack<Card> m_discardedCards;
 	Deck m_deck;
 	std::vector<uint8_t> m_playersToSkip;
+	//int gameType;
 };
 
