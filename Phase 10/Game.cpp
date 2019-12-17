@@ -545,37 +545,118 @@ void Game::StartGame()
 			case 1:
 			{
 				
-				if (countHands >= 10)
+				RemakeHand();
+				Share10Cards();
+				switch (gameType)
 				{
-					std::vector<Player> winners;
-					for (auto player : m_players)
+				case 1:
+				{
+					if (countHands >= 10)
 					{
-						if (player.GetCurrentPhase() == 10)
+						std::vector<Player> winners;
+						for (auto player : m_players)
 						{
-							winners.push_back(player);
-							winGame = true;
-						}
-					}
-
-					if (winners.size() == 1)
-					{
-						std::cout << "\n\nThe winner is: " << winners[0].GetName() << "\n\n";
-					}
-					else if (winners.size() > 1)
-					{
-						uint16_t minimScore = INT16_MAX;
-						int idMinim = -1;
-
-						for (auto player : winners)
-						{
-							if (player.GetScore() < minimScore)
+							if (player.GetCurrentPhase() == 10)
 							{
-								minimScore = player.GetScore();
-								idMinim = player.GetId();
+								winners.push_back(player);
+								winGame = true;
 							}
 						}
-						std::cout << "\n\nThe winner is: " << m_players[idMinim].GetName() << "\n\n";
+
+						if (winners.size() == 1)
+						{
+							std::cout << "\n\nThe winner is: " << winners[0].GetName() << "\n\n";
+						}
+						else if (winners.size() > 1)
+						{
+							uint16_t minimScore = INT16_MAX;
+							int idMinim = -1;
+
+							for (auto player : winners)
+							{
+								if (player.GetScore() < minimScore)
+								{
+									minimScore = player.GetScore();
+									idMinim = player.GetId();
+								}
+							}
+							std::cout << "\n\nThe winner is: " << m_players[idMinim].GetName() << "\n\n";
+						}
 					}
+					break;
+				}
+				case 2:
+				{
+					if (countHands >= 5)
+					{
+						std::vector<Player> winners;
+						for (auto player : m_players)
+						{
+							if (player.GetCurrentPhase() == 9)
+							{
+								winners.push_back(player);
+								winGame = true;
+							}
+						}
+
+						if (winners.size() == 1)
+						{
+							std::cout << "\n\nThe winner is: " << winners[0].GetName() << "\n\n";
+						}
+						else if (winners.size() > 1)
+						{
+							uint16_t minimScore = INT16_MAX;
+							int idMinim = -1;
+
+							for (auto player : winners)
+							{
+								if (player.GetScore() < minimScore)
+								{
+									minimScore = player.GetScore();
+									idMinim = player.GetId();
+								}
+							}
+							std::cout << "\n\nThe winner is: " << m_players[idMinim].GetName() << "\n\n";
+						}
+					}
+					break;
+				}
+				case 3:
+				{
+					if (countHands >= 5)
+					{
+						std::vector<Player> winners;
+						for (auto player : m_players)
+						{
+							if (player.GetCurrentPhase() == 10)
+							{
+								winners.push_back(player);
+								winGame = true;
+							}
+						}
+
+						if (winners.size() == 1)
+						{
+							std::cout << "\n\nThe winner is: " << winners[0].GetName() << "\n\n";
+						}
+						else if (winners.size() > 1)
+						{
+							uint16_t minimScore = INT16_MAX;
+							int idMinim = -1;
+
+							for (auto player : winners)
+							{
+								if (player.GetScore() < minimScore)
+								{
+									minimScore = player.GetScore();
+									idMinim = player.GetId();
+								}
+							}
+							std::cout << "\n\nThe winner is: " << m_players[idMinim].GetName() << "\n\n";
+						}
+					}
+					break;
+				}
 				}
 				break;
 			}
