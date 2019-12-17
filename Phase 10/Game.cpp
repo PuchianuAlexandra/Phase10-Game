@@ -1189,6 +1189,40 @@ void Game::GameType(uint8_t& gameType)
 
 	} while (valid == false);
 
-	
+	switch (gameType)
+	{
+	case 1:
+	{
+		for (auto& player : m_players)
+		{
+			player.m_phase[0] = 1;
+		}
+		break;
+	}
+	case 2:
+	{
+		for (auto& player : m_players)
+		{
+			player.m_phase[0] = 1;
+			player.m_phase[2] = 1;
+			player.m_phase[4] = 1;
+			player.m_phase[6] = 1;
+			player.m_phase[8] = 1;
+		}
+		break;
+	}
+	case 3:
+	{
+		for (auto& player : m_players)
+		{
+			player.m_phase[1] = 1;
+			player.m_phase[3] = 1;
+			player.m_phase[5] = 1;
+			player.m_phase[7] = 1;
+			player.m_phase[9] = 1;
+		}
+		break;
+	}
+	}
 }
 
