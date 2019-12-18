@@ -41,6 +41,5 @@ private:
 	std::stack<Card> m_discardedCards;
 	Deck m_deck;
 	std::vector<uint8_t> m_playersToSkip;
-	//int gameType;
 };
 

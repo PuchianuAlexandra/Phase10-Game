@@ -24,14 +24,6 @@ namespace GameTests
 			Assert::IsTrue(players[0].m_handCards.size() == 10);
 		}
 
-		TEST_METHOD(ShowPlayers)
-		{
-			Player player("Ana", 1);
-
-			std::stringstream stream;
-			stream << player;
-			Assert::AreEqual(std::string("1) Ana -score: 0"), stream.str(), L"If you see this message, piece is not printed correctly");
-		}
 
 		TEST_METHOD(PickCardFromDecartedStack)
 		{

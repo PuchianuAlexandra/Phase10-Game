@@ -17,7 +17,6 @@ namespace GameTests
 			Assert::IsTrue("Ana" == player.GetName());
 			Assert::IsTrue(1 == player.GetId());
 			Assert::IsTrue(0 == player.GetScore());
-
 		}
 
 		TEST_METHOD(GetCurrentPhase)
@@ -49,6 +48,15 @@ namespace GameTests
 			player.CountScore();
 
 			Assert::IsTrue(35 == player.GetScore());
+		}
+
+		TEST_METHOD(output)
+		{
+			Player player("Ana", 1);
+
+			std::stringstream stream;
+			stream << player;
+			Assert::AreEqual(std::string("Ana has 0 points.\nAna's cards:\n\n"), stream.str(), L"If you see this message, piece is not printed correctly");
 		}
 
 	};

@@ -25,7 +25,7 @@ namespace GameTests
 
 			std::stringstream stream;
 			stream << card;
-			Assert::AreEqual(std::string("Blue 9 "), stream.str(), L"If you see this message, piece is not printed correctly");
+			Assert::AreEqual(std::string("Blue 9 \n"), stream.str(), L"If you see this message, piece is not printed correctly");
 		}
 	};
 }

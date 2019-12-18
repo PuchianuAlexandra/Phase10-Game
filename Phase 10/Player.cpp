@@ -125,7 +125,7 @@ void Player::RemakePlayer()
 std::ostream& operator<<(std::ostream& out, const Player& player)
 {
 	out << player.m_name << " has " << player.m_score << " points.\n";
-	out << player.m_name << "'s cards:\n ";
+	out << player.m_name << "'s cards:\n";
 	for (int index = 0; index < player.m_handCards.size(); index++)
 	{
 		out << index + 1<<". "<< player.m_handCards[index] << " ";

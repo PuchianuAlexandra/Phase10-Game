@@ -64,7 +64,7 @@ namespace GameTests
 
 			std::vector<Card> cards2;
 			cards2.emplace_back(Color::BLACK, Status::WILD, Place::HAND);
-			cards2.emplace_back(Color::BLACK, Status::THREE, Place::HAND);
+			cards2.emplace_back(Color::BLUE, Status::THREE, Place::HAND);
 			cards2.emplace_back(Color::RED, Status::FOUR, Place::HAND);
 
 			Assert::IsFalse(phase.IsColor(cards2));
