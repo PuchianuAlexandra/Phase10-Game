@@ -32,11 +32,13 @@ namespace GameTests
 			discardedCards.push(Card(Color::RED, Status::ONE, Place::HAND));
 			discardedCards.push(Card(Color::YELLOW, Status::ONE, Place::HAND));
 			discardedCards.push(Card(Color::RED, Status::ONE, Place::HAND));
+
 			game.SetDiscardedCards(discardedCards);
-			Card card = game.PickCardFromDecartedStack();
+			Card card = game.PickCardFromDiscardedStack();
 			Card card2 = discardedCards.top();
 
 			Assert::IsTrue(card == card2);
 		}
+
 	};
 }

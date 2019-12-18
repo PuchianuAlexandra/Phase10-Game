@@ -477,7 +477,10 @@ void Game::StartGame()
 
 						}
 
-						DecartCard(currentPlayer);
+						if (!currentPlayer.m_handCards.empty())
+						{
+							DecartCard(currentPlayer);
+						}
 
 						if (m_players[indexPlayer].m_handCards.empty())
 						{
@@ -870,13 +873,13 @@ void Game::DecartCard(Player& player)
 
 	} while (ok == false);
 
-	Card decarted = player.DropCard(option);
-	decarted.SetPlace(Place::DECARTED);
-	m_discardedCards.push(decarted);
+	Card discarded = player.DropCard(option);
+	discarded.SetPlace(Place::DECARTED);
+	m_discardedCards.push(discarded);
 
 	m_players[player.GetId() - 1] = player;
 
-	if (decarted.GetStatus() == Status::SKIP)
+	if (discarded.GetStatus() == Status::SKIP)
 	{
 		ShowPlayers(m_players);
 		
@@ -927,7 +930,7 @@ void Game::DecartCard(Player& player)
 
 }
 
-Card Game::PickCardFromDecartedStack()
+Card Game::PickCardFromDiscardedStack()
 {
 	Card card = m_discardedCards.top();
 	card.SetPlace(Place::HAND);
@@ -1007,7 +1010,7 @@ void Game::PickCard(Player& player)
 					player.m_handCards.push_back(card);
 				}
 				else {
-					Card card = PickCardFromDecartedStack();
+					Card card = PickCardFromDiscardedStack();
 					player.m_handCards.push_back(card);
 				}
 				break;
