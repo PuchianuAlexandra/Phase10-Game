@@ -23,5 +23,24 @@ namespace GameTests
 			Assert::IsTrue(c3== deck.PickCardFromDeck());
 		}
 
+		TEST_METHOD(ShuffleDeck)
+		{
+			Deck deck1;
+			Deck deck2;
+			bool isShuffled = false;
+
+			deck1.ShuffleDeck();
+
+			for (int index = 0; index < 108; index++)
+			{
+				if (deck1.PickCardFromDeck() != deck2.PickCardFromDeck())
+				{
+					isShuffled = true;
+					break;
+				}
+			}
+
+			Assert::IsTrue(true == isShuffled);
+		}
 	};
 }
