@@ -15,6 +15,8 @@ public:
 	Card(Color color, Status status, Place place);
 	~Card();
 	bool operator ==(Card card);
+	bool operator !=(Card card);
+
 public:
 	Color GetColor() const;
 	Status GetStatus() const;
