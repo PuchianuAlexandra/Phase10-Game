@@ -27,5 +27,20 @@ namespace GameTests
 			stream << card;
 			Assert::AreEqual(std::string("Blue 9 \n"), stream.str(), L"If you see this message, piece is not printed correctly");
 		}
+
+		TEST_METHOD(Equal)
+		{
+			Card card1(Color::BLUE, Status::NINE, Place::HAND);
+			Card card2(Color::BLUE, Status::NINE, Place::HAND);
+
+			bool isEqual = false;
+
+			if (card1 == card2)
+			{
+				isEqual = true;
+			}
+
+			Assert::IsTrue(true == isEqual);
+		}
 	};
 }
