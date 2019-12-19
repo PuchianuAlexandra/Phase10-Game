@@ -50,7 +50,7 @@ namespace GameTests
 			Assert::IsTrue(35 == player.GetScore());
 		}
 
-		TEST_METHOD(output)
+		TEST_METHOD(Print)
 		{
 			Player player("Ana", 1);
 
@@ -59,5 +59,14 @@ namespace GameTests
 			Assert::AreEqual(std::string("Ana has 0 points.\nAna's cards:\n\n"), stream.str(), L"If you see this message, piece is not printed correctly");
 		}
 
+		TEST_METHOD(Assignment)
+		{
+			Player player("Ana", 1);
+			Player player2 = player;
+			
+			Assert::IsTrue(player2.GetName() == player.GetName());
+			Assert::IsTrue(player2.GetId() == player.GetId());
+			Assert::IsTrue(player2.GetScore() == player.GetScore());
+		}
 	};
 }
