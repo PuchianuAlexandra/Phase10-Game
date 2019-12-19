@@ -42,5 +42,20 @@ namespace GameTests
 
 			Assert::IsTrue(true == isEqual);
 		}
+
+		TEST_METHOD(NotEqual)
+		{
+			Card card1(Color::BLUE, Status::NINE, Place::HAND);
+			Card card2(Color::RED, Status::FIVE, Place::HAND);
+
+			bool isNotEqual = false;
+
+			if (card1 != card2)
+			{
+				isNotEqual = true;
+			}
+
+			Assert::IsTrue(true == isNotEqual);
+		}
 	};
 }
