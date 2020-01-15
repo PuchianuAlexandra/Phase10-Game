@@ -1,7 +1,7 @@
 #include "Card.h"
 
-Card::Card(Color color, Status status, Place place) :
-	m_color(color), m_status(status), m_place(place)
+Card::Card(Color color, Status status) :
+	m_color(color), m_status(status)
 {
 
 }
@@ -40,15 +40,6 @@ Status Card::GetStatus() const
 	return m_status;
 }
 
-Place Card::GetPlace() const
-{
-	return m_place;
-}
-
-void Card::SetPlace(Place place)
-{
-	m_place = place;
-}
 
 std::ostream& operator<<(std::ostream& out, const Card& card)
 {
@@ -100,21 +91,6 @@ std::ostream& operator<<(std::ostream& out, const Card& card)
 		break;
 	}
 
-	/*switch (card.m_place)
-	{
-	case Place::DECK: out << "Deck ";
-		break;
-	case Place::DECARTED: out << "Decarted ";
-		break;
-	case Place::HAND: out << "Hand ";
-		break;
-	case Place::DISPLAYED: out << "Displayed ";
-		break;
-	default:
-		break;
-	}	*/
-
 	out << std::endl;
 	return out;
-	
 }

@@ -97,7 +97,7 @@ void Game::ReadPlayers()
 			std::string name;
 			std::cin >> name;
 			if (std::find(m_playersNames.begin(), m_playersNames.end(), name) != m_playersNames.end()) {
-				std::cout << "\nName already exists!\n";
+				std::cout << "Name already exists!\n";
 			}
 			else {
 				m_playersNames.push_back(name);
@@ -874,7 +874,6 @@ void Game::DecartCard(Player& player)
 	} while (ok == false);
 
 	Card discarded = player.DropCard(option);
-	discarded.SetPlace(Place::DECARTED);
 	m_discardedCards.push(discarded);
 
 	m_players[player.GetId() - 1] = player;
@@ -933,7 +932,6 @@ void Game::DecartCard(Player& player)
 Card Game::PickCardFromDiscardedStack()
 {
 	Card card = m_discardedCards.top();
-	card.SetPlace(Place::HAND);
 	m_discardedCards.pop();
 	return card;
 }
@@ -1238,8 +1236,8 @@ void Game::GameType(uint8_t& gameType)
 	do {
 		try
 		{
-			std::cout << "1. Play all phases\n2. Play only odd phases\n3. Play only even phases\n";
-			std::cout << "Choose an option (1, 2 or 3): ";
+			std::cout << "\n1. Play all phases.\n2. Play only odd phases.\n3. Play only even phases.\n";
+			std::cout << "\nChoose an option (1, 2 or 3): ";
 			std::cin >> aux;
 
 			if (aux.size() == 1) {

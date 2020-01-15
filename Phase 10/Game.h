@@ -12,6 +12,7 @@ class Game
 public:
 	Game(uint16_t noPlayers);
 	Game();
+	~Game() = default;
 	std::vector<Player> GetPlayers();
 	void SetPLayers(std::vector<Player> players);
 	std::stack<Card> GetDiscardedCards();

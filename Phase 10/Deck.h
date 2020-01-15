@@ -9,7 +9,6 @@
 
 #include "Color.h"
 #include "Status.h"
-#include "Place.h"
 #include "Card.h"
 
 
@@ -17,6 +16,7 @@ class Deck
 {
 public:
 	Deck();
+	~Deck() = default;
 
 public:
 	void ShuffleDeck();

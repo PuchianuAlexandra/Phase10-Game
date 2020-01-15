@@ -27,9 +27,6 @@
     <ClInclude Include="Status.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Place.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Deck.h">
       <Filter>Header Files</Filter>
     </ClInclude>

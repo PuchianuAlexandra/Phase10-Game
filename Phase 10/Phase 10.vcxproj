@@ -121,7 +121,6 @@
     <ClInclude Include="Deck.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Phase.h" />
-    <ClInclude Include="Place.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Status.h" />
   </ItemGroup>
