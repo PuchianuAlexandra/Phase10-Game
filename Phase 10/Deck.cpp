@@ -5,16 +5,16 @@
 #include <stdlib.h>
 #include <time.h>
 
-Deck::Deck() 
-{	
+Deck::Deck()
+{
 	m_deck.clear();
 
-	for (int status = static_cast<int>(Status::ONE) ; status <= static_cast<int>(Status::TWELVE); status++)
+	for (int status = static_cast<int>(Status::ONE); status <= static_cast<int>(Status::TWELVE); status++)
 	{
-		for (int color = static_cast<int>(Color::RED) ; color <= static_cast<int>(Color::BLUE) ; color++)
+		for (int color = static_cast<int>(Color::RED); color <= static_cast<int>(Color::BLUE); color++)
 		{
 			Card card(static_cast<Color>(color), static_cast<Status>(status));
-			m_deck.push_back(card); 
+			m_deck.push_back(card);
 			m_deck.push_back(card);
 		}
 	}
@@ -24,15 +24,15 @@ Deck::Deck()
 	{
 		m_deck.push_back(skip);
 	}
-	
+
 	Card wild(Color::BLACK, Status::WILD);
 	for (int index = 0; index <= 7; index++)
 	{
 		m_deck.push_back(wild);
 	}
-	
+
 	this->ShuffleDeck();
-		
+
 }
 
 

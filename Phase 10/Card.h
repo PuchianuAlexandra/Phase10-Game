@@ -19,7 +19,7 @@ public:
 public:
 	Color GetColor() const;
 	Status GetStatus() const;
-	
+
 public:
 	friend std::ostream& operator<<(std::ostream& out, const Card& card);
 

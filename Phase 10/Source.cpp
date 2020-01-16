@@ -7,10 +7,10 @@
 #include "Player.h"
 #include "Game.h"
 
-int main()
+void StartGame()
 {
 	Deck deck;
-	
+
 	bool anotherGame = true;
 
 	while (anotherGame)
@@ -49,7 +49,7 @@ int main()
 					throw std::runtime_error("\nYou have to insert a valid option!\n");
 				}
 			}
-			catch (std::runtime_error & e)
+			catch (std::runtime_error& e)
 			{
 				ok = false;
 				std::cout << "\nYou have to insert a valid option!\n";
@@ -75,8 +75,12 @@ int main()
 			break;
 		}
 	}
-	
+}
+
+int main()
+{
+	StartGame();
+
 	system("pause");
 	return 0;
-
 }

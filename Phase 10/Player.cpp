@@ -6,10 +6,10 @@ Player::Player() :
 
 }
 
-Player::Player(std::string name, uint16_t id):
+Player::Player(std::string name, uint16_t id) :
 	m_name(name), m_score(0), m_id(id)
 {
-	
+
 }
 
 Player::~Player()
@@ -34,7 +34,7 @@ Player& Player::operator=(const Player& other)
 	return *this;
 }
 
-Player & Player::operator=(Player && other) noexcept
+Player& Player::operator=(Player&& other) noexcept
 {
 	m_name = other.m_name;
 	m_displayedCards = other.m_displayedCards;
@@ -78,7 +78,7 @@ void Player::CountScore()
 		{
 			score += 5;
 		}
-		else if (card.GetStatus() > Status::NINE&& card.GetStatus() < Status::WILD)
+		else if (card.GetStatus() > Status::NINE && card.GetStatus() < Status::WILD)
 		{
 			score += 10;
 		}
@@ -116,8 +116,8 @@ Card Player::DropCard(int option)
 {
 	size_t size = m_handCards.size();
 	Card card = m_handCards[option];
-	
-	for (int index = option; index < size-1; index++)
+
+	for (int index = option; index < size - 1; index++)
 	{
 		m_handCards[index] = m_handCards[index + 1];
 	}
@@ -138,9 +138,9 @@ std::ostream& operator<<(std::ostream& out, const Player& player)
 	out << player.m_name << "'s cards:\n";
 	for (int index = 0; index < player.m_handCards.size(); index++)
 	{
-		out << index + 1<<". "<< player.m_handCards[index] ;
+		out << index + 1 << ". " << player.m_handCards[index];
 	}
 	out << std::endl;
-	
+
 	return out;
 }

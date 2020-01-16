@@ -30,7 +30,7 @@ private:
 	void RemakeDeck();
 	void DecartCard(Player& player);
 	void PickCard(Player& player);
-	void AnnexCard(std::vector<Player>& m_players,int idCurrentPlayer, int idPlayerToAnnex, int cardToAnnex, bool& annexed);
+	void AnnexCard(std::vector<Player>& m_players, int idCurrentPlayer, int idPlayerToAnnex, int cardToAnnex, bool& annexed);
 	void RemakeHand();
 	void ShowCurrentPhase(int currentPhase) const;
 	void GameType(uint8_t& gameType);

@@ -14,10 +14,10 @@ Board::~Board()
 
 void Board::ShowDisplayedCards(std::vector<Player> players) const
 {
-	for(auto player:players)
+	for (auto player : players)
 	{
-		
-		std::cout << player.GetName() << "'s current phase is " << player.GetCurrentPhase() <<"\n";
+
+		std::cout << player.GetName() << "'s current phase is " << player.GetCurrentPhase() << "\n";
 		std::cout << player.GetName() << "'s displayed cards are:\n";
 
 		for (int index = 0; index < player.m_displayedCards.size(); index++)
