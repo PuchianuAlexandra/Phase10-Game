@@ -102,6 +102,16 @@ int Player::GetCurrentPhase() const
 	}
 }
 
+void Player::SetPhase(int phase)
+{
+	m_phase[phase] = 1;
+}
+
+//int Player::SetPhase(int phase)
+//{
+//	m_phase[phase] = 1;
+//}
+
 Card Player::DropCard(int option)
 {
 	size_t size = m_handCards.size();

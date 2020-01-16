@@ -23,6 +23,7 @@ public:
 	uint16_t GetId() const;
 	void SetScore(uint16_t score);
 	int GetCurrentPhase() const;
+	void SetPhase(int phase);
 
 public:
 	Card DropCard(int option);

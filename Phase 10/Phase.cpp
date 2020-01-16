@@ -183,11 +183,12 @@ void Phase::IsPhase(Player & player)
 				}
 			}
 
-			player.m_handCards = newHandCards;
+			player.m_handCards = std::move(newHandCards);
+
 			player.m_displayedCards.push_back(chosenCards1);
 			player.m_displayedCards.push_back(chosenCards2);
 
-			player.m_phase[current] = 1;
+			player.SetPhase(current);
 		}
 		break;
 	}
@@ -245,11 +246,12 @@ void Phase::IsPhase(Player & player)
 				}
 			}
 
-			player.m_handCards = newHandCards;
+			player.m_handCards = std::move(newHandCards);
+
 			player.m_displayedCards.push_back(chosenCards1);
 			player.m_displayedCards.push_back(chosenCards2);
 
-			player.m_phase[current] = 1;
+			player.SetPhase(current);
 		}
 		break;
 	}
@@ -306,11 +308,12 @@ void Phase::IsPhase(Player & player)
 				}
 			}
 
-			player.m_handCards = newHandCards;
+			player.m_handCards = std::move(newHandCards);
+
 			player.m_displayedCards.push_back(chosenCards1);
 			player.m_displayedCards.push_back(chosenCards2);
 
-			player.m_phase[current] = 1;
+			player.SetPhase(current);
 		}
 		break;
 	}
@@ -349,10 +352,11 @@ void Phase::IsPhase(Player & player)
 				}
 			}
 
-			player.m_handCards = newHandCards;
+			player.m_handCards = std::move(newHandCards);
+
 			player.m_displayedCards.push_back(chosenCards1);
 
-			player.m_phase[current] = 1;
+			player.SetPhase(current);
 		}
 		break;
 	}
@@ -390,10 +394,11 @@ void Phase::IsPhase(Player & player)
 				}
 			}
 
-			player.m_handCards = newHandCards;
+			player.m_handCards = std::move(newHandCards);
+
 			player.m_displayedCards.push_back(chosenCards1);
 
-			player.m_phase[current] = 1;
+			player.SetPhase(current);
 		}
 		break;
 	}
@@ -431,10 +436,11 @@ void Phase::IsPhase(Player & player)
 				}
 			}
 
-			player.m_handCards = newHandCards;
+			player.m_handCards = std::move(newHandCards);
+
 			player.m_displayedCards.push_back(chosenCards1);
 
-			player.m_phase[current] = 1;
+			player.SetPhase(current);
 		}
 		break;
 	}
@@ -491,11 +497,12 @@ void Phase::IsPhase(Player & player)
 			}
 		}
 
-		player.m_handCards = newHandCards;
+		player.m_handCards = std::move(newHandCards);
+
 		player.m_displayedCards.push_back(chosenCards1);
 		player.m_displayedCards.push_back(chosenCards2);
 
-		player.m_phase[current] = 1;
+		player.SetPhase(current);
 	}
 	break;
 	}
@@ -534,10 +541,11 @@ void Phase::IsPhase(Player & player)
 				}
 			}
 
-			player.m_handCards = newHandCards;
+			player.m_handCards = std::move(newHandCards);
+
 			player.m_displayedCards.push_back(chosenCards1);
 
-			player.m_phase[current] = 1;
+			player.SetPhase(current);
 		}
 		break;
 	}
@@ -593,11 +601,12 @@ void Phase::IsPhase(Player & player)
 				}
 			}
 
-			player.m_handCards = newHandCards;
+			player.m_handCards = std::move(newHandCards);
+
 			player.m_displayedCards.push_back(chosenCards1);
 			player.m_displayedCards.push_back(chosenCards2);
 
-			player.m_phase[current] = 1;
+			player.SetPhase(current);
 		}
 		break;
 	}
@@ -652,11 +661,12 @@ void Phase::IsPhase(Player & player)
 				}
 			}
 
-			player.m_handCards = newHandCards;
+			player.m_handCards = std::move(newHandCards);
+
 			player.m_displayedCards.push_back(chosenCards1);
 			player.m_displayedCards.push_back(chosenCards2);
 
-			player.m_phase[current] = 1;
+			player.SetPhase(current);
 		}
 		break;
 	}

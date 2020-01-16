@@ -2,7 +2,6 @@
 
 #include <cstdint>
 #include <iostream>
-#include <array>
 #include <algorithm>
 #include <random>
 #include <vector>
