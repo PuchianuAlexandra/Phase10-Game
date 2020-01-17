@@ -29,9 +29,9 @@ namespace GameTests
 		{
 			Game game;
 			std::stack<Card> discardedCards;
-			discardedCards.push(Card(Color::RED, Status::ONE, Place::HAND));
-			discardedCards.push(Card(Color::YELLOW, Status::ONE, Place::HAND));
-			discardedCards.push(Card(Color::RED, Status::ONE, Place::HAND));
+			discardedCards.push(Card(Color::RED, Status::ONE));
+			discardedCards.push(Card(Color::YELLOW, Status::ONE));
+			discardedCards.push(Card(Color::RED, Status::ONE));
 
 			game.SetDiscardedCards(discardedCards);
 			Card card = game.PickCardFromDiscardedStack();

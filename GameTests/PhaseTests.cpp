@@ -18,16 +18,16 @@ namespace GameTests
 			Phase phase;
 
 			std::vector<Card> cards;
-			cards.emplace_back(Color::BLUE, Status::NINE, Place::HAND);
-			cards.emplace_back(Color::RED, Status::NINE, Place::HAND);
-			cards.emplace_back(Color::BLACK, Status::WILD, Place::HAND);
+			cards.emplace_back(Color::BLUE, Status::NINE);
+			cards.emplace_back(Color::RED, Status::NINE);
+			cards.emplace_back(Color::BLACK, Status::WILD);
 			
 			Assert::IsTrue(phase.IsSet(cards));
 
 			std::vector<Card> cards2;
-			cards2.emplace_back(Color::BLUE, Status::NINE, Place::HAND);
-			cards2.emplace_back(Color::RED, Status::ONE, Place::HAND);
-			cards2.emplace_back(Color::BLACK, Status::WILD, Place::HAND);
+			cards2.emplace_back(Color::BLUE, Status::NINE);
+			cards2.emplace_back(Color::RED, Status::ONE);
+			cards2.emplace_back(Color::BLACK, Status::WILD);
 
 			Assert::IsFalse(phase.IsSet(cards2));
 		}
@@ -37,16 +37,16 @@ namespace GameTests
 			Phase phase;
 
 			std::vector<Card> cards;
-			cards.emplace_back(Color::BLACK, Status::WILD, Place::HAND);
-			cards.emplace_back(Color::RED, Status::THREE, Place::HAND);
-			cards.emplace_back(Color::BLACK, Status::FOUR, Place::HAND);
+			cards.emplace_back(Color::BLACK, Status::WILD);
+			cards.emplace_back(Color::RED, Status::THREE);
+			cards.emplace_back(Color::BLACK, Status::FOUR);
 
 			Assert::IsTrue(phase.IsRun(cards));
 
 			std::vector<Card> cards2;
-			cards2.emplace_back(Color::BLACK, Status::WILD, Place::HAND);
-			cards2.emplace_back(Color::RED, Status::ONE, Place::HAND);
-			cards2.emplace_back(Color::BLACK, Status::TWO, Place::HAND);
+			cards2.emplace_back(Color::BLACK, Status::WILD);
+			cards2.emplace_back(Color::RED, Status::ONE);
+			cards2.emplace_back(Color::BLACK, Status::TWO);
 
 			Assert::IsFalse(phase.IsRun(cards2));
 		}
@@ -56,16 +56,16 @@ namespace GameTests
 			Phase phase;
 
 			std::vector<Card> cards;
-			cards.emplace_back(Color::BLACK, Status::WILD, Place::HAND);
-			cards.emplace_back(Color::RED, Status::THREE, Place::HAND);
-			cards.emplace_back(Color::RED, Status::FOUR, Place::HAND);
+			cards.emplace_back(Color::BLACK, Status::WILD);
+			cards.emplace_back(Color::RED, Status::THREE);
+			cards.emplace_back(Color::RED, Status::FOUR);
 
 			Assert::IsTrue(phase.IsColor(cards));
 
 			std::vector<Card> cards2;
-			cards2.emplace_back(Color::BLACK, Status::WILD, Place::HAND);
-			cards2.emplace_back(Color::BLUE, Status::THREE, Place::HAND);
-			cards2.emplace_back(Color::RED, Status::FOUR, Place::HAND);
+			cards2.emplace_back(Color::BLACK, Status::WILD);
+			cards2.emplace_back(Color::BLUE, Status::THREE);
+			cards2.emplace_back(Color::RED, Status::FOUR);
 
 			Assert::IsFalse(phase.IsColor(cards2));
 		}

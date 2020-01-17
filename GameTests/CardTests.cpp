@@ -12,16 +12,15 @@ namespace GameTests
 
 		TEST_METHOD(Constructor)
 		{
-			Card card(Color::BLUE, Status::NINE, Place::HAND);
+			Card card(Color::BLUE, Status::NINE);
 
 			Assert::IsTrue(Color::BLUE == card.GetColor());
 			Assert::IsTrue(Status::NINE == card.GetStatus());
-			Assert::IsTrue(Place::HAND == card.GetPlace());
 		}
 
 		TEST_METHOD(Print)
 		{
-			Card card(Color::BLUE, Status::NINE, Place::HAND);
+			Card card(Color::BLUE, Status::NINE);
 
 			std::stringstream stream;
 			stream << card;
@@ -30,8 +29,8 @@ namespace GameTests
 
 		TEST_METHOD(Equal)
 		{
-			Card card1(Color::BLUE, Status::NINE, Place::HAND);
-			Card card2(Color::BLUE, Status::NINE, Place::HAND);
+			Card card1(Color::BLUE, Status::NINE);
+			Card card2(Color::BLUE, Status::NINE);
 
 			bool isEqual = false;
 
@@ -45,8 +44,8 @@ namespace GameTests
 
 		TEST_METHOD(NotEqual)
 		{
-			Card card1(Color::BLUE, Status::NINE, Place::HAND);
-			Card card2(Color::RED, Status::FIVE, Place::HAND);
+			Card card1(Color::BLUE, Status::NINE);
+			Card card2(Color::RED, Status::FIVE);
 
 			bool isNotEqual = false;
 

@@ -30,20 +30,19 @@ namespace GameTests
 		TEST_METHOD(DropCard)
 		{
 			Player player("a", 1);
-			player.m_handCards.emplace_back(Color::BLUE, Status::NINE, Place::HAND);
+			player.m_handCards.emplace_back(Color::BLUE, Status::NINE);
 			Card card = player.DropCard(0);
 
 			Assert::IsTrue(Color::BLUE == card.GetColor());
 			Assert::IsTrue(Status::NINE == card.GetStatus());
-			Assert::IsTrue(Place::HAND == card.GetPlace());
 		}
 
 		TEST_METHOD(CountScore)
 		{
 			Player player("a", 1);
-			player.m_handCards.emplace_back(Color::BLUE, Status::TWO, Place::HAND);
-			player.m_handCards.emplace_back(Color::BLACK, Status::WILD, Place::HAND);
-			player.m_handCards.emplace_back(Color::RED, Status::TWELVE, Place::HAND);
+			player.m_handCards.emplace_back(Color::BLUE, Status::TWO);
+			player.m_handCards.emplace_back(Color::BLACK, Status::WILD);
+			player.m_handCards.emplace_back(Color::RED, Status::TWELVE);
 			
 			player.CountScore();
 
