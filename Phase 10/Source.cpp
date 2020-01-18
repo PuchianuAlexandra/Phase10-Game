@@ -1,8 +1,6 @@
 #include <iostream>
 #include <sstream>
-#include <cstdint>
 
-#include "Card.h"
 #include "Deck.h"
 #include "Player.h"
 #include "Game.h"

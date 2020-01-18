@@ -1,6 +1,5 @@
 #pragma once
 
-#include <cstdint>
 #include <iostream>
 
 #include "Color.h"
@@ -13,14 +12,13 @@ public:
 	Card();
 	Card(Color color, Status status);
 	~Card();
+	
 	bool operator ==(Card card);
 	bool operator !=(Card card);
 
 public:
 	Color GetColor() const;
 	Status GetStatus() const;
-
-public:
 	friend std::ostream& operator<<(std::ostream& out, const Card& card);
 
 private:

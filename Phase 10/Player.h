@@ -17,7 +17,6 @@ public:
 	Player& operator = (Player&& other) noexcept;
 
 public:
-
 	std::string GetName() const;
 	uint16_t GetScore() const;
 	uint16_t GetId() const;
